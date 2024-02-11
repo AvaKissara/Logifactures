@@ -1,0 +1,8 @@
+<h1>Liste des devises</h1>
+{% if devise_list %}
+<ul>
+    {% for devise in devise_list %}
+        <li><a href="{% url 'logifacturapp:detail' devise.id_devise %}">{{ devise.nom_devise }}</a></li>
+    {% endfor %}
+</ul>
+{% endif %}

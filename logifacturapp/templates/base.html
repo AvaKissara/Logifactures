@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Votre Titre par Défaut{% endblock %}</title>
+</head>
+<body>
+
+    <header>
+        <!-- Ajoutez ici votre en-tête, logo, menu de navigation, etc. -->
+        <h1>Mon Application</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'logifacturapp:index' %}">Accueil</a></li>
+                <!-- Ajoutez d'autres liens de navigation selon vos besoins -->
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Ceci est l'emplacement où le contenu spécifique à chaque page sera injecté -->
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <!-- Ajoutez ici votre pied de page, informations de contact, liens sociaux, etc. -->
+        <p>&copy; 2024 LogiFacture. Tous droits réservés.</p>
+    </footer>
+
+    <!-- Ajoutez ici vos scripts JavaScript, si nécessaire -->
+
+</body>
+</html>

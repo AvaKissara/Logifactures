@@ -1,0 +1,6 @@
+<h1>{{ devise.nom_devise }}</h1>
+<ul>
+    {% for pays in devise.pays_set.all  %}
+    <li>{{pays.nom_pays}} - {{pays.id_pays}}</li>
+    {% endfor %}
+</ul>
