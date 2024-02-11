@@ -23,18 +23,17 @@ class ImportFactureView(View):
 
         if form.is_valid():
             excel_file = request.FILES['excel_file']
+            categorie = form.cleaned_data['categorie']
 
         try:
             df = pd.read_excel(excel_file)
-            cat_facture_instances = Cat_facture.objects.all()
             fournisseur_instances = Fournisseur.objects.all()
             client_instances = Client.objects.all()
             devise_instances = Devise.objects.all()
             m_paie_instances = Methode_paiement.objects.all()
             user_instances = User.objects.all()
 
-            for index, row in df.iterrows():
-                cat_facture_instance = cat_facture_instances.get(id_cat_facture=row['Catégorie'])
+            for index, row in df.iterrows():        
                 fournisseur_instance = fournisseur_instances.get(id_fourn=row['Fournisseur'])
                 client_instance = client_instances.get(id_client=row['Client'])
                 devise_instance = devise_instances.get(id_devise=row['Devise'])
@@ -42,7 +41,7 @@ class ImportFactureView(View):
                 user_instance = user_instances.get(id_user=row['Client'])
                 
                 Facture.objects.create(
-                    cat_facture=cat_facture_instance,
+                    cat_facture=categorie,
                     fournisseur=fournisseur_instance,
                     client=client_instance,
                     devise = devise_instance,
