@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Votre Titre par Défaut{% endblock %}</title>
+    <title>{% block title %}LogiFacture{% endblock %}</title>
 </head>
 <body>
 
     <header>
         <!-- Ajoutez ici votre en-tête, logo, menu de navigation, etc. -->
-        <h1>Mon Application</h1>
+        <h1>Menu</h1>
         <nav>
             <ul>
                 <li><a href="{% url 'logifacturapp:index' %}">Accueil</a></li>
+                <li><a href="{% url 'logifacturapp:import_facture' %}">Import</a></li>
                 <!-- Ajoutez d'autres liens de navigation selon vos besoins -->
             </ul>
         </nav>

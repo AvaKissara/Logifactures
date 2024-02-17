@@ -1,6 +1,14 @@
-<h1>{{ devise.nom_devise }}</h1>
-<ul>
-    {% for pays in devise.pays_set.all  %}
-    <li>{{pays.nom_pays}} - {{pays.id_pays}}</li>
-    {% endfor %}
-</ul>
+<!-- logifacturapp/detail.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Détails de la Facture</h1>
+  <p>Numéro de facture : {{ facture.num_facture }}</p>
+  <p>Date de facture : {{ facture.date_facture }}</p>
+  <p>Total HT : {{ facture.total_ht_facture }}</p>
+  <p>Total TTC : {{ facture.total_ttc_facture }}</p>
+  <p>Catégorie : {{ facture.cat_facture.nom_cat_facture }}</p>
+
+  <!-- Lien de retour à la liste des factures -->
+  <a href="{% url 'logifacturapp:index' %}">Retour à la liste des factures</a>
+{% endblock %}

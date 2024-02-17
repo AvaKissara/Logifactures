@@ -20,6 +20,6 @@ class Facture(models.Model):
     statut_facture = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.num_facture
+        return f"Facture {self.num_facture} - {self.date_facture}"
     class Meta:
         db_table = 'Facture'
