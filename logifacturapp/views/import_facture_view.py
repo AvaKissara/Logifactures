@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from ..forms import FactureImportForm
-from ..models import Facture, Fournisseur, Client, Devise, Methode_paiement, User
+from ..models import Facture, Fournisseur, Client, Devise, User
 
 @method_decorator(login_required, name='dispatch')
 class ImportFactureView(View):
@@ -52,7 +52,6 @@ class ImportFactureView(View):
                 devise_instance = devise_instances.filter(symb_devise= currency_symbol).first()
                 user_instance = user_instances.get(id_user=user_id)
                 
-
                 Facture.objects.create(
                     cat_facture=categorie,
                     fournisseur=fournisseur_instance,
@@ -67,7 +66,6 @@ class ImportFactureView(View):
                     statut_facture=statut,
                 )
         
-
             messages.success(request, 'Importation des factures réussie.')
         except Exception as e:
             error_message = f"Erreur lors de l'importation : {str(e)}, Contenu de df.iterrows(): {list(df.iterrows())}"
