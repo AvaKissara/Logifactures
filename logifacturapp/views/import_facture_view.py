@@ -4,9 +4,12 @@ import re
 from django.views import View
 from django.shortcuts import render
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from ..forms import FactureImportForm
 from ..models import Facture, Fournisseur, Client, Devise, Methode_paiement, User
 
+@method_decorator(login_required, name='dispatch')
 class ImportFactureView(View):
     template_name = "logifacturapp/import_facture.html"
 
@@ -31,6 +34,7 @@ class ImportFactureView(View):
 
         try:
             df = pd.read_excel(excel_file)
+            user_id = request.user.id
             fournisseur_instances = Fournisseur.objects.all()
             client_instances = Client.objects.all()
             devise_instances = Devise.objects.all()
@@ -46,7 +50,7 @@ class ImportFactureView(View):
                 fournisseur_instance = fournisseur_instances.filter(siret_fourn=siret_value).first()
                 client_instance = client_instances.filter(nom_client=client_name).first()
                 devise_instance = devise_instances.filter(symb_devise= currency_symbol).first()
-                user_instance = user_instances.get(id_user=row['User'])
+                user_instance = user_instances.get(id_user=user_id)
                 
 
                 Facture.objects.create(
