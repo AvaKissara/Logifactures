@@ -1,7 +1,6 @@
 from django.views import generic
 from django.views import View
-from ..models import Devise
-from . .models import Facture
+from ..models import Facture
 
 class IndexView(generic.ListView):
     template_name = "logifacturapp/index.html"
