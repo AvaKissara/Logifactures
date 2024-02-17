@@ -8,28 +8,26 @@
 <body>
 
     <header>
-        <!-- Ajoutez ici votre en-tête, logo, menu de navigation, etc. -->
         <h1>Menu</h1>
         <nav>
             <ul>
                 <li><a href="{% url 'logifacturapp:index' %}">Accueil</a></li>
                 <li><a href="{% url 'logifacturapp:import_facture' %}">Import</a></li>
-                <!-- Ajoutez d'autres liens de navigation selon vos besoins -->
             </ul>
         </nav>
     </header>
 
     <main>
-        <!-- Ceci est l'emplacement où le contenu spécifique à chaque page sera injecté -->
+        <!-- econtenu spécifique injecté -->
         {% block content %}{% endblock %}
     </main>
 
     <footer>
-        <!-- Ajoutez ici votre pied de page, informations de contact, liens sociaux, etc. -->
+        <!-- pied de page, informations de contact, liens sociaux, etc. -->
         <p>&copy; 2024 LogiFacture. Tous droits réservés.</p>
     </footer>
 
-    <!-- Ajoutez ici vos scripts JavaScript, si nécessaire -->
+    <!-- scripts JavaScript, si nécessaire -->
 
 </body>
 </html>
