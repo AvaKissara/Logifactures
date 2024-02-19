@@ -41,7 +41,6 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                                        <!-- Ajoutez un bouton de suppression avec un formulaire pour POST -->
                                         <form method="post" action="{% url 'logifacturapp:delete_facture' facture.id_facture %}">
                                             {% csrf_token %}
                                             <button type="submit" class="btn btn-danger">Confirmer la suppression</button>

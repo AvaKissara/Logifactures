@@ -2,15 +2,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>Détails de la Facture</h1>
-  <p>Numéro de facture : {{ facture.num_facture }}</p>
-  <p>Date de facture : {{ facture.date_facture }}</p>
-  <p>Nom du client : {{ facture.client.nom_client }} {{ facture.client.prenom_client }}</p>
-  <p>Nom du fournisseur : {{ facture.fournisseur.r_social_fourn }}</p>
-  <p>Total HT : {{ facture.total_ht_facture }} {{ facture.devise.symb_devise }}</p>
-  <p>Total TTC : {{ facture.total_ttc_facture }} {{ facture.devise.symb_devise }}</p>
-  <p>Catégorie : {{ facture.cat_facture.nom_cat_facture }}</p>
+  <div class="container">
+    <h1 class="mt-4 mb-4">Détails de la Facture</h1>
+    <div class="row">
+      <div class="col-md-6">
+        <p><strong>Numéro de facture :</strong> {{ facture.num_facture }}</p>
+        <p><strong>Date de facture :</strong> {{ facture.date_facture }}</p>
+        <p><strong>Nom du client :</strong> {{ facture.client.nom_client }} {{ facture.client.prenom_client }}</p>
+        <p><strong>Nom du fournisseur :</strong> {{ facture.fournisseur.r_social_fourn }}</p>
+        <p><strong>Total HT :</strong> {{ facture.total_ht_facture }} {{ facture.devise.symb_devise }}</p>
+        <p><strong>Total TTC :</strong> {{ facture.total_ttc_facture }} {{ facture.devise.symb_devise }}</p>
+        <p><strong>Catégorie :</strong> {{ facture.cat_facture.nom_cat_facture }}</p>
+      </div>
+    </div>
 
-  <!-- Lien de retour à la liste des factures -->
-  <a href="{% url 'logifacturapp:index' %}">Retour à la liste des factures</a>
+    <!-- Lien de retour à la liste des factures -->
+    <a href="{% url 'logifacturapp:index' %}" class="btn btn-primary mt-4">Retour à la liste des factures</a>
+  </div>
 {% endblock %}
