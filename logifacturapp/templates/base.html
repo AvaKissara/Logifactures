@@ -3,17 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <title>{% block title %}LogiFacture{% endblock %}</title>
 </head>
 <body>
-
     <header>
-        <h1>Menu</h1>
-        <nav>
-            <ul>
-                <li><a href="{% url 'logifacturapp:index' %}">Accueil</a></li>
-                <li><a href="{% url 'logifacturapp:import_facture' %}">Import</a></li>
-            </ul>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="{% url 'logifacturapp:index' %}">Accueil</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logifacturapp:liste_facture' %}">Factures</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logifacturapp:import_facture' %}">Import</a>
+                    </li>                 
+                </ul>
+            </div>
         </nav>
     </header>
 
@@ -25,7 +34,8 @@
         <p>&copy; 2024 LogiFacture. Tous droits réservés.</p>
     </footer>
 
-    <!-- scripts JavaScript -->
-
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

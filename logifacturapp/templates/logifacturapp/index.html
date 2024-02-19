@@ -2,12 +2,5 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Liste des factures</h1>
-    {% if facture_list %}
-    <ul>
-        {% for facture in facture_list %}
-        <li><a href="{% url 'logifacturapp:detail' facture.id_facture %}">{{ facture }}</a></li>
-        {% endfor %}
-    </ul>
-    {% endif %}
+    <h1>Accueil</h1>
 {% endblock %}
