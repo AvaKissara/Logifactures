@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from ..forms import FactureImportForm
-from ..models import Facture, Fournisseur, Client, Devise, User
+from ..models import Facture, Fournisseur, Client, Devise, User, Ville, Civilite
 
 @method_decorator(login_required, name='dispatch')
 class ImportFactureView(View):
@@ -27,7 +27,7 @@ class ImportFactureView(View):
             statut = form.cleaned_data['statut']
             workbook = openpyxl.load_workbook(excel_file)
             sheet = workbook['Modèle de facture']
-            cell = sheet['F34']
+            cell = sheet['F35']
             cell_format = cell.number_format
             symbol_match = re.search(r'\[([^\]]+)\]', cell_format)
             currency_symbol = symbol_match.group(1)[1]
@@ -38,27 +38,68 @@ class ImportFactureView(View):
             fournisseur_instances = Fournisseur.objects.all()
             client_instances = Client.objects.all()
             devise_instances = Devise.objects.all()
+            ville_instances = Ville.objects.all()
             user_instances = User.objects.all()
+            civi_instances = Civilite.objects.all()
 
             # Boucle qui balaie le fichier excel et récupère les valeurs
             for index, row in df.iterrows():
                 if pd.notna(row['Fournisseur']) :
+                    if df['Fournisseur'][0] == 'Raison sociale':
+                        r_social_fourn_value = df.iloc[0]['vfournisseur'] 
                     if df['Fournisseur'][1] == 'Siret':
-                        siret_value = df.iloc[1]['vfournisseur'] 
+                        siret_fourn_value = df.iloc[1]['vfournisseur'] 
+                    if df['Fournisseur'][2] == 'Adresse':
+                        adr_fourn_value = df.iloc[2]['vfournisseur']
+                    if df['Fournisseur'][3] == 'Adresse 2':
+                        adr2_fourn_value = df.iloc[3]['vfournisseur']
+                    if df['Fournisseur'][4] == 'Ville':
+                        ville_fourn_value = df.iloc[4]['vfournisseur']
+                    if df['Fournisseur'][5] == 'Code postal':
+                        cp_fourn_value = df.iloc[5]['vfournisseur']
+                    if df['Fournisseur'][6] == 'Téléphone':
+                        tel_fourn_value = df.iloc[6]['vfournisseur']
+
                     if df['Fournisseur'][8] == 'Client':
-                        client_name = df.iloc[9]['vfournisseur'] 
+                        if df['Fournisseur'][9] == 'Civilité':
+                            civi_client_value = df.iloc[9]['vfournisseur'] 
+                        if df['Fournisseur'][10] == 'Nom':
+                            l_name_client_value = df.iloc[10]['vfournisseur'] 
+                        if df['Fournisseur'][11] == 'Prénom':
+                            f_name_client_value = df.iloc[11]['vfournisseur'] 
+                        if df['Fournisseur'][12] == 'Adresse':
+                            adr_client_value = df.iloc[12]['vfournisseur']
+                        if df['Fournisseur'][13] == 'Adresse 2':
+                            adr2_client_value = df.iloc[13]['vfournisseur']
+                        if df['Fournisseur'][14] == 'Ville':
+                            ville_client_value = df.iloc[14]['vfournisseur']
+                        if df['Fournisseur'][15] == 'Code postal':
+                            cp_client_value = df.iloc[15]['vfournisseur']
+                        if df['Fournisseur'][16] == 'Téléphone':
+                            tel_client_value = df.iloc[16]['vfournisseur']
+
                 if pd.notna(row['Facture']):
                     if df['Facture'][1] == 'Numéro de facture':
                         num_facture = df.iloc[1]['vfacture']
                     if df['Facture'][2] == 'Date de facture':
                         date_facture = df.iloc[2]['vfacture']
-                    if df['Facture'][29] == 'TOTAL HT :':
-                        ht_facture = df.iloc[29]['vfacture']       
-                    if df['Facture'][31] == 'TOTAL TTC :':
-                        ttc_facture = df.iloc[31]['vfacture']                     
+                    if df['Facture'][30] == 'TOTAL HT :':
+                        ht_facture = df.iloc[30]['vfacture']       
+                    if df['Facture'][32] == 'TOTAL TTC :':
+                        ttc_facture = df.iloc[32]['vfacture']                     
 
-                fournisseur_instance = fournisseur_instances.filter(siret_fourn=siret_value).first()
-                client_instance = client_instances.filter(nom_client=client_name).first()
+                civi_instance = civi_instances.filter(abbr_civi=civi_client_value).first()
+                fournisseur_instance = fournisseur_instances.filter(siret_fourn=siret_fourn_value).first()
+                if not fournisseur_instance:
+                    ville_fourn = ville_instances.filter(nom_ville=ville_fourn_value).first()                   
+                    fournisseur_instance = Fournisseur.objects.create(siret_fourn=siret_fourn_value, r_social_fourn=r_social_fourn_value, adr_fourn=adr_fourn_value, adr2_fourn=adr2_fourn_value, ville=ville_fourn, tel_fourn=tel_fourn_value)
+                    messages.success(request, 'Le fournisseur a été ajouté')
+                clients_instance = client_instances.filter(nom_client=l_name_client_value).all()
+                client_instance = clients_instance.filter(prenom_client=f_name_client_value).first()
+                if not client_instance:
+                    ville_client = ville_instances.filter(nom_ville=ville_client_value).first()
+                    client_instance = Client.objects.create(civilite=civi_instance, nom_client=l_name_client_value, prenom_client=f_name_client_value, adr_client=adr_client_value, adr2_client=adr2_client_value, ville=ville_client, tel_client=tel_client_value)
+                    messages.success(request, 'Le client a été ajouté')
                 devise_instance = devise_instances.filter(symb_devise= currency_symbol).first()
                 user_instance = user_instances.get(id_user=user_id)
                 
