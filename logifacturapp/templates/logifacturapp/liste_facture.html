@@ -10,6 +10,7 @@
                     <tr>
                         <th scope="col">Numéro de Facture</th>
                         <th scope="col">Date de Facture</th>
+                        <th scope="col">Catégorie</th>
                         <th scope="col">Total TTC</th>
                         <th scope="col">Actions</th>
                     </tr>
@@ -19,8 +20,9 @@
                         <tr>
                             <td>{{ facture.num_facture }}</td>
                             <td>{{ facture.date_facture }}</td>
+                            <td>{{ facture.cat_facture.nom_cat_facture }}</td>
                             <td>{{ facture.total_ttc_facture }} {{ facture.devise.symb_devise }}</td>
-                            <td><a href="{% url 'logifacturapp:detail' facture.id_facture %}" class="btn btn-td btn-primary">&#129178;</a>
+                            <td><a href="{% url 'logifacturapp:detail' facture.id_facture %}" class="btn btn-td btn-primary">&#10068;</a>
                                 <button class="btn btn-td btn-danger" data-toggle="modal" data-target="#confirmationModal{{ facture.id_facture }}">
                                     X
                                 </button></td>

@@ -2,18 +2,37 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <div class="container">
-    <h1 class="mt-4 mb-4">Détails de la Facture</h1>
-    <div class="row">
-      <div class="col-md-6">
-        <p><strong>Numéro de facture :</strong> {{ facture.num_facture }}</p>
-        <p><strong>Date de facture :</strong> {{ facture.date_facture }}</p>
-        <p><strong>Nom du client :</strong> {{ facture.client.nom_client }} {{ facture.client.prenom_client }}</p>
-        <p><strong>Nom du fournisseur :</strong> {{ facture.fournisseur.r_social_fourn }}</p>
-        <p><strong>Total HT :</strong> {{ facture.total_ht_facture }} {{ facture.devise.symb_devise }}</p>
-        <p><strong>Total TTC :</strong> {{ facture.total_ttc_facture }} {{ facture.devise.symb_devise }}</p>
-        <p><strong>Catégorie :</strong> {{ facture.cat_facture.nom_cat_facture }}</p>
-      </div>
+  <div class="container mt-5">
+    <h2 class="mb-4">Facture {{ facture.num_facture }}</h2>
+    <div class="table-responsive">
+      <table class="table table-detail table-hover">
+        <tbody>       
+          <tr>
+            <th scope="row">Date de facture</th>
+            <td>{{ facture.date_facture }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Nom du client</th>
+            <td class="capitalize">{{ facture.client.nom_client }} {{ facture.client.prenom_client }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Nom du fournisseur</th>
+            <td class="capitalize">{{ facture.fournisseur.r_social_fourn }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Total HT</th>
+            <td>{{ facture.total_ht_facture }} {{ facture.devise.symb_devise }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Total TTC</th>
+            <td>{{ facture.total_ttc_facture }} {{ facture.devise.symb_devise }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Catégorie</th>
+            <td>{{ facture.cat_facture.nom_cat_facture }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
     <!-- Lien de retour à la liste des factures -->

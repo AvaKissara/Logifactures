@@ -1,5 +1,20 @@
 :root {
     --primary-color: rgb(86, 110, 169);
+    --secondary-color: rgba(253, 232, 213);
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
 }
 
 h2{
@@ -11,23 +26,43 @@ h2{
 table.table-hover> thead{
     text-transform: uppercase;
     color: var(--primary-color);
-    background-color: rgba(255, 244, 231, 0.8);
+    background-color: var(--secondary-color);
 }
 
 .btn-td{
-    padding: 0rem 0.5rem;
-    font-size: 0.8rem;
+    padding: 0rem 0.6rem;
+    font-size: 0.9rem;
     font-weight: 700;
 
 }
 
 .btn.btn-primary{
     background-color: var(--primary-color);
+    border-color: var(--primary-color);
 }
 
 .table-hover tbody tr:hover {
     background-color: rgba(86, 110, 169, 0.6); 
-    color: rgba(255, 244, 231);
+    color: white;
+}
+
+.table-hover tbody tr:hover .btn.btn-primary{
+    background-color: white;
+    color: var(--primary-color);
+}
+
+.table-hover tbody tr:hover .btn.btn-danger{
+    background-color: white;
+    color: rgb(218, 0, 0);
+}
+
+.table-hover tbody tr:hover th{
+    color: white;
+}
+
+.table-detail th{
+    color: var(--primary-color);
+    text-transform: uppercase;
 }
 
 .capitalize{
@@ -35,14 +70,8 @@ table.table-hover> thead{
 }
 
 footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #f8f9fa; 
-    padding: 10px;
+    background-color: var(--secondary-color);
+    padding-top: 10px;
     text-align: center;
-  }
-  
-  body {
-    margin-bottom: 50px; 
+    color: var(--primary-color);
   }
