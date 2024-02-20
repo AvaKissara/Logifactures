@@ -1,0 +1,31 @@
+<!-- logifacturapp/liste_clients.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container-md mt-5 mx-5">
+    <h2 class="mb-4">Clients</h2>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Nom</th>
+          <th scope="col">Prénom</th>
+          <th scope="col">Adresse</th>
+          <th scope="col">Ville</th>
+          <th scope="col">Téléphone</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for client in clients %}
+          <tr class="capitalize">
+            <td>{{ client.nom_client }}</td>
+            <td>{{ client.prenom_client }}</td>
+            <td>{{ client.adr_client }}</td>
+            <td>{{ client.ville.nom_ville }}</td>
+            <td>{{ client.tel_client }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
+

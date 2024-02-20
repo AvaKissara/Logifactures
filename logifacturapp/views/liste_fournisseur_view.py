@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import View
-from ..models import Fournisseur, Facture
+from ..models import Fournisseur
 
 class ListeFournisseurView(View):
     template_name = "logifacturapp/liste_fournisseur.html"

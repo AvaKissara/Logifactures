@@ -1,6 +1,6 @@
 :root {
     --primary-color: rgb(86, 110, 169);
-    --secondary-color: rgba(253, 232, 213);
+    --secondary-color: #ffd0b8;
 }
 
 html, body {
@@ -21,6 +21,40 @@ h2{
     text-align: center;
     color: var(--primary-color);
     text-transform: uppercase;
+}
+
+select {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0 15px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 4px;
+    text-transform: capitalize;
+}
+
+select option {
+    padding: 5px;
+
+}
+
+.custom-file-upload {
+    display: inline-block;
+    border: 1px solid #ccc;
+    padding: 6px 12px;
+    cursor: pointer;
+    color:  var(--primary-color);
+    border-radius: 4px;
+    margin-right: 18px;
+}
+
+a.navbar-brand{
+    font-size: 2em;
+}
+
+nav.navbar.navbar-expand-lg.navbar-dark{
+    background-color: rgb(65, 77, 109);
 }
 
 table.table-hover> thead{
