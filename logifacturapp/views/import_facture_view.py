@@ -47,15 +47,15 @@ class ImportFactureView(View):
             for index, row in df.iterrows():
                 if pd.notna(row['Fournisseur']) :
                     if df['Fournisseur'][0] == 'Raison sociale':
-                        r_social_fourn_value = df.iloc[0]['vfournisseur'] 
+                        r_social_fourn_value = df.iloc[0]['vfournisseur'].lower().strip() 
                     if df['Fournisseur'][1] == 'Siret':
-                        siret_fourn_value = df.iloc[1]['vfournisseur'] 
+                        siret_fourn_value = df.iloc[1]['vfournisseur'].lower().strip()
                     if df['Fournisseur'][2] == 'Adresse':
-                        adr_fourn_value = df.iloc[2]['vfournisseur']
+                        adr_fourn_value = df.iloc[2]['vfournisseur'].lower().strip()
                     if df['Fournisseur'][3] == 'Adresse 2':
-                        adr2_fourn_value = df.iloc[3]['vfournisseur']
+                        adr2_fourn_value = df.iloc[3]['vfournisseur'].lower().strip()
                     if df['Fournisseur'][4] == 'Ville':
-                        ville_fourn_value = df.iloc[4]['vfournisseur']
+                        ville_fourn_value = df.iloc[4]['vfournisseur'].lower().strip()
                     if df['Fournisseur'][5] == 'Code postal':
                         cp_fourn_value = df.iloc[5]['vfournisseur']
                     if df['Fournisseur'][6] == 'Téléphone':
@@ -63,17 +63,17 @@ class ImportFactureView(View):
 
                     if df['Fournisseur'][8] == 'Client':
                         if df['Fournisseur'][9] == 'Civilité':
-                            civi_client_value = df.iloc[9]['vfournisseur'] 
+                            civi_client_value = df.iloc[9]['vfournisseur'].lower().strip()
                         if df['Fournisseur'][10] == 'Nom':
-                            l_name_client_value = df.iloc[10]['vfournisseur'] 
+                            l_name_client_value = df.iloc[10]['vfournisseur'].lower().strip() 
                         if df['Fournisseur'][11] == 'Prénom':
-                            f_name_client_value = df.iloc[11]['vfournisseur'] 
+                            f_name_client_value = df.iloc[11]['vfournisseur'].lower().strip() 
                         if df['Fournisseur'][12] == 'Adresse':
-                            adr_client_value = df.iloc[12]['vfournisseur']
+                            adr_client_value = df.iloc[12]['vfournisseur'].lower().strip()
                         if df['Fournisseur'][13] == 'Adresse 2':
-                            adr2_client_value = df.iloc[13]['vfournisseur']
+                            adr2_client_value = df.iloc[13]['vfournisseur'].lower().strip()
                         if df['Fournisseur'][14] == 'Ville':
-                            ville_client_value = df.iloc[14]['vfournisseur']
+                            ville_client_value = df.iloc[14]['vfournisseur'].lower().strip()
                         if df['Fournisseur'][15] == 'Code postal':
                             cp_client_value = df.iloc[15]['vfournisseur']
                         if df['Fournisseur'][16] == 'Téléphone':
@@ -81,13 +81,13 @@ class ImportFactureView(View):
 
                 if pd.notna(row['Facture']):
                     if df['Facture'][1] == 'Numéro de facture':
-                        num_facture = df.iloc[1]['vfacture']
+                        num_facture = df.iloc[1]['vfacture'].lower().strip()
                     if df['Facture'][2] == 'Date de facture':
                         date_facture = df.iloc[2]['vfacture']
                     if df['Facture'][30] == 'TOTAL HT :':
-                        ht_facture = df.iloc[30]['vfacture']       
+                        ht_facture = df.iloc[30]['vfacture']     
                     if df['Facture'][32] == 'TOTAL TTC :':
-                        ttc_facture = df.iloc[32]['vfacture']                     
+                        ttc_facture = df.iloc[32]['vfacture']                   
 
                 civi_instance = civi_instances.filter(abbr_civi=civi_client_value).first()
                 fournisseur_instance = fournisseur_instances.filter(siret_fourn=siret_fourn_value).first()
@@ -95,12 +95,15 @@ class ImportFactureView(View):
                     ville_fourn = ville_instances.filter(nom_ville=ville_fourn_value).first()                   
                     fournisseur_instance = Fournisseur.objects.create(siret_fourn=siret_fourn_value, r_social_fourn=r_social_fourn_value, adr_fourn=adr_fourn_value, adr2_fourn=adr2_fourn_value, ville=ville_fourn, tel_fourn=tel_fourn_value)
                     messages.success(request, 'Le fournisseur a été ajouté')
-                clients_instance = client_instances.filter(nom_client=l_name_client_value).all()
-                client_instance = clients_instance.filter(prenom_client=f_name_client_value).first()
-                if not client_instance:
-                    ville_client = ville_instances.filter(nom_ville=ville_client_value).first()
+
+                ville_client = ville_instances.filter(nom_ville=ville_client_value).first()
+                client_nom_instances = client_instances.filter(nom_client=l_name_client_value).all()
+                client_prenom_instances = client_nom_instances.filter(prenom_client=f_name_client_value).all()
+                client_instance = client_prenom_instances.filter(ville=ville_client).first()
+                if not client_instance:                    
                     client_instance = Client.objects.create(civilite=civi_instance, nom_client=l_name_client_value, prenom_client=f_name_client_value, adr_client=adr_client_value, adr2_client=adr2_client_value, ville=ville_client, tel_client=tel_client_value)
                     messages.success(request, 'Le client a été ajouté')
+
                 devise_instance = devise_instances.filter(symb_devise= currency_symbol).first()
                 user_instance = user_instances.get(id=user_id)
                 
@@ -121,8 +124,6 @@ class ImportFactureView(View):
         except Exception as e:
             error_message = f"Erreur lors de l'import: {str(e)}"
             messages.error(request,  error_message)
-
         else:
             form = FactureImportForm()
-
         return render(request, 'logifacturapp/import_facture.html', {'form': form})

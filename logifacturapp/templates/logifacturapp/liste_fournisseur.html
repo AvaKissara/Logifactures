@@ -21,7 +21,7 @@
             <td>{{ fournisseur.siret_fourn }}</td>
             <td>{{ fournisseur.adr_fourn }}</td>
             <td>{{ fournisseur.ville.nom_ville }}</td>
-            <td>{{ fournisseur.tel_fourn }}</td>
+            <td>+{{ fournisseur.ville.region.pays.indicatif_pays }}{{ fournisseur.tel_fourn }}</td>
           </tr>
         {% endfor %}
       </tbody>

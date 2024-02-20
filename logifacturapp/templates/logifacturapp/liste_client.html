@@ -21,7 +21,7 @@
             <td>{{ client.prenom_client }}</td>
             <td>{{ client.adr_client }}</td>
             <td>{{ client.ville.nom_ville }}</td>
-            <td>{{ client.tel_client }}</td>
+            <td>+{{ client.ville.region.pays.indicatif_pays }}{{ client.tel_client }}</td>
           </tr>
         {% endfor %}
       </tbody>

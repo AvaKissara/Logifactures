@@ -2,5 +2,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Accueil</h1>
+    {% if user.is_authenticated %}
+        <h1 class="capitalize">bonjour {{ user.username }} !</h1>
+    {% else %}
+        <h1>Bonjour profane, connecte toi pour commencer</h1>
+    {% endif %}
 {% endblock %}
+
