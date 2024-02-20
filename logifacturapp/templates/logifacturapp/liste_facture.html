@@ -16,6 +16,13 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <div class="facture-filter-form">
+                        <form method="get" action="">
+                        {{ form.as_p }}
+                        <button class="btn" type="submit">&#x1F50D;</button>
+                        </form>
+                    </div>
+                    
                     {% for facture in facture_list %}
                         <tr>
                             <td>{{ facture.num_facture }}</td>
