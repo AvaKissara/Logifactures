@@ -1,0 +1,32 @@
+<!-- logifacturapp/liste_fournisseurs.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container-md mt-5 mx-5">
+    <h2 class="mb-4">Fournisseurs</h2>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Raison Sociale</th>
+          <th scope="col">Siret</th>
+          <th scope="col">Adresse</th>
+          <th scope="col">Ville</th>
+          <th scope="col">Téléphone</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for fournisseur in fournisseurs %}
+          <tr class="capitalize">
+            <td>{{ fournisseur.r_social_fourn }}</td>
+            <td>{{ fournisseur.siret_fourn }}</td>
+            <td>{{ fournisseur.adr_fourn }}</td>
+            <td>{{ fournisseur.ville.nom_ville }}</td>
+            <td>{{ fournisseur.tel_fourn }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+{% endblock %}
+

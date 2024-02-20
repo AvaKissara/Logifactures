@@ -2,11 +2,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="container mt-4">
-        <h1 class="mb-4">Factures</h1>
+    <div class="container-md mt-5 mx-5">
+        <h2 class="mb-4">Factures</h2>
         {% if facture_list %}
-            <table class="table table-bordered table-hover">
-                <thead class="thead-dark">
+            <table class="table table-hover">
+                <thead>
                     <tr>
                         <th scope="col">Numéro de Facture</th>
                         <th scope="col">Date de Facture</th>
@@ -20,9 +20,9 @@
                             <td>{{ facture.num_facture }}</td>
                             <td>{{ facture.date_facture }}</td>
                             <td>{{ facture.total_ttc_facture }} {{ facture.devise.symb_devise }}</td>
-                            <td><a href="{% url 'logifacturapp:detail' facture.id_facture %}" class="btn btn-primary">Détails</a>
-                                <button class="btn btn-danger" data-toggle="modal" data-target="#confirmationModal{{ facture.id_facture }}">
-                                    Supprimer
+                            <td><a href="{% url 'logifacturapp:detail' facture.id_facture %}" class="btn btn-td btn-primary">&#129178;</a>
+                                <button class="btn btn-td btn-danger" data-toggle="modal" data-target="#confirmationModal{{ facture.id_facture }}">
+                                    X
                                 </button></td>
                             
                         </tr>
