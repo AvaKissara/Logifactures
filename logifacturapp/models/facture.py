@@ -1,16 +1,17 @@
 from django.db import models
+from django.contrib.auth.models import User
 from .cat_facture import Cat_facture
 from .fournisseur import Fournisseur
 from .client import Client
-from .user import User
 from .methode_paiement import Methode_paiement
+from django.conf import settings 
 
 class Facture(models.Model):
     id_facture = models.AutoField(primary_key=True, db_column='id_facture', default=None)
     cat_facture = models.ForeignKey('Cat_facture', on_delete=models.CASCADE)
     fournisseur = models.ForeignKey('Fournisseur', on_delete=models.CASCADE)
     client = models.ForeignKey('Client', on_delete=models.CASCADE)
-    user = models.ForeignKey('User', on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     methode_paiement =models.ForeignKey('Methode_paiement', on_delete=models.CASCADE, null=True)
     devise = models.ForeignKey('Devise', on_delete=models.CASCADE, default=None)
     num_facture = models.CharField(max_length=40, db_index=True)

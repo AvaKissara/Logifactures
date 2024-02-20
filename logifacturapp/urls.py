@@ -12,4 +12,5 @@ urlpatterns = [
     path('facture/liste_facture/', ListeFactureView.as_view(), name='liste_facture'),
     path('liste_fournisseur/', ListeFournisseurView.as_view(), name='liste_fournisseur'),
     path('liste_client/', ListeClientView.as_view(), name='liste_client'),
+    
 ]

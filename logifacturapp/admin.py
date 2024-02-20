@@ -1,4 +1,5 @@
 from django.contrib import admin
+from .views.inscription_view import InscriptionView
 
 from .models import Devise
 admin.site.register(Devise)

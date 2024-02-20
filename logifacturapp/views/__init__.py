@@ -5,3 +5,6 @@ from .delete_facture_view import DeleteFactureView
 from .liste_facture_view import ListeFactureView
 from .liste_fournisseur_view import ListeFournisseurView
 from .liste_client_view import ListeClientView
+from .inscription_view import InscriptionView
+from .connexion_view import ConnexionView
+from django.contrib.auth.views import LogoutView

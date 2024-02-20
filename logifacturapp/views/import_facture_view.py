@@ -7,7 +7,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from ..forms import FactureImportForm
-from ..models import Facture, Fournisseur, Client, Devise, User, Ville, Civilite
+from ..models import Facture, Fournisseur, Client, Devise, Ville, Civilite
+from django.contrib.auth.models import User
 
 @method_decorator(login_required, name='dispatch')
 class ImportFactureView(View):
@@ -101,7 +102,7 @@ class ImportFactureView(View):
                     client_instance = Client.objects.create(civilite=civi_instance, nom_client=l_name_client_value, prenom_client=f_name_client_value, adr_client=adr_client_value, adr2_client=adr2_client_value, ville=ville_client, tel_client=tel_client_value)
                     messages.success(request, 'Le client a été ajouté')
                 devise_instance = devise_instances.filter(symb_devise= currency_symbol).first()
-                user_instance = user_instances.get(id_user=user_id)
+                user_instance = user_instances.get(id=user_id)
                 
             Facture.objects.create(
                 cat_facture=categorie,
@@ -116,9 +117,9 @@ class ImportFactureView(View):
                 total_ttc_facture=ttc_facture,
                 statut_facture=statut,
             )      
-            messages.success(request, 'Importation des factures réussie.')
+            messages.success(request, 'Import de la facture réussie.')
         except Exception as e:
-            error_message = f"Erreur lors de l'importation : {str(e)}, Contenu de df.iterrows(): {list(df.iterrows())}"
+            error_message = f"Erreur lors de l'import: {str(e)}"
             messages.error(request,  error_message)
 
         else:

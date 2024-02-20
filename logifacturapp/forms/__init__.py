@@ -1,1 +1,2 @@
 from .facture_import_form import FactureImportForm
+from .inscription_form import SignUpForm

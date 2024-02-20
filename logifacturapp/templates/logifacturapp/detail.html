@@ -2,7 +2,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <div class="container mt-5">
+  <div class="container mt-4">
     <h2 class="mb-4">Facture {{ facture.num_facture }}</h2>
     <div class="table-responsive">
       <table class="table table-detail table-hover">
@@ -27,6 +27,20 @@
             <th scope="row">Total TTC</th>
             <td>{{ facture.total_ttc_facture }} {{ facture.devise.symb_devise }}</td>
           </tr>
+          <tr>
+            <th scope="row">Méthode de paiement</th>
+            <td class="capitalize">{{ facture.methode_paiement.nom_m_paie }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Facture acquittée</th>
+            <td>
+                {% if facture.statut_facture %}
+                    <i style="color: green;">✔</i>
+                {% else %}
+                    <i style="color: red;">❌</i>
+                {% endif %}
+            </td>
+          </tr>      
           <tr>
             <th scope="row">Catégorie</th>
             <td>{{ facture.cat_facture.nom_cat_facture }}</td>
