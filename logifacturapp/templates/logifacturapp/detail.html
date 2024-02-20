@@ -9,7 +9,7 @@
         <tbody>       
           <tr>
             <th scope="row">Date de facture</th>
-            <td>{{ facture.date_facture }}</td>
+            <td>{{ facture.date_facture|date:"d-m-Y" }}</td>
           </tr>
           <tr>
             <th scope="row">Nom du client</th>

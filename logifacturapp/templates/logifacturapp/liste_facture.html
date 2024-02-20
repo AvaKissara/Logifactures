@@ -5,28 +5,30 @@
     <div class="container-md mt-4 mx-5">
         <h2 class="mb-4">Factures</h2>
         {% if facture_list %}
+            <div class="facture-filter-form">
+                <form method="get" action="" class="filter-form">
+                {{ form.as_p }}
+                </form>
+            </div>
             <table class="table table-hover">
                 <thead>
                     <tr>
                         <th scope="col">Numéro de Facture</th>
                         <th scope="col">Date de Facture</th>
+                        <th scope="col">Fournisseur</th>
+                        <th scope="col">Client</th>
                         <th scope="col">Catégorie</th>
                         <th scope="col">Total TTC</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <div class="facture-filter-form">
-                        <form method="get" action="">
-                        {{ form.as_p }}
-                        <button class="btn" type="submit">&#x1F50D;</button>
-                        </form>
-                    </div>
-                    
+                <tbody>                    
                     {% for facture in facture_list %}
                         <tr>
                             <td>{{ facture.num_facture }}</td>
-                            <td>{{ facture.date_facture }}</td>
+                            <td>{{ facture.date_facture|date:"d-m-Y" }}</td>
+                            <td class="capitalize">{{ facture.fournisseur.r_social_fourn }}</td>
+                            <td class="capitalize">{{ facture.client.nom_client }} {{ facture.client.prenom_client }}</td>
                             <td>{{ facture.cat_facture.nom_cat_facture }}</td>
                             <td>{{ facture.total_ttc_facture }} {{ facture.devise.symb_devise }}</td>
                             <td><a href="{% url 'logifacturapp:detail' facture.id_facture %}" class="btn btn-td btn-primary">&#10068;</a>

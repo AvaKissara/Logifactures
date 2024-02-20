@@ -104,28 +104,40 @@ table.table-hover thead th{
     text-transform: uppercase;
 }
 
-div.facture-filter-form {
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: flex-end;
+.facture-filter-form {
+    margin-top: 46px;
 }
 
-.facture-filter-form input[type="date"] {
-    width: 150px;
-    padding: 2px;
-    margin-right: 10px;
+.filter-form {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 0px; 
+}
+
+.filter-form p:nth-child(n+4) {
+    justify-self: end; 
+    margin-right: 8px;
+}
+.filter-form p:nth-child(n+5) {
+    justify-self: start; 
+}
+
+.facture-filter-form select, input[type="date"] {
+    margin-top: 8px;
+    padding: 6px;
     border: 1px solid var(--primary-color);
     border-radius: 4px;
 }
-
-.facture-filter-form .btn {
-    color: #fff;
-    border: none;
+.facture-filter-form select {
+    width: 200px;
+    padding: 6px;
+    border: 1px solid var(--primary-color);
     border-radius: 4px;
-    cursor: pointer;
-    font-size: 1.6em;
-    margin-top: -24px;
 }
+.facture-filter-form input[type="date"] {
+    width: 150px;
+}
+
 .capitalize{
     text-transform: capitalize;
 }

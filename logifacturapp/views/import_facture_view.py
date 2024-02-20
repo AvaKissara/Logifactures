@@ -49,7 +49,7 @@ class ImportFactureView(View):
                     if df['Fournisseur'][0] == 'Raison sociale':
                         r_social_fourn_value = df.iloc[0]['vfournisseur'].lower().strip() 
                     if df['Fournisseur'][1] == 'Siret':
-                        siret_fourn_value = df.iloc[1]['vfournisseur'].lower().strip()
+                        siret_fourn_value = df.iloc[1]['vfournisseur']
                     if df['Fournisseur'][2] == 'Adresse':
                         adr_fourn_value = df.iloc[2]['vfournisseur'].lower().strip()
                     if df['Fournisseur'][3] == 'Adresse 2':
