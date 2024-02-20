@@ -60,8 +60,7 @@ nav.navbar.navbar-expand-lg.navbar-dark{
 table.table-hover> thead{
     text-transform: uppercase;
     color: var(--primary-color);
-    background-color: var(--secondary-color);
-    
+    background-color: var(--secondary-color);  
 }
 
 table.table-hover thead th{
@@ -72,7 +71,6 @@ table.table-hover thead th{
     padding: 0rem 0.6rem;
     font-size: 0.9rem;
     font-weight: 700;
-
 }
 
 .btn.btn-primary{
@@ -105,7 +103,7 @@ table.table-hover thead th{
 }
 
 .facture-filter-form {
-    margin-top: 46px;
+    margin-top: 26px;
 }
 
 .filter-form {

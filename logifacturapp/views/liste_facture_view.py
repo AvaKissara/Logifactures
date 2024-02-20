@@ -28,7 +28,7 @@ class ListeFactureView(LoginRequiredMixin, generic.ListView):
                 queryset = queryset.filter(client=client)
             if fournisseur:
                 queryset = queryset.filter(fournisseur=fournisseur)
-
+                
         return queryset
 
     def get_context_data(self, **kwargs):
