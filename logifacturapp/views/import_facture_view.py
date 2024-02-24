@@ -42,6 +42,7 @@ class ImportFactureView(View):
             ville_instances = Ville.objects.all()
             user_instances = User.objects.all()
             civi_instances = Civilite.objects.all()
+            facture_instances = Facture.objects.all()
 
             # Boucle qui balaie le fichier excel et récupère les valeurs
             for index, row in df.iterrows():
@@ -104,13 +105,14 @@ class ImportFactureView(View):
             if not client_instance:  
                 civi_instance = civi_instances.filter(abbr_civi=civi_client_value).first()                  
                 client_instance = Client.objects.create(civilite=civi_instance, nom_client=l_name_client_value, prenom_client=f_name_client_value, adr_client=adr_client_value, adr2_client=adr2_client_value, ville=ville_client, tel_client=tel_client_value)
-                messages.success(request, 'Le client a été ajouté')                           
+                messages.success(request, 'Le client a été ajouté')   
+            elif client_instance and client_instance.adr_client != adr_client_value: 
+                messages.warning(request, 'L\'adresse du client diffère de celle dans la base de données.')                   
             devise_instance = devise_instances.filter(symb_devise= currency_symbol).first()
             user_instance = user_instances.get(id=user_id)
 
             ttc_facture_calculated = ht_facture * (1 + tva_facture)
             tolerance = 0.1
-
             if abs(ttc_facture_calculated - ttc_facture) < tolerance:
                 messages.success(request, 'Le total TTC a été vérifié')
             else:
@@ -119,7 +121,8 @@ class ImportFactureView(View):
                     f"Valeur attendue : {ttc_facture_calculated}\n"
                     f"Valeur réelle : {ttc_facture}"
                 )
-                messages.error(request, error_message)    
+                messages.error(request, error_message)  
+              
             Facture.objects.create(
                 cat_facture=categorie,
                 fournisseur=fournisseur_instance,

@@ -23,6 +23,16 @@ h2{
     text-transform: uppercase;
 }
 
+h3{
+    color: var(--primary-color);
+    text-transform: uppercase;
+}
+
+h4{
+    color: var(--primary-color);
+    text-transform: capitalize;
+}
+
 select {
     width: 100%;
     padding: 8px;
@@ -43,14 +53,15 @@ select option {
     display: inline-block;
     border: 1px solid #ccc;
     padding: 6px 12px;
-    cursor: pointer;
+    cursor: pointer; 
     color:  var(--primary-color);
     border-radius: 4px;
     margin-right: 18px;
 }
 
 a.navbar-brand{
-    font-size: 2em;
+    font-size: 3em;
+    margin-top: -10px;
 }
 
 nav.navbar.navbar-expand-lg.navbar-dark{
@@ -138,6 +149,61 @@ table.table-hover thead th{
 
 .capitalize{
     text-transform: capitalize;
+}
+
+.tabs {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 0 0;
+    display: flex;
+    
+}
+
+.tabs li {
+    margin-right: 15px;
+    
+}
+
+.tabs a {
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 12px;
+    border: 1px solid  var(--primary-color);
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    color: var(--secondary-color); 
+    background-color: var(--primary-color);
+}
+
+.tabs a:hover {
+    background-color: rgba(86, 110, 169, 0.6); 
+    color: white;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    margin-top: 1rem;
+    display: flex;
+
+}
+
+div.by-month {
+    display: flex;
+    flex-direction: column;
+    margin-right: 30px;
+}
+
+.tab-content .table-hover tbody  {
+    background-color: rgba(86, 110, 169, 0.6); 
+    color: white;
+}
+
+.tab-content.active > canvas.chart-container {
+    width: 1300px !important;
+    height: 620px !important; 
 }
 
 footer {
