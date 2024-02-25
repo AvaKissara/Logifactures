@@ -60,7 +60,8 @@ document.addEventListener('DOMContentLoaded', function() {
     categorySelect.addEventListener('change', updateCatChart);
     function updateCatChart() {
         labelsCat = [];
-        dataCat = []
+        dataCat = [];
+        dataNumFactures = [];
 
         const selectedCategory = categorySelect.value;
         if (categoryChart) {
@@ -69,31 +70,54 @@ document.addEventListener('DOMContentLoaded', function() {
         for (const month in cat) {
             labelsCat.push(month);
             const selectedCategoryEntries = cat[month].filter(entry => entry.nom_cat_facture === selectedCategory);
-    
+
             if (selectedCategoryEntries.length > 0) {
                 const total = selectedCategoryEntries.reduce((acc, entry) => acc + parseFloat(entry.total_ttc), 0);
                 dataCat.push(total);
+                dataNumFactures.push(selectedCategoryEntries[0].num_factures);
+   
             } else {
                 dataCat.push(0); 
-            }
+                dataNumFactures.push(0);
+            }        
         }
+        
         const ctxCat = document.getElementById('chartCat').getContext('2d');
         categoryChart = new Chart(ctxCat, {
             type: 'bar',
             data: {
                 labels: labelsCat,
-                datasets: [{
-                    label: 'Total TTC par mois',
-                    data: dataCat,
-                    backgroundColor: 'rgba(86, 110, 169, 0.6)',
-                    borderColor: 'rgba(86, 110, 169, 0.6)',
-                    borderWidth: 1
-                }]
+                datasets: [
+                    {
+                        label: 'Total TTC par mois',
+                        data: dataCat,
+                        backgroundColor: 'rgba(86, 110, 169, 0.6)',
+                        borderColor: 'rgba(86, 110, 169, 0.6)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Nombre de factures',
+                        data: dataNumFactures,
+                        type: 'bar',
+                        yAxisID: 'numFactures', 
+                        borderColor: 'rgb(255,208,184)',
+                        backgroundColor: 'rgb(255,208,184)',
+                        borderWidth: 1,
+                        fill: false
+                    }
+                ]
             },
             options: {
                 scales: {
                     y: {
                         beginAtZero: true
+                    },
+                    numFactures: { 
+                        position: 'right',
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1
+                        }
                     }
                 }
             }
@@ -103,7 +127,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Fournisseurs
     const uniqueFournisseurs = new Set();
-    // Itération sur les données pour récupérer les noms de fournisseurs
     for (const month in fourn) {
         for (const entry of fourn[month]) {
             uniqueFournisseurs.add(entry.r_social_fourn);
@@ -121,7 +144,8 @@ document.addEventListener('DOMContentLoaded', function() {
     fournSelect.addEventListener('change', updateFournisseurChart);
     function updateFournisseurChart() {
         labelsFourn = [];
-        dataFourn = []
+        dataFourn = [];
+        dataNumFactures = [];
 
         const selectedFourn = fournSelect.value;
         if (fournChart) {
@@ -132,11 +156,13 @@ document.addEventListener('DOMContentLoaded', function() {
             const selectedFournEntries = fourn[month].filter(entry => entry.r_social_fourn === selectedFourn);
     
             if (selectedFournEntries.length > 0) {
-                // Somme des totaux pour la catégorie sélectionnée dans le mois donné
                 const total = selectedFournEntries.reduce((acc, entry) => acc + parseFloat(entry.total_ttc), 0);
                 dataFourn.push(total);
+                dataNumFactures.push(selectedFournEntries[0].num_factures);
+                console.log(selectedFournEntries);
             } else {
                 dataFourn.push(0); 
+                dataNumFactures.push(0);
             }
         }
         const ctxFourn = document.getElementById('chartFourn').getContext('2d');
@@ -150,12 +176,29 @@ document.addEventListener('DOMContentLoaded', function() {
                     backgroundColor: 'rgba(86, 110, 169, 0.6)',
                     borderColor: 'rgba(86, 110, 169, 0.6)',
                     borderWidth: 1
+                },
+                {
+                    label: 'Nombre de factures',
+                    data: dataNumFactures,
+                    type: 'bar',
+                    yAxisID: 'numFactures', 
+                    borderColor: 'rgb(255,208,184)',
+                    backgroundColor: 'rgb(255,208,184)',
+                    borderWidth: 1,
+                    fill: false
                 }]
             },
             options: {
                 scales: {
                     y: {
                         beginAtZero: true
+                    },
+                    numFactures: { 
+                        position: 'right',
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1
+                        }
                     }
                 }
             }
@@ -182,7 +225,8 @@ document.addEventListener('DOMContentLoaded', function() {
     cliSelect.addEventListener('change', updateClientChart);
     function updateClientChart() {
         labelsCli = [];
-        dataCli = []
+        dataCli = [];
+        dataNumFactures = [];
 
         const selectedCli = cliSelect.value;
         if (cliChart) {
@@ -198,8 +242,10 @@ document.addEventListener('DOMContentLoaded', function() {
             if (selectedCliEntries.length > 0) {
                 const total = selectedCliEntries.reduce((acc, entry) => acc + parseFloat(entry.total_ttc), 0);
                 dataCli.push(total);
+                dataNumFactures.push(selectedCliEntries[0].num_factures);
             } else {
                 dataCli.push(0); 
+                dataNumFactures.push(0);
             }           
         }
         const ctxCli = document.getElementById('chartClient').getContext('2d');
@@ -213,12 +259,29 @@ document.addEventListener('DOMContentLoaded', function() {
                     backgroundColor: 'rgba(86, 110, 169, 0.6)',
                     borderColor: 'rgba(86, 110, 169, 0.6)',
                     borderWidth: 1
+                },
+                {
+                    label: 'Nombre de factures',
+                    data: dataNumFactures,
+                    type: 'bar',
+                    yAxisID: 'numFactures', 
+                    borderColor: 'rgb(255,208,184)',
+                    backgroundColor: 'rgb(255,208,184)',
+                    borderWidth: 1,
+                    fill: false
                 }]
             },
             options: {
                 scales: {
                     y: {
                         beginAtZero: true
+                    },
+                    numFactures: { 
+                        position: 'right',
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1
+                        }
                     }
                 }
             }

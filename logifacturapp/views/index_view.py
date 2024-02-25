@@ -1,6 +1,6 @@
 from django.views.generic import TemplateView
 from ..models import Facture
-from django.db.models import Sum
+from django.db.models import Sum, Count
 from django.utils import timezone
 from django.template.defaultfilters import date as django_date
 import datetime
@@ -22,10 +22,10 @@ class IndexView(TemplateView):
                 .filter(user=user_id, date_facture__year=current_year, date_facture__month=month)
                 .values('cat_facture__nom_cat_facture') 
                 .annotate(total_ttc=Sum('total_ttc_facture'))
+                .annotate(num_factures=Count('id_facture'))
             )
             month_name = django_date(datetime.date(current_year, month, 1), "F")
-            categories_totals[month_name] = [{'nom_cat_facture': entry['cat_facture__nom_cat_facture'], 'total_ttc': entry['total_ttc']} for entry in totals if entry['total_ttc'] is not None]
-
+            categories_totals[month_name] = [{'nom_cat_facture': entry['cat_facture__nom_cat_facture'], 'total_ttc': entry['total_ttc'], 'num_factures': entry['num_factures']} for entry in totals if entry['total_ttc'] is not None]
         context['categories_totals'] = categories_totals
 
 
@@ -37,10 +37,10 @@ class IndexView(TemplateView):
                 .filter(user=user_id, date_facture__year=current_year, date_facture__month=month)
                 .values('fournisseur__r_social_fourn') 
                 .annotate(total_ttc=Sum('total_ttc_facture'))
+                .annotate(num_factures=Count('id_facture'))
             )
             month_name = django_date(datetime.date(current_year, month, 1), "F")
-            fournisseurs_totals[month_name] = [{'r_social_fourn': entry['fournisseur__r_social_fourn'], 'total_ttc': entry['total_ttc']} for entry in totals if entry['total_ttc'] is not None]
-
+            fournisseurs_totals[month_name] = [{'r_social_fourn': entry['fournisseur__r_social_fourn'], 'total_ttc': entry['total_ttc'], 'num_factures': entry['num_factures']} for entry in totals if entry['total_ttc'] is not None]
         context['fournisseurs_totals'] = fournisseurs_totals
 
         # Totaux par client pour chaque mois de l'année en cours
@@ -51,9 +51,10 @@ class IndexView(TemplateView):
                 .filter(user=user_id, date_facture__year=current_year, date_facture__month=month)
                 .values('client__nom_client', 'client__prenom_client') 
                 .annotate(total_ttc=Sum('total_ttc_facture'))
+                .annotate(num_factures=Count('id_facture'))
             )
             month_name = django_date(datetime.date(current_year, month, 1), "F")
-            clients_totals[month_name] = [{'nom_client': entry['client__nom_client'], 'prenom_client': entry['client__prenom_client'], 'total_ttc': entry['total_ttc']} for entry in totals if entry['total_ttc'] is not None]
+            clients_totals[month_name] = [{'nom_client': entry['client__nom_client'], 'prenom_client': entry['client__prenom_client'], 'total_ttc': entry['total_ttc'],'num_factures': entry['num_factures']} for entry in totals if entry['total_ttc'] is not None]
         context['clients_totals'] = clients_totals
 
         return context

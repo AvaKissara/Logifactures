@@ -1,6 +1,6 @@
 :root {
     --primary-color: rgb(86, 110, 169);
-    --secondary-color: #ffd0b8;
+    --secondary-color: rgb(255,208,184) ;
 }
 
 html, body {
@@ -45,9 +45,13 @@ select {
     color: var(--primary-color);
 }
 
+select:focus {
+    outline: none;
+    box-shadow: none;
+}
+
 select option {
     padding: 5px;
-
 }
 
 .custom-file-upload {
@@ -64,6 +68,11 @@ a.navbar-brand{
     font-size: 3em;
     margin-top: -10px;
 }
+
+.navbar-dark a.navbar-brand:hover{
+    color: var(--secondary-color);
+}
+
 
 nav.navbar.navbar-expand-lg.navbar-dark{
     background-color: rgb(65, 77, 109);
