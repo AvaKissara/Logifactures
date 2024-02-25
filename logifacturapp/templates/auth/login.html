@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2>Connexion</h2>
-    <form method="post" action="{% url 'login' %}">
+    <h2 class="log-title">Connexion</h2>
+    <form method="post" action="{% url 'login' %}" class="log-form">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Connexion</button>
+        <button type="submit" class="btn btn-primary">Connexion</button>
     </form>
 {% endblock %}

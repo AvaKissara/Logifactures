@@ -5,7 +5,7 @@
 <div class="container-md mt-4 mx-5">
     {% if user.is_authenticated %}
         <p class="capitalize right">bonjour {{ user.username }}</p>
-            <h3>Suivi pour l'année en cours</h3>
+            <h3>Suivi de l'année en cours</h3>
            <ul class="tabs">
             <li><a href="#categories">Par catégorie</a></li>
             <li><a href="#fournisseurs">Par fournisseur</a></li>
@@ -39,15 +39,22 @@
     {% else %}
     <div class="guest-message">
         <h2>Bonjour profane</h2>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum, veritatis! Quidem velit eligendi porro aliquam minima blanditiis labore, consequuntur sint distinctio non ea dolore harum doloremque voluptatum dolor architecto nihil?</p>
         <div class="welcome-log">
             <div class="column" id="main">
                 <h3>Si vous avez un compte, connectez-vous</h3>
                 
-                <a href="{% url 'login' %}" class="btn btn-primary">Se connecter</a>
+                <a href="{% url 'login' %}" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-person-check" viewBox="0 0 16 16">
+                    <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m1.679-4.493-1.335 2.226a.75.75 0 0 1-1.174.144l-.774-.773a.5.5 0 0 1 .708-.708l.547.548 1.17-1.951a.5.5 0 1 1 .858.514M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
+                    <path d="M8.256 14a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z"/>
+                  </svg></a>
             </div>
             <div class="column" id="secondary">
                 <h3>Si vous êtes nouveau, inscrivez-vous</h3>
-                <a href="{% url 'signup' %}" class="btn btn-primary">S'inscrire</a>
+                <a href="{% url 'signup' %}" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
+                    <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+                    <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5"/>
+                  </svg></a>
             </div>
         </div>      
     </div>

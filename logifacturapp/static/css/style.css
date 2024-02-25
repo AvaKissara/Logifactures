@@ -13,7 +13,9 @@ body {
     display: flex;
     flex-direction: column;
 }
-
+::-webkit-scrollbar{
+    display: none;
+}
 main {
     flex: 1;
 }
@@ -98,13 +100,18 @@ a.navbar-brand {
     margin-top: -10px;
 }
 
+a.navbar-brand:hover {
+    transform: scale(1.2);
+    transition: transform 0.3s ease; 
+}
+
 .navbar-dark a.navbar-brand:hover{
     color: var(--secondary-color);
 }
 
 nav.navbar.navbar-expand-lg.navbar-dark{
     background-color: rgb(65, 77, 109);
-    padding-right: 2em;
+    padding: 0 2em;
 }
 
 .navbar-dark .navbar-nav .nav-link  {
@@ -178,6 +185,10 @@ table.table-hover thead th{
 .btn.btn-primary:hover{
     background-color: var(--secondary-color);
     color: var(--primary-color);
+}
+
+.btn.btn-primary.btn-block {
+    margin-top: 40px;
 }
 
 /* FILTRE */
@@ -260,7 +271,8 @@ table.table-hover thead th{
 
 .tab-content.active > canvas.chart-container {
     width: 1300px !important;
-    height: 620px !important; 
+    height: 630px !important; 
+    margin-top: -90px;
 }
 
 .chart-menu {
@@ -273,8 +285,14 @@ table.table-hover thead th{
 }
 
 .guest-message {
-    padding: 20px;
+    padding: 20px 40px;
     text-align: center;   
+}
+
+.guest-message p {
+    color: var(--primary-color);
+    font-size: 1.4em;
+    margin-bottom: 50px;
 }
 
 .welcome-log{
@@ -289,7 +307,7 @@ table.table-hover thead th{
 .welcome-log h3 {
     text-transform: none;
     padding-bottom: 20px;
-    font-size: 2em;
+    font-size: 1.9em;
 }
 
 .column {
@@ -298,17 +316,46 @@ table.table-hover thead th{
 }
 
 .column#main {
-    flex: 75%;
+    flex: 50%;
     padding: 50px;
-    margin-top: 30px;
+    margin-top: 24px;
     margin-left: 15px;
 }
 
 #secondary {
     background-color: var(--secondary-color);
     text-align: center;
-    padding-top: 4.5%;
+    padding-top: 4.4%;
 }
+
+h2.log-title {
+    margin-top: 30px;
+}
+
+.log-form {
+    max-width: 600px;
+    margin: 0px auto;
+}
+
+.log-form h2 {
+    text-align: center;
+}
+
+.log-form label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.log-form input, .log-form select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: 1px solid  var(--primary-color);
+}
+
+
 
 /* FOOTER */
 footer {
