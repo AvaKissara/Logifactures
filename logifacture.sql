@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 20 fév. 2024 à 17:24
+-- Généré le : dim. 25 fév. 2024 à 00:24
 -- Version du serveur : 8.0.27
 -- Version de PHP : 8.1.0
 
@@ -175,7 +175,7 @@ CREATE TABLE IF NOT EXISTS `auth_user` (
 --
 
 INSERT INTO `auth_user` (`id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`) VALUES
-(1, 'pbkdf2_sha256$720000$L9OfSLjrrtrmsCz9Bvr0Ob$q0NzEsSPogbNSVFOCx7xak7Tes6Z6lzycAS94fugZsg=', '2024-02-20 16:25:43.636406', 1, 'avakissara', '', '', 'avakissara@gmail.com', 1, 1, '2024-02-11 16:16:47.276797'),
+(1, 'pbkdf2_sha256$720000$L9OfSLjrrtrmsCz9Bvr0Ob$q0NzEsSPogbNSVFOCx7xak7Tes6Z6lzycAS94fugZsg=', '2024-02-20 18:53:06.733414', 1, 'avakissara', '', '', 'avakissara@gmail.com', 1, 1, '2024-02-11 16:16:47.276797'),
 (2, 'pbkdf2_sha256$720000$IcWvYhBPnpofaajnHp8yHm$Lry+tRtx2l9S2DHmnEaALYKPwgbOzBujcbOv1Rh2u7I=', '2024-02-20 16:25:19.209813', 0, 'syntenera', '', '', 'lilabadi06@gmail.com', 0, 1, '2024-02-20 12:24:04.000000'),
 (3, 'pbkdf2_sha256$720000$Rtl9p6JMM5fg4mYlQXT9N8$+xg/3pCYCJLTJ0RrfDFuT52Qq0sDLHlirMZ4r35VEkU=', '2024-02-20 16:16:23.603856', 0, 'patatedouce', '', '', 'pd@gmail.com', 0, 1, '2024-02-20 16:16:22.988066');
 
@@ -279,7 +279,7 @@ CREATE TABLE IF NOT EXISTS `client` (
   KEY `Client_siret_client_b854bf92` (`siret_client`),
   KEY `Client_civilite_id_3da0032f` (`civilite_id`),
   KEY `Client_ville_id_a92145cb` (`ville_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `client`
@@ -290,7 +290,9 @@ INSERT INTO `client` (`id_client`, `r_social_client`, `siret_client`, `nom_clien
 (2, 'pickachup\'', '98765', 'pika', 'chu', '1 rue fatal foudre', 'none', 999999, 'pc@mail.com', 2, 1),
 (3, NULL, NULL, 'tonton', 'david', '37 rue du doudou', 'none', 333111111, NULL, 2, 1),
 (4, NULL, NULL, 'hulk', 'hoggan', '37 av tournesol fané', 'none', 666666, NULL, 2, 1),
-(5, 'test', '9865430927', 'toto', 'georges', '3 av cercle vicieux', 'none', 675423, 'hj@mail.com', 2, 1);
+(5, 'test', '9865430927', 'toto', 'lato', '3 av cercle vicieux', 'none', 675423, 'hj@mail.com', 2, 1),
+(6, 'revolution', '88888888', 'robespierre', 'maximilien', '158 bd tartiflette', 'none', 2147483647, 'rb@gmail.com', 2, 1),
+(7, NULL, NULL, 'client', 'test', '158 bd tartiflette', 'none', 493114412, NULL, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -311,7 +313,9 @@ CREATE TABLE IF NOT EXISTS `cp` (
 --
 
 INSERT INTO `cp` (`cp`, `ville_id`) VALUES
-('06000', 1);
+('06000', 1),
+('06100', 1),
+('13000', 2);
 
 -- --------------------------------------------------------
 
@@ -326,7 +330,7 @@ CREATE TABLE IF NOT EXISTS `devise` (
   `abbr_devise` varchar(6) NOT NULL,
   `symb_devise` varchar(1) NOT NULL,
   PRIMARY KEY (`id_devise`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `devise`
@@ -334,7 +338,8 @@ CREATE TABLE IF NOT EXISTS `devise` (
 
 INSERT INTO `devise` (`id_devise`, `nom_devise`, `abbr_devise`, `symb_devise`) VALUES
 (1, 'euro', 'eur', '€'),
-(2, 'dollar américain', 'usd', '$');
+(2, 'dollar américain', 'usd', '$'),
+(3, 'livre sterling', 'gpb', '£');
 
 -- --------------------------------------------------------
 
@@ -404,7 +409,15 @@ INSERT INTO `django_admin_log` (`id`, `action_time`, `object_id`, `object_repr`,
 (40, '2024-02-20 00:43:30.075657', '1', 'roublard décadent', 2, '[{\"changed\": {\"fields\": [\"Adr fourn\"]}}]', 7, 1),
 (41, '2024-02-20 12:25:40.126919', '2', 'syntenera', 2, '[{\"changed\": {\"fields\": [\"Username\"]}}]', 16, 1),
 (42, '2024-02-20 16:33:07.621439', '5', 'toto georges', 2, '[{\"changed\": {\"fields\": [\"R social client\", \"Siret client\", \"Nom client\", \"Prenom client\", \"Adr client\", \"Tel client\", \"Mail client\"]}}]', 6, 1),
-(43, '2024-02-20 16:34:16.952092', '5', 'toto georges', 2, '[{\"changed\": {\"fields\": [\"Adr client\"]}}]', 6, 1);
+(43, '2024-02-20 16:34:16.952092', '5', 'toto georges', 2, '[{\"changed\": {\"fields\": [\"Adr client\"]}}]', 6, 1),
+(44, '2024-02-20 18:34:26.101454', '5', 'toto lato', 2, '[{\"changed\": {\"fields\": [\"Prenom client\"]}}]', 6, 1),
+(45, '2024-02-20 22:14:23.758759', '06100', '06100', 1, '[{\"added\": {}}]', 10, 1),
+(46, '2024-02-20 22:14:40.544383', '2', 'marseille', 1, '[{\"added\": {}}]', 5, 1),
+(47, '2024-02-20 22:14:55.232685', '13000', '13000', 1, '[{\"added\": {}}]', 10, 1),
+(48, '2024-02-20 22:15:22.028684', '3', 'livre sterling', 1, '[{\"added\": {}}]', 2, 1),
+(49, '2024-02-24 10:22:12.469108', '6', 'robespierre maximilien', 2, '[{\"changed\": {\"fields\": [\"R social client\", \"Siret client\", \"Nom client\", \"Prenom client\", \"Mail client\"]}}]', 6, 1),
+(50, '2024-02-24 14:23:45.656817', '55', 'Facture test case - espace - 2023-03-07', 2, '[{\"changed\": {\"fields\": [\"Date facture\"]}}]', 12, 1),
+(51, '2024-02-24 14:24:31.407417', '55', 'Facture test case - espace - 2024-03-19', 2, '[{\"changed\": {\"fields\": [\"Date facture\"]}}]', 12, 1);
 
 -- --------------------------------------------------------
 
@@ -509,7 +522,7 @@ CREATE TABLE IF NOT EXISTS `django_session` (
 --
 
 INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
-('vxo9y47ezdf684xkwl3hoegqz3q34a76', '.eJxVjMEOgjAQRP-lZ9O07FKKR-98Q7PdbS1qIKFwMv67kHDQ22Tem3mrQNtawlbTEkZRV2XV5beLxM80HUAeNN1nzfO0LmPUh6JPWvUwS3rdTvfvoFAt-7rrXC8syTR2D5QtCwJ6jmAAfEZunUGw2DOCd9lTTzm2JktujANA9fkC2yU3dQ:1rcSwB:snI2PX3Rk96QYeFoAXod8_P2MpJp2o-QriWTsEbnzCs', '2024-03-05 16:25:43.637404');
+('00fk9b5uf9ffajutcaziwfnq03g4tao7', '.eJxVjMEOgjAQRP-lZ9O07FKKR-98Q7PdbS1qIKFwMv67kHDQ22Tem3mrQNtawlbTEkZRV2XV5beLxM80HUAeNN1nzfO0LmPUh6JPWvUwS3rdTvfvoFAt-7rrXC8syTR2D5QtCwJ6jmAAfEZunUGw2DOCd9lTTzm2JktujANA9fkC2yU3dQ:1rcVEo:KsVFZ7YXiZkNQaIQ1BphBx7fLLPmFr3MtsCIWqKTdNY', '2024-03-05 18:53:06.735407');
 
 -- --------------------------------------------------------
 
@@ -539,7 +552,7 @@ CREATE TABLE IF NOT EXISTS `facture` (
   KEY `Facture_fournisseur_id_1c6a017c` (`fournisseur_id`),
   KEY `Facture_methode_paiement_id_c0c2247f` (`methode_paiement_id`),
   KEY `FK_Facture_User` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `facture`
@@ -548,7 +561,25 @@ CREATE TABLE IF NOT EXISTS `facture` (
 INSERT INTO `facture` (`id_facture`, `num_facture`, `date_facture`, `total_ht_facture`, `total_ttc_facture`, `statut_facture`, `cat_facture_id`, `client_id`, `devise_id`, `fournisseur_id`, `methode_paiement_id`, `user_id`) VALUES
 (51, 'BS-TT-2024', '2022-02-20', '96.00', '115.20', 0, 6, 4, 1, 3, 2, 1),
 (52, 'Test - 888', '2022-02-21', '128.00', '153.60', 0, 1, 5, 1, 3, 1, 1),
-(53, 'Test - 455A', '2024-02-20', '128.00', '153.60', 1, 6, 3, 1, 3, 2, 1);
+(53, 'Test - 455A', '2024-02-20', '128.00', '153.60', 1, 6, 3, 1, 3, 2, 1),
+(54, 'Test - Nom - Ville', '2023-02-20', '96.00', '105.60', 1, 1, 4, 1, 3, 1, 1),
+(55, 'test case - espace', '2024-03-19', '96.00', '105.60', 0, 6, 4, 1, 4, 1, 1),
+(56, 'test - 3002', '2024-02-20', '108.00', '118.80', 1, 1, 6, 1, 5, 1, 1),
+(66, 'test case - espace', '2023-02-20', '96.00', '105.60', 1, 6, 4, 1, 4, 1, 1),
+(67, 'test - 455a', '2024-02-20', '128.00', '153.60', 0, 1, 3, 1, 3, 1, 1),
+(61, 'test - 3006', '2024-02-20', '132.00', '145.20', 0, 1, 6, 1, 5, 2, 1),
+(62, 'test - 3206', '2024-02-20', '132.00', '145.20', 1, 6, 6, 1, 5, 1, 1),
+(63, 'test - 3006', '2024-02-20', '132.00', '145.20', 0, 1, 6, 1, 5, 1, 1),
+(64, 'test - 3206', '2024-02-20', '132.00', '145.20', 1, 1, 6, 1, 5, 2, 1),
+(65, 'test - 3206', '2024-02-20', '132.00', '145.20', 1, 1, 6, 1, 5, 2, 1),
+(68, 'Test - 3206', '2024-02-20', '132.00', '145.20', 1, 1, 3, 1, 5, 2, 1),
+(69, 'Test - 3206', '2024-01-10', '132.00', '145.20', 0, 6, 3, 1, 5, 1, 1),
+(70, 'Test - 4444A', '2024-04-01', '156.00', '171.60', 0, 1, 3, 1, 5, 2, 1),
+(71, 'Test - 4444A', '2024-04-01', '156.00', '171.60', 1, 1, 3, 1, 5, 2, 1),
+(72, 'Test - 4444A', '2024-04-01', '156.00', '171.60', 1, 6, 3, 1, 5, 2, 1),
+(73, 'Test - 1134A', '2024-02-13', '156.00', '171.60', 1, 6, 3, 1, 5, 1, 1),
+(74, 'Test - 1134A', '2024-02-13', '156.00', '171.60', 1, 1, 3, 1, 5, 2, 1),
+(75, 'Test - 1134A', '2024-02-13', '156.00', '171.60', 1, 6, 7, 1, 6, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -573,7 +604,7 @@ CREATE TABLE IF NOT EXISTS `fournisseur` (
   KEY `Fournisseur_siret_fourn_84db49aa` (`siret_fourn`),
   KEY `Fournisseur_civilite_id_3ec47cb8` (`civilite_id`),
   KEY `Fournisseur_ville_id_e896334d` (`ville_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `fournisseur`
@@ -581,7 +612,10 @@ CREATE TABLE IF NOT EXISTS `fournisseur` (
 
 INSERT INTO `fournisseur` (`id_fourn`, `r_social_fourn`, `siret_fourn`, `nom_fourn`, `prenom_fourn`, `adr_fourn`, `adr2_fourn`, `tel_fourn`, `mail_fourn`, `civilite_id`, `ville_id`) VALUES
 (1, 'roublard décadent', '1234', 'Lila', 'Badi', '221 rue terreur nocturne', 'none', 22, 'az@f.com', 1, 1),
-(3, 'tata yoyo', '1111111', NULL, NULL, '7 rue du doudou', 'none', 3111111, NULL, NULL, 1);
+(3, 'tata yoyo', '1111111', NULL, NULL, '7 rue du doudou', 'none', 3111111, NULL, NULL, 1),
+(4, 'rebelles du 06', '436237568', NULL, NULL, '12 rue dante', 'none', 2147483647, NULL, NULL, 1),
+(5, 'doriane', '34629303', NULL, NULL, '31 rue jean médecin', 'none', 124343546, NULL, NULL, 1),
+(6, 'fournisseur test', '34629303654412', NULL, NULL, '31 rue du puit', 'none', 491564412, NULL, NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -685,14 +719,15 @@ CREATE TABLE IF NOT EXISTS `ville` (
   `region_id` int NOT NULL,
   PRIMARY KEY (`id_ville`),
   KEY `Ville_region_id_6fdcae40` (`region_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `ville`
 --
 
 INSERT INTO `ville` (`id_ville`, `nom_ville`, `region_id`) VALUES
-(1, 'nice', 1);
+(1, 'nice', 1),
+(2, 'marseille', 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

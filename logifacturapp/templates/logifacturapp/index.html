@@ -4,7 +4,7 @@
 {% block content %}
 <div class="container-md mt-4 mx-5">
     {% if user.is_authenticated %}
-        <h2 class="capitalize">bonjour {{ user.username }} !</h2>
+        <p class="capitalize right">bonjour {{ user.username }}</p>
             <h3>Suivi pour l'année en cours</h3>
            <ul class="tabs">
             <li><a href="#categories">Par catégorie</a></li>
@@ -13,26 +13,23 @@
         </ul>
 
         <div id="categories" class="tab-content active" data-categories-totals="{{ categories_totals|safe }}">
-            <div>
+            <div class="chart-menu">
                 <label for="categorySelect">Sélectionnez une catégorie :</label>
                 <select id="categorySelect">
                 </select>
             </div>
             <canvas id="chartCat" class="chart-container"></canvas>
-        </div>
-
-            
+        </div>            
         <div id="fournisseurs" class="tab-content" data-fournisseurs-totals="{{ fournisseurs_totals|safe }}">   
-            <div>
+            <div class="chart-menu">
                 <label for="fournSelect">Sélectionnez un fournisseur :</label>
                 <select id="fournSelect">
                 </select>
             </div>
             <canvas id="chartFourn" class="chart-container"></canvas>
-        </div>
-        
+        </div>       
         <div id="clients" class="tab-content" data-clients-totals="{{ clients_totals|safe }}">
-            <div>
+            <div class="chart-menu">
                 <label for="clientSelect">Sélectionnez un client :</label>
                 <select id="clientSelect">
                 </select>
@@ -40,7 +37,21 @@
             <canvas id="chartClient" class="chart-container"></canvas>
         </div>       
     {% else %}
-        <h2>Bonjour profane, connecte toi pour commencer</h2>
+    <div class="guest-message">
+        <h2>Bonjour profane</h2>
+        <div class="welcome-log">
+            <div class="column" id="main">
+                <h3>Si vous avez un compte, connectez-vous</h3>
+                
+                <a href="{% url 'login' %}" class="btn btn-primary">Se connecter</a>
+            </div>
+            <div class="column" id="secondary">
+                <h3>Si vous êtes nouveau, inscrivez-vous</h3>
+                <a href="{% url 'signup' %}" class="btn btn-primary">S'inscrire</a>
+            </div>
+        </div>      
+    </div>
+
     {% endif %}
 </div>
 {% endblock %}

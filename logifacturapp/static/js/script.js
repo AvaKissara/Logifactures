@@ -27,17 +27,9 @@ document.addEventListener('DOMContentLoaded', function() {
     let cat = JSON.parse(categoriesTotals.replace(/'/g, '"').replace(/Decimal\(/g, '').replace(/\)/g, ''));
     let fourn = JSON.parse(fournisseursTotals.replace(/'/g, '"').replace(/Decimal\(/g, '').replace(/\)/g, ''));
     let cli = JSON.parse(clientsTotals.replace(/'/g, '"').replace(/Decimal\(/g, '').replace(/\)/g, ''));
-    console.log(cli);
-    var labelsCat = [];
-    var dataCat = [];
     let categoryChart;
-    var labelsFourn = [];
-    var dataFourn = [];
     let fournChart;
-    var labelsCli = [];
-    var dataCli = [];
     let cliChart;
-    
     const categorySelect = document.getElementById('categorySelect');
     const fournSelect = document.getElementById('fournSelect');
     const cliSelect = document.getElementById('clientSelect');
@@ -286,5 +278,5 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         });
-    };
+    }; 
 });
