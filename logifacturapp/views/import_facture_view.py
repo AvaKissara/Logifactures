@@ -92,29 +92,19 @@ class ImportFactureView(View):
                     if df['Facture'][32] == 'TOTAL TTC :':
                         ttc_facture = df.iloc[32]['vfacture']                   
                 
+            facture_instance = facture_instances.filter(num_facture=num_facture).first()
             fournisseur_instance = fournisseur_instances.filter(siret_fourn=siret_fourn_value).first()
-            if not fournisseur_instance:
-                ville_fourn = ville_instances.filter(nom_ville=ville_fourn_value).first()                   
-                fournisseur_instance = Fournisseur.objects.create(siret_fourn=siret_fourn_value, r_social_fourn=r_social_fourn_value, adr_fourn=adr_fourn_value, adr2_fourn=adr2_fourn_value, ville=ville_fourn, tel_fourn=tel_fourn_value)
-                messages.success(request, 'Le fournisseur a été ajouté')
-
             ville_client = ville_instances.filter(nom_ville=ville_client_value).first()
             client_nom_instances = client_instances.filter(nom_client=l_name_client_value).all()
             client_prenom_instances = client_nom_instances.filter(prenom_client=f_name_client_value).all()
             client_instance = client_prenom_instances.filter(ville=ville_client).first()
-            if not client_instance:  
-                civi_instance = civi_instances.filter(abbr_civi=civi_client_value).first()                  
-                client_instance = Client.objects.create(civilite=civi_instance, nom_client=l_name_client_value, prenom_client=f_name_client_value, adr_client=adr_client_value, adr2_client=adr2_client_value, ville=ville_client, tel_client=tel_client_value)
-                messages.success(request, 'Le client a été ajouté')   
-            elif client_instance and client_instance.adr_client != adr_client_value: 
-                messages.warning(request, 'L\'adresse du client diffère de celle dans la base de données.')                   
             devise_instance = devise_instances.filter(symb_devise= currency_symbol).first()
             user_instance = user_instances.get(id=user_id)
-
             ttc_facture_calculated = ht_facture * (1 + tva_facture)
             tolerance = 0.1
+
             if abs(ttc_facture_calculated - ttc_facture) < tolerance:
-                messages.success(request, 'Le total TTC a été vérifié')
+                    messages.success(request, 'Le total TTC a été vérifié')
             else:
                 error_message = (
                     f"Le total TTC ne correspond pas au calcul. Veuillez vérifier les valeurs.\n"
@@ -122,8 +112,21 @@ class ImportFactureView(View):
                     f"Valeur réelle : {ttc_facture}"
                 )
                 messages.error(request, error_message)  
-              
-            Facture.objects.create(
+            if not fournisseur_instance:
+                ville_fourn = ville_instances.filter(nom_ville=ville_fourn_value).first()                   
+                fournisseur_instance = Fournisseur.objects.create(siret_fourn=siret_fourn_value, r_social_fourn=r_social_fourn_value, adr_fourn=adr_fourn_value, adr2_fourn=adr2_fourn_value, ville=ville_fourn, tel_fourn=tel_fourn_value)
+                messages.success(request, 'Le fournisseur a été ajouté')         
+            if not client_instance:  
+                civi_instance = civi_instances.filter(abbr_civi=civi_client_value).first()                  
+                client_instance = Client.objects.create(civilite=civi_instance, nom_client=l_name_client_value, prenom_client=f_name_client_value, adr_client=adr_client_value, adr2_client=adr2_client_value, ville=ville_client, tel_client=tel_client_value)
+                messages.success(request, 'Le client a été ajouté')   
+            if client_instance and client_instance.adr_client != adr_client_value: 
+                messages.warning(request, 'L\'adresse du client diffère de celle dans la base de données.')   
+
+            if facture_instance:
+                messages.error(request, 'Cette facture existe déjà.')                                                                         
+            else :
+                Facture.objects.create(
                 cat_facture=categorie,
                 fournisseur=fournisseur_instance,
                 client=client_instance,
@@ -135,8 +138,8 @@ class ImportFactureView(View):
                 total_ht_facture=ht_facture,
                 total_ttc_facture=ttc_facture,
                 statut_facture=statut,
-            )      
-            messages.success(request, 'Import de la facture réussie.')
+                )      
+                messages.success(request, 'Import de la facture réussie.')
         except Exception as e:
             error_message = f"Erreur lors de l'import: {str(e)}"
             messages.error(request,  error_message)

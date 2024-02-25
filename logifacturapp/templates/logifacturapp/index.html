@@ -23,7 +23,7 @@
         <div id="fournisseurs" class="tab-content" data-fournisseurs-totals="{{ fournisseurs_totals|safe }}">   
             <div class="chart-menu">
                 <label for="fournSelect">Sélectionnez un fournisseur :</label>
-                <select id="fournSelect">
+                <select id="fournSelect" class="capitalize">
                 </select>
             </div>
             <canvas id="chartFourn" class="chart-container"></canvas>
@@ -31,7 +31,7 @@
         <div id="clients" class="tab-content" data-clients-totals="{{ clients_totals|safe }}">
             <div class="chart-menu">
                 <label for="clientSelect">Sélectionnez un client :</label>
-                <select id="clientSelect">
+                <select id="clientSelect" class="capitalize">
                 </select>
             </div>
             <canvas id="chartClient" class="chart-container"></canvas>

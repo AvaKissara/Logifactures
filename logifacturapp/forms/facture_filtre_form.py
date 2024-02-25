@@ -15,7 +15,6 @@ class FactureFilterForm(forms.Form):
             self.fields['categorie'].empty_label = 'Catégorie'
             self.fields['client'].empty_label = 'Client'
             self.fields['fournisseur'].empty_label = 'Fournisseur'
-
  
             for field_name, field in self.fields.items():
                 field.widget.attrs['class'] = 'form-control'

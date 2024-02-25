@@ -4,9 +4,9 @@
 {% block content %}
   <div class="container mt-4">
     <div class="row">
-      <div class="col-md-8 offset-md-2">
+      <div class="col-md-9 offset-md-2">
         <h2 class="text-center mb-4">Import des factures</h2>
-        <form method="post" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data" class="form-import-control">
           {% csrf_token %}
           {{ form.as_p }}
           <div class="form-group">

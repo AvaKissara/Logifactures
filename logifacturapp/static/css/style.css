@@ -55,7 +55,6 @@ select {
     border: 1px solid var(--primary-color);
     border-radius: 4px;
     box-sizing: border-box;
-    text-transform: capitalize;
     color: var(--primary-color);
     background-color: var(--secondary-color);
 }
@@ -81,6 +80,7 @@ select option {
     border-radius: 4px;
     width: 100%;
     color: var(--primary-color);
+    margin-bottom: 10px;
 }
 
 input::file-selector-button {
@@ -188,7 +188,13 @@ table.table-hover thead th{
 }
 
 .btn.btn-primary.btn-block {
-    margin-top: 40px;
+    margin: 30px auto 0;
+    font-size: 1.2em;
+    width: 50%;
+}
+
+.btn.btn-primary.btn-block:hover {
+    background-color: white;
 }
 
 /* FILTRE */
@@ -206,6 +212,7 @@ table.table-hover thead th{
     justify-self: end; 
     margin-right: 8px;
 }
+
 .filter-form p:nth-child(n+5) {
     justify-self: start; 
 }
@@ -218,12 +225,24 @@ table.table-hover thead th{
 }
 
 .facture-filter-form select {
-    width: 200px;
+    width: 240px;
     padding: 6px;
+    margin-right: 8px;
 }
 
 .facture-filter-form input[type="date"] {
     width: 150px;
+}
+
+/* FORM IMPORT */
+.form-import-control {
+    border: 2px solid var(--primary-color);
+    padding: 28px;
+    border-radius: 4px;
+}
+
+.form-import-control p label {
+    display: none;
 }
 
 /* TABS GRAPHIQUE */
