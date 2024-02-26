@@ -9,8 +9,6 @@ class AgendaEventView(View):
     template_name = 'logifacturapp/calendrier.html'
 
     def get(self, request, *args, **kwargs):
-        # events = AgendaEvent.objects.all()
-
         month_number = kwargs.get('month_number')
 
         current_date = datetime.now().strftime('%A %d %B')
@@ -22,7 +20,10 @@ class AgendaEventView(View):
             first_day_of_month = today.replace(month=month_number, day=1)
             last_day_of_month = today.replace(month=month_number % 12 + 1, day=1) - timedelta(days=1)
 
-        days_of_month = [first_day_of_month + timedelta(days=x) for x in range((last_day_of_month - first_day_of_month).days + 1)]
+        first_day_weekday = first_day_of_month.weekday()
+        days_to_prepend = first_day_weekday
+        days_of_month = [None] * days_to_prepend
+        days_of_month.extend(first_day_of_month + timedelta(days=x) for x in range((last_day_of_month - first_day_of_month).days + 1))
         
         events = AgendaEvent.objects.filter(end_datetime__gte=first_day_of_month, start_datetime__lte=last_day_of_month)
         event_dates = [event.end_datetime.date() for event in events]

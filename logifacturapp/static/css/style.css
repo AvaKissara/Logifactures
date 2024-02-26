@@ -538,6 +538,9 @@ h2.log-title {
 	color: var(--secondary-color);
 }
 
+.hide-day {
+    visibility: hidden;
+}
 
 /* placeholder color */
 ::-webkit-input-placeholder {color: #ffffff; }

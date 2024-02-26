@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     var daysContent = $data.find('.days-list').html();
                     $('.months-list a').removeClass('selected');
                     $thisLink.addClass('selected');
+                    
                     $('.days-list').html(daysContent);
                 },
                 error: function(error) {

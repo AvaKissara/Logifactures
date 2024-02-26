@@ -40,7 +40,7 @@
                 <ul class="days days-list">
                     {% for day in days_of_month %}
                         <li>
-                            <a href="#" title="{{ day.day }}" data-value="{{ day.day }}" {% if day.month != selected_month %}class="other-month"{% endif %}>
+                            <a href="#" title="{{ day.day }}" data-value="{{ day.day }}" {% if day.month != selected_month %}class="other-month"{% endif %} {% if not day.day %}class="hide-day"{% endif %}>
                                 {{ day.day }}
                                 {% if day in events_date %}
                                 <span class="event-indicator">X</span>
