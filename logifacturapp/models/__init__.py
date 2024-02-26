@@ -1,7 +1,6 @@
 from .civilite import Civilite
 from .client import Client
 from .fournisseur import Fournisseur
-from .user import User
 from .cat_facture import Cat_facture
 from .cp import Cp
 from .devise import Devise
@@ -10,3 +9,4 @@ from .methode_paiement import Methode_paiement
 from .pays import Pays
 from .region import Region
 from .ville import Ville
+from .agenda_event import AgendaEvent

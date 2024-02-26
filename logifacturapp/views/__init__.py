@@ -8,3 +8,4 @@ from .liste_client_view import ListeClientView
 from .inscription_view import InscriptionView
 from .connexion_view import ConnexionView
 from django.contrib.auth.views import LogoutView
+from .agenda_event_view import AgendaEventView

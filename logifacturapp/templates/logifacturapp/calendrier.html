@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-md mt-4">
+    <h2>Calendrier</h2>
+    <div class="calendar">
+        <div class="col leftCol">
+            <div class="content">
+                <ul class="months months-list">
+                    {% for month in months %}
+                        <li><a href="mois/{{ month.value }}" title="{{ month.name }}" data-value="{{ month.value }}"{% if month.selected %} class="selected"{% endif %}>{{ month.name }}</a></li>
+                    {% endfor %}
+                </ul>
+                <div class="clearfix"></div>     
+                <h1 class="date">{{ current_date }}</h1>
+					<div class="notes">
+						<p>
+							<input type="text" value="" placeholder="Ajouter une note"/>
+							<a href="#" title="Ajouter une note" class="addNote animate">+</a>
+						</p>
+						<ul class="noteList">
+							<li>Mordre la lune<a href="#" title="Remove note" class="removeNote animate">x</a></li>
+						</ul>
+					</div>
+                <div class="clearfix"></div>                
+            </div>
+        </div>
+
+        <div class="col rightCol">
+            <div class="content">
+                <h2 class="year">2024</h2>               
+                   <!-- Logique pour les jours de la semaine -->
+                   <ul class="weekday">
+                    {% for day in days_of_week %}
+                        <li><a href="#" title="{{ day }}" data-value="{{ day }}">{{ day }}</a></li>
+                    {% endfor %}
+                </ul>
+                <div class="clearfix"></div>
+                <!-- Logique pour les jours du mois -->
+                <ul class="days days-list">
+                    {% for day in days_of_month %}
+                        <li>
+                            <a href="#" title="{{ day.day }}" data-value="{{ day.day }}" {% if day.month != selected_month %}class="other-month"{% endif %}>
+                                {{ day.day }}
+                                {% if day in events_date %}
+                                <span class="event-indicator">X</span>
+                            {% endif %}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+{% endblock %}

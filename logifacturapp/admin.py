@@ -31,9 +31,8 @@ admin.site.register(Methode_paiement)
 from .models import(Region)
 admin.site.register(Region)
 
-from .models import(User)
-admin.site.register(User)
-
 from .models import(Ville)
 admin.site.register(Ville)
 
+from .models import(AgendaEvent)
+admin.site.register(AgendaEvent)

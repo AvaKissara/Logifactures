@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+    //FILTRE
     const forms = document.querySelectorAll('.filter-form');
     for (const form of forms) {
         for(i=0; i<form.length; i++){
@@ -8,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }       
     }
    
+    //TABS
     $(document).ready(function () {
         $(".tabs a").click(function (e) {
             e.preventDefault();
@@ -18,9 +20,30 @@ document.addEventListener('DOMContentLoaded', function() {
             $(this).addClass("active");
             $(tabId).addClass("active");
         });
+
+        $('.months-list a').on('click', function(e) {
+            e.preventDefault();
+            var selectedMonth = $(this).data('value');
+            var $thisLink = $(this);
+
+            $.ajax({
+                url: 'mois/' + selectedMonth + '/',
+                method: 'GET',
+                success: function(data) {
+                    var $data = $(data);
+                    var daysContent = $data.find('.days-list').html();
+                    $('.months-list a').removeClass('selected');
+                    $thisLink.addClass('selected');
+                    $('.days-list').html(daysContent);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        });
     });
 
-
+    //GRAPHIQUES
     const categoriesTotals = document.getElementById('categories').getAttribute('data-categories-totals');
     const fournisseursTotals = document.getElementById('fournisseurs').getAttribute('data-fournisseurs-totals');
     const clientsTotals = document.getElementById('clients').getAttribute('data-clients-totals');
