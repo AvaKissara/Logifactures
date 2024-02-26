@@ -42,6 +42,26 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         });
+        $('.days-list a').on('click', function(e) {
+            e.preventDefault();
+            var selectedDay = $(this).data('value');
+        
+            $.ajax({
+                url: 'jour/' + selectedDay + '/',
+                method: 'GET',
+                success: function(data) {
+                    var $data = $(data);
+                    var dayEventContent = $data.find('.noteList').html();       
+                    var $noteList = $('.noteList');
+                    $noteList.empty();  
+                    $noteList.append(dayEventContent);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        });
+        
     });
 
     //GRAPHIQUES

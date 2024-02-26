@@ -10,12 +10,14 @@ class AgendaEventView(View):
 
     def get(self, request, *args, **kwargs):
         month_number = kwargs.get('month_number')
+        day_number = kwargs.get('day_number')
 
         current_date = datetime.now().strftime('%A %d %B')
         today = date.today()
         if month_number is None:
             first_day_of_month = today.replace(day=1)
             last_day_of_month = today.replace(month=today.month % 12 + 1, day=1) - timedelta(days=1)
+            
         else:
             first_day_of_month = today.replace(month=month_number, day=1)
             last_day_of_month = today.replace(month=month_number % 12 + 1, day=1) - timedelta(days=1)
@@ -24,9 +26,13 @@ class AgendaEventView(View):
         days_to_prepend = first_day_weekday
         days_of_month = [None] * days_to_prepend
         days_of_month.extend(first_day_of_month + timedelta(days=x) for x in range((last_day_of_month - first_day_of_month).days + 1))
-        
+    
         events = AgendaEvent.objects.filter(end_datetime__gte=first_day_of_month, start_datetime__lte=last_day_of_month)
         event_dates = [event.end_datetime.date() for event in events]
+        events_day =  events.filter(end_datetime__day=day_number)
+
+
+
 
         months = [
             {'name': 'Jan', 'value': 1, 'selected': first_day_of_month.month == 1},
@@ -45,5 +51,5 @@ class AgendaEventView(View):
 
         days_of_week = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim']
 
-        context = {'events': events, 'events_date':event_dates,'days_of_month': days_of_month, 'months': months, 'days_of_week': days_of_week, 'current_date': current_date}
+        context = {'events': events, 'events_date':event_dates, 'events_day':events_day,'days_of_month': days_of_month, 'months': months, 'days_of_week': days_of_week, 'current_date': current_date}
         return render(request, self.template_name, context)

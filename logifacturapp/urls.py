@@ -14,4 +14,5 @@ urlpatterns = [
     path('liste_client/', ListeClientView.as_view(), name='liste_client'),
     path('calendrier/', AgendaEventView.as_view(), name='calendrier'),
     path('calendrier/mois/<int:month_number>/', AgendaEventView.as_view(), name='calendrier_mois'),
+    path('calendrier/jour/<int:day_number>/', AgendaEventView.as_view(), name='calendrier_jour'),
 ]
