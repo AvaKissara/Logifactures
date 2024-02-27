@@ -33,8 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     var $data = $(data);
                     var daysContent = $data.find('.days-list').html();
                     $('.months-list a').removeClass('selected');
-                    $thisLink.addClass('selected');
-                    
+                    $thisLink.addClass('selected');                
                     $('.days-list').html(daysContent);
                 },
                 error: function(error) {
@@ -42,26 +41,27 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         });
-        $('.days-list a').on('click', function(e) {
-            e.preventDefault();
+        $('.days-list').on('click', 'a', function(e){
+            e.preventDefault();          
             var selectedDay = $(this).data('value');
-        
+            var selectedMonth = $('.months-list a.selected').data('value');
+
+
             $.ajax({
-                url: 'jour/' + selectedDay + '/',
+                url: 'jour/' + selectedMonth + '/' + selectedDay + '/',
                 method: 'GET',
                 success: function(data) {
                     var $data = $(data);
-                    var dayEventContent = $data.find('.noteList').html();       
+                    var dayEventContent = $data.find('.noteList').html();
                     var $noteList = $('.noteList');
-                    $noteList.empty();  
+                    $noteList.empty();
                     $noteList.append(dayEventContent);
                 },
                 error: function(error) {
                     console.log(error);
                 }
             });
-        });
-        
+        });        
     });
 
     //GRAPHIQUES

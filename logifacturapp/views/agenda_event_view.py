@@ -16,8 +16,7 @@ class AgendaEventView(View):
         today = date.today()
         if month_number is None:
             first_day_of_month = today.replace(day=1)
-            last_day_of_month = today.replace(month=today.month % 12 + 1, day=1) - timedelta(days=1)
-            
+            last_day_of_month = today.replace(month=today.month % 12 + 1, day=1) - timedelta(days=1)            
         else:
             first_day_of_month = today.replace(month=month_number, day=1)
             last_day_of_month = today.replace(month=month_number % 12 + 1, day=1) - timedelta(days=1)
@@ -29,10 +28,7 @@ class AgendaEventView(View):
     
         events = AgendaEvent.objects.filter(end_datetime__gte=first_day_of_month, start_datetime__lte=last_day_of_month)
         event_dates = [event.end_datetime.date() for event in events]
-        events_day =  events.filter(end_datetime__day=day_number)
-
-
-
+        events_day =  AgendaEvent.objects.filter(end_datetime__year=today.year, end_datetime__month=month_number, end_datetime__day=day_number)
 
         months = [
             {'name': 'Jan', 'value': 1, 'selected': first_day_of_month.month == 1},

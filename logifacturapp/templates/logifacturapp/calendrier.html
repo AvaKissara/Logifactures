@@ -42,12 +42,11 @@
                 <ul class="days days-list">
                     {% for day in days_of_month %}
                         <li>
-                            <a href="jour/{{ day.day }}" title="{{ day.day }}" data-value="{{ day.day }}" {% if day.month != selected_month %}class="other-month"{% endif %} {% if not day.day %}class="hide-day"{% endif %}>
+                            <a href="jour/{{day.month}}/{{ day.day }}" title="{{ day.day }}" data-value="{{ day.day }}" {% if day.month != selected_month %}class="other-month"{% endif %} {% if not day.day %}class="hide-day"{% endif %}>
                                 {{ day.day }}
                             {% if day in events_date %}
                                 <span class="event-indicator">X</span>
-                            {% endif %}
-                            
+                            {% endif %}                           
                             </a>
                         </li>
                     {% endfor %}
