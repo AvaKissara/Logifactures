@@ -45,7 +45,8 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();          
             var selectedDay = $(this).data('value');
             var selectedMonth = $('.months-list a.selected').data('value');
-
+            var caseSel = $(this);
+            $('.days-list a').removeClass('selected');
 
             $.ajax({
                 url: 'jour/' + selectedMonth + '/' + selectedDay + '/',
@@ -53,9 +54,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 success: function(data) {
                     var $data = $(data);
                     var dayEventContent = $data.find('.noteList').html();
+                    caseSel.addClass('selected');
                     var $noteList = $('.noteList');
                     $noteList.empty();
                     $noteList.append(dayEventContent);
+                    
+                    var dateClic = caseSel.attr('href');
+                    var dateDash = dateClic.substring(dateClic.indexOf('JOUR/') + 6);                  
+                    var dateParts = dateDash.split('/');
+                    var monthNumber = parseInt(dateParts[0], 10);
+                    var dayNumber = parseInt(dateParts[1], 10);
+
+                    var dateObj = new Date(new Date().getFullYear(), monthNumber - 1, dayNumber);
+                    var dayNames = ['Dimanche','Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+                    var monthNames = ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Decembre'];
+
+                    var dayName = dayNames[dateObj.getDay()];
+                    var formattedDate = dayName + ' ' + dateObj.getDate() + ' ' + monthNames[dateObj.getMonth()];
+                    $('.date').text(formattedDate);
                 },
                 error: function(error) {
                     console.log(error);
@@ -158,7 +174,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         });
-
     };
 
     // Fournisseurs
