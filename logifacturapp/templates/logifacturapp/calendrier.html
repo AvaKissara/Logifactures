@@ -13,17 +13,56 @@
                 </ul>
                 <div class="clearfix"></div>     
                 <h1 class="date">{{ current_date }}</h1>
-					<div class="notes">
-						<p>
-							<input type="text" value="" placeholder="Ajouter une note"/>
-							<a href="#" title="Ajouter une note" class="addNote animate">+</a>
-						</p>
-						<ul class="noteList">
-                            {% for event in events_day %}
-                            <li>{{ event.title }} : {{ event.num_facture }}</li>
-                        {% endfor %}
-						</ul>
-					</div>
+                <div class="popup popup-set-hour" id="popup-hour">
+                    <div class="popup-content">
+                        <span class="close-popup" onclick="closePopup()">&times;</span>
+                        <div class="calendar-agenda">
+                            <div class="timeline">
+                              <div class="spacer"></div>
+                              <div class="time-marker">8 AM</div>
+                              <div class="time-marker">9 AM</div>
+                              <div class="time-marker">10 AM</div>
+                              <div class="time-marker">11 AM</div>
+                              <div class="time-marker">12 PM</div>
+                              <div class="time-marker">1 PM</div>
+                              <div class="time-marker">2 PM</div>
+                              <div class="time-marker">3 PM</div>
+                              <div class="time-marker">4 PM</div>
+                              <div class="time-marker">5 PM</div>
+                              <div class="time-marker">6 PM</div>
+                            </div>
+                            <div class="days">
+                              <div class="day mon">
+                                <div class="dates">
+                                    <h2>Agenda</h2>
+                                </div>
+                                <div class="events">
+                                    <div class="event start-10 end-12 securities">
+                                        <p class="title">Corporate Finance</p>
+                                        <p class="time">10 AM - 12 PM</p>
+                                    </div>
+                                    <div class="event start-2 end-3 securities">
+                                        <p class="title">Securities Regulation</p>
+                                        <p class="time">2 PM - 5 PM</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>                              
+                <div class="notes">
+                    <p>
+                        <input type="text" value="" placeholder="Ajouter une note" id="note-input"/>
+                        <a href="#" title="Ajouter une note" class="addNote animate" onclick="openPopup()">+</a>
+                    </p>
+                    <ul class="noteList">
+                        {% for event in events_day %}
+                        <li>{{ event.title }} : {{ event.num_facture }}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
                 <div class="clearfix"></div>                
             </div>
         </div>

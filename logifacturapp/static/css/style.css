@@ -1,6 +1,9 @@
 :root {
     --primary-color: rgb(86, 110, 169);
     --secondary-color: rgb(255,208,184) ;
+    --numDays: 1;
+    --numHours: 11;
+    --timeHeight: 64px;
 }
 
 /* GENERAL */
@@ -374,12 +377,14 @@ h2.log-title {
     border: 1px solid  var(--primary-color);
 }
 
+
+/*CALENDRIER*/
 .calendar{
     border: 1px solid rgb(65, 77, 109);
 	border-radius: 4px;
 	overflow: hidden;
 	width: 1800px;
-	height: 700px;
+	height: 720px;
 	margin: 20px auto;
 	background-color: #ffffff;
 	color: #333333;
@@ -402,7 +407,7 @@ h2.log-title {
 }
 
 .calendar .col .content{
-	padding: 40px;
+	padding: 30px;
 }
 
 .calendar ul{
@@ -462,7 +467,6 @@ h2.log-title {
 	color: #ffffff;
 	margin: 40px 0;
     text-align: center;
-
 }
 
 .calendar .rightCol{
@@ -516,14 +520,15 @@ h2.log-title {
     width: 150px;
     height: 110px;
     text-align: center;
-    margin: auto auto;
     font-size: 16px;
     font-weight: bold;
     border-radius: 4px;
     padding: 10px;
     border: 1px solid black;
+    box-shadow: -4px 12px 22px -8px rgba(31, 38, 135, 0.2);
+		backdrop-filter: blur(16px);
+		-webkit-backdrop-filter: blur(16px);
 }
-
 
 .calendar .days li a:hover{
 	background-color: var(--secondary-color);
@@ -547,6 +552,144 @@ h2.log-title {
 :-moz-placeholder {color: #ffffff; }
 ::-moz-placeholder {color: #ffffff; }
 :-ms-input-placeholder {color: #ffffff; }
+
+.popup-set-hour {
+    display: none;
+    position: fixed;
+    width: 40%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    color: var(--primary-color);
+}
+
+.popup-set-hour .popup-content {
+    text-align: center;
+}
+
+.popup-set-hour .close-popup {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.popup-set-hour  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.popup-set-hour  .popup-hour{
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+}
+
+.popup-hour > th {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.addNote {
+    cursor: pointer;
+}
+
+.calendar-agenda {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: auto 1fr;
+    margin: 1.8rem;
+}
+
+.timeline {
+    display: grid;
+    grid-template-rows: repeat(var(--numHours), var(--timeHeight));
+}
+
+.events {
+    display: grid;
+    grid-template-rows: repeat(var(--numHours), var(--timeHeight));
+    border-radius: 5px;
+    background: var(--secondary-color);
+    border: 1px solid  var(--primary-color);
+    margin-top: 34px;
+}
+
+.start-9 {
+    grid-row-start: 2;
+}
+
+.start-10 {
+    grid-row-start: 3;
+}
+
+.start-11 {
+    grid-row-start: 4;
+}
+
+.start-12 {
+    grid-row-start: 5;
+}
+
+.start-1 {
+    grid-row-start: 6;
+}
+
+.start-2 {
+    grid-row-start: 7;
+}
+
+.end-12 {
+    grid-row-end: 5;
+}
+
+.end-1 {
+    grid-row-end: 7;
+}
+
+.end-3 {
+    grid-row-end: 9;
+}
+
+.end-4 {
+    grid-row-end: 10;
+}
+
+.end-5 {
+    grid-row-end: 11;
+}
+.title {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.time-marker {
+    border: 1px solid var(--primary-color);
+    width: 60px;
+}
+
+.event {
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    padding: 0.5rem;
+    margin: 0 0.5rem;
+    background: white;
+}
+
+.space,
+.date {
+    height: 60px
+}  
+
+.securities {
+    background: rgba(255, 255, 255, 0.4);
+}
 
 /* FOOTER */
 footer {

@@ -79,6 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });        
     });
+    
 
     //GRAPHIQUES
     const categoriesTotals = document.getElementById('categories').getAttribute('data-categories-totals');
@@ -339,3 +340,34 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }; 
 });
+function openPopup() {
+    document.getElementById('popup-hour').style.display = 'block';
+    generateAgenda();
+}
+
+function closePopup() {
+    document.getElementById('popup-hour').style.display = 'none';
+}
+
+function generateAgenda() {
+    var agendaBody = document.getElementById('agenda-body');
+    agendaBody.innerHTML = '';
+
+    for (var hour = 0; hour < 12; hour++) {
+        var row = document.createElement('tr');
+
+        // Colonne AM
+        var amCell = document.createElement('td');
+        amCell.classList.add('popup-hour');
+        amCell.textContent = hour + ':00';
+        row.appendChild(amCell);
+
+        // Colonne PM
+        var pmCell = document.createElement('td');
+        pmCell.classList.add('popup-hour');
+        pmCell.textContent = (hour + 12) + ':00';
+        row.appendChild(pmCell);
+
+        agendaBody.appendChild(row);
+    }
+}
