@@ -548,10 +548,10 @@ h2.log-title {
 }
 
 /* placeholder color */
-::-webkit-input-placeholder {color: #ffffff; }
-:-moz-placeholder {color: #ffffff; }
-::-moz-placeholder {color: #ffffff; }
-:-ms-input-placeholder {color: #ffffff; }
+::-webkit-input-placeholder {color: var(--primary-color); }
+:-moz-placeholder {color:var(--primary-color); }
+::-moz-placeholder {color: var(--primary-color); }
+:-ms-input-placeholder {color: var(--primary-color); }
 
 .popup-set-hour {
     display: none;
@@ -664,6 +664,11 @@ h2.log-title {
 .end-5 {
     grid-row-end: 11;
 }
+
+.end-6 {
+    grid-row-end: 12;
+}
+
 .title {
     font-weight: 600;
     margin-bottom: 0.25rem;
@@ -689,6 +694,51 @@ h2.log-title {
 
 .securities {
     background: rgba(255, 255, 255, 0.4);
+}
+
+.add-button-event {
+    color: var(--primary-color);
+}
+
+/* POPUP AJOUT EVENT */
+.modal {
+    display: none;
+    position: fixed;
+    top: 40%;
+    left: 52%;
+    transform: translate(-50%, -50%);
+    border: 1px solid var(--primary-color);
+    padding: 20px;
+    background: white;
+    width: 26%;
+    height: 46%;
+    color: var(--primary-color);
+}
+
+.close {
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.add-event-form {
+    padding: 12px;
+}
+.add-event-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px; 
+    margin: auto; 
+}
+
+.add-event-form label {
+    margin-bottom: 5px;
+}
+
+.add-event-form input,
+.add-event-form button {
+    margin-bottom: 10px;
 }
 
 /* FOOTER */

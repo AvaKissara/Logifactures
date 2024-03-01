@@ -72,6 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     var dayName = dayNames[dateObj.getDay()];
                     var formattedDate = dayName + ' ' + dateObj.getDate() + ' ' + monthNames[dateObj.getMonth()];
                     $('.date').text(formattedDate);
+        
                 },
                 error: function(error) {
                     console.log(error);
@@ -184,7 +185,6 @@ document.addEventListener('DOMContentLoaded', function() {
             uniqueFournisseurs.add(entry.r_social_fourn);
         }
     }
-
     for (const fournisseur of uniqueFournisseurs) {
         const option = document.createElement('option');
         option.value = fournisseur;
@@ -339,35 +339,68 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }; 
+    
 });
+
 function openPopup() {
     document.getElementById('popup-hour').style.display = 'block';
-    generateAgenda();
+    var selectedMonth = $('.months-list a.selected').data('value');
+    var selectedDay = $('.days-list a.selected').data('value');
+
+    $.ajax({
+        url: 'jour/' + selectedMonth + '/' + selectedDay + '/',
+        method: 'GET',
+        success: function(data) {
+            var $data = $(data);
+            var $dataPerHourContent = $data.find('.events').html();
+            var $hourList = $('.events');
+            $hourList.empty();
+
+            var $tempDiv = $('<div>').html($dataPerHourContent);   
+            $tempDiv.find('.event').each(function() {
+                var startHour = parseInt($(this).attr('class').match(/start-(\d+)/)[1]);
+                var endHour = parseInt($(this).attr('class').match(/end-(\d+)/)[1]);
+    
+                if (startHour > 12) {
+                    $(this).removeClass('start-' + startHour).addClass('start-' + (startHour - 12));
+                }    
+                if (endHour > 12) {
+                    $(this).removeClass('end-' + endHour).addClass('end-' + (endHour - 12));
+                }
+            });
+            $hourList.append($tempDiv.html());
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });   
 }
 
 function closePopup() {
     document.getElementById('popup-hour').style.display = 'none';
 }
 
-function generateAgenda() {
-    var agendaBody = document.getElementById('agenda-body');
-    agendaBody.innerHTML = '';
-
-    for (var hour = 0; hour < 12; hour++) {
-        var row = document.createElement('tr');
-
-        // Colonne AM
-        var amCell = document.createElement('td');
-        amCell.classList.add('popup-hour');
-        amCell.textContent = hour + ':00';
-        row.appendChild(amCell);
-
-        // Colonne PM
-        var pmCell = document.createElement('td');
-        pmCell.classList.add('popup-hour');
-        pmCell.textContent = (hour + 12) + ':00';
-        row.appendChild(pmCell);
-
-        agendaBody.appendChild(row);
-    }
+function openModal() {
+    document.getElementById('myModalEvent').style.display = 'block';
 }
+
+function closeModal() {
+    document.getElementById('myModalEvent').style.display = 'none';
+}
+
+
+function eventFormSubmit() {
+    document.getElementById('eventForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        var eventName = document.getElementById('eventName').value;
+        var eventDescription = document.getElementById('eventDesc').value;
+        var eventStartTime = document.getElementById('eventDateDeb').value;
+        var eventEndTime = document.getElementById('eventDateFin').value;
+
+        
+    });
+}
+
+
+

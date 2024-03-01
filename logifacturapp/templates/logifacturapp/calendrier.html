@@ -13,45 +13,65 @@
                 </ul>
                 <div class="clearfix"></div>     
                 <h1 class="date">{{ current_date }}</h1>
+                <!-- Fenêtre modale -->
                 <div class="popup popup-set-hour" id="popup-hour">
                     <div class="popup-content">
                         <span class="close-popup" onclick="closePopup()">&times;</span>
                         <div class="calendar-agenda">
                             <div class="timeline">
                               <div class="spacer"></div>
-                              <div class="time-marker">8 AM</div>
-                              <div class="time-marker">9 AM</div>
-                              <div class="time-marker">10 AM</div>
-                              <div class="time-marker">11 AM</div>
-                              <div class="time-marker">12 PM</div>
-                              <div class="time-marker">1 PM</div>
-                              <div class="time-marker">2 PM</div>
-                              <div class="time-marker">3 PM</div>
-                              <div class="time-marker">4 PM</div>
-                              <div class="time-marker">5 PM</div>
-                              <div class="time-marker">6 PM</div>
+                              <div class="time-marker">8 : 00</div>
+                              <div class="time-marker">9 : 00</div>
+                              <div class="time-marker">10 : 00</div>
+                              <div class="time-marker">11 : 00</div>
+                              <div class="time-marker">12 : 00</div>
+                              <div class="time-marker">13 : 00</div>
+                              <div class="time-marker">14 : 00</div>
+                              <div class="time-marker">15 : 00</div>
+                              <div class="time-marker">16 : 00</div>
+                              <div class="time-marker">17 : 00</div>
+                              <div class="time-marker">18 : 00</div>
                             </div>
                             <div class="days">
                               <div class="day mon">
                                 <div class="dates">
-                                    <h2>Agenda</h2>
+                                    <h2>Ajouter un événement <a href="#" id="openModal" onclick="openModal()" class="add-button-event">+</a></h2>                                   
                                 </div>
                                 <div class="events">
-                                    <div class="event start-10 end-12 securities">
-                                        <p class="title">Corporate Finance</p>
-                                        <p class="time">10 AM - 12 PM</p>
-                                    </div>
-                                    <div class="event start-2 end-3 securities">
-                                        <p class="title">Securities Regulation</p>
-                                        <p class="time">2 PM - 5 PM</p>
-                                  </div>
+                                    {% for event in events_day %}
+                                        <div class="event start-{{ event.start_datetime.hour }} end-{{ event.end_datetime.hour }}">
+                                            <p class="title">{{ event.title }}</p>
+                                            <p class="time">{{ event.start_datetime|time:'H' }}:00 - {{ event.end_datetime|time:'H' }}:00</p>
+                                        </div>
+                                    {% endfor %}
                                 </div>
                               </div>
                             </div>
                         </div>
                         
                     </div>
-                </div>                              
+                </div>    
+
+                <!-- Fenêtre modale -->
+                <div class="modal" id="myModalEvent">
+                <div class="modal-content">
+                    <span class="close" id="closeModal" onclick="closeModal()">&times;</span>
+                    <form id="eventForm" class="add-event-form">
+                    <label for="eventName">Nom de l'événement:</label>
+                    <input type="text" id="eventName" name="eventName" required>
+                    <label for="eventName">Description de l'événement:</label>
+                    <textarea type="text" id="eventDesc" name="eventDesc"></textarea>
+
+                    <label for="eventDate">Heure de début:</label>
+                    <input type="time" id="eventDateDeb" name="eventDateDeb" required>
+                    <label for="eventDate">Heure de fin:</label>
+                    <input type="time" id="eventDateFin" name="eventDateFin" required>
+
+                    <button type="submit" class="btn btn-primary" onclick="eventFormSubmit();">Ajouter</button>
+                    </form>
+                </div>
+                </div>
+                          
                 <div class="notes">
                     <p>
                         <input type="text" value="" placeholder="Ajouter une note" id="note-input"/>
