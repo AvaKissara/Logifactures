@@ -41,44 +41,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         });
-        $('.days-list').on('click', 'a', function(e){
-            e.preventDefault();          
+        $('.days-list').on('click', 'a', function(e) {
+            e.preventDefault();
             var selectedDay = $(this).data('value');
             var selectedMonth = $('.months-list a.selected').data('value');
             var caseSel = $(this);
             $('.days-list a').removeClass('selected');
-
-            $.ajax({
-                url: 'jour/' + selectedMonth + '/' + selectedDay + '/',
-                method: 'GET',
-                success: function(data) {
-                    var $data = $(data);
-                    var dayEventContent = $data.find('.noteList').html();
-                    caseSel.addClass('selected');
-                    var $noteList = $('.noteList');
-                    $noteList.empty();
-                    $noteList.append(dayEventContent);
-                    
-                    var dateClic = caseSel.attr('href');
-                    var dateDash = dateClic.substring(dateClic.indexOf('JOUR/') + 6);                  
-                    var dateParts = dateDash.split('/');
-                    var monthNumber = parseInt(dateParts[0], 10);
-                    var dayNumber = parseInt(dateParts[1], 10);
-
-                    var dateObj = new Date(new Date().getFullYear(), monthNumber - 1, dayNumber);
-                    var dayNames = ['Dimanche','Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
-                    var monthNames = ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Decembre'];
-
-                    var dayName = dayNames[dateObj.getDay()];
-                    var formattedDate = dayName + ' ' + dateObj.getDate() + ' ' + monthNames[dateObj.getMonth()];
-                    $('.date').text(formattedDate);
         
-                },
-                error: function(error) {
-                    console.log(error);
-                }
-            });
-        });        
+            loadDayEvents(selectedDay, selectedMonth);
+        
+            caseSel.addClass('selected');
+        });
     });
     
 
@@ -344,6 +317,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function openPopup() {
     document.getElementById('popup-hour').style.display = 'block';
+    refreshPopup();
+    
+}
+
+function closePopup() {
+    document.getElementById('popup-hour').style.display = 'none';   
+}
+
+function refreshPopup() {
     var selectedMonth = $('.months-list a.selected').data('value');
     var selectedDay = $('.days-list a.selected').data('value');
 
@@ -376,10 +358,6 @@ function openPopup() {
     });   
 }
 
-function closePopup() {
-    document.getElementById('popup-hour').style.display = 'none';
-}
-
 function openModal() {
     document.getElementById('myModalEvent').style.display = 'block';
 }
@@ -397,10 +375,62 @@ function eventFormSubmit() {
         var eventDescription = document.getElementById('eventDesc').value;
         var eventStartTime = document.getElementById('eventDateDeb').value;
         var eventEndTime = document.getElementById('eventDateFin').value;
+        var selectedMonth = $('.months-list a.selected').data('value');
+        var selectedDay = $('.days-list a.selected').data('value');
+        var currentYear = new Date().getFullYear();
 
-        
+        var startDatetime = currentYear + '-' +selectedMonth + '-' + selectedDay+' ' + eventStartTime;
+        var endDatetime = currentYear + '-' +selectedMonth + '-' + selectedDay+' ' + eventEndTime;
+
+    
+        var eventData = {
+            'title': eventName,
+            'description': eventDescription,
+            'start_datetime': startDatetime,
+            'end_datetime': endDatetime
+        };
+
+        $.ajax({
+            url: 'cree_evenement', 
+            method: 'POST',
+            data: eventData,
+            success: function(response) {
+                closeModal();
+                refreshPopup();
+                loadDayEvents(selectedDay, selectedMonth);
+                console.log(response);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });        
     });
 }
 
+function loadDayEvents(selectedDay, selectedMonth) {
+    
+    $.ajax({
+        url: 'jour/' + selectedMonth + '/' + selectedDay + '/',
+        method: 'GET',
+        success: function(data) {
+            var $data = $(data);
+            var dayEventContent = $data.find('.noteList').html();
+            var $noteList = $('.noteList');
+            $noteList.empty();
+            $noteList.append(dayEventContent);
+
+            var dateObj = new Date(new Date().getFullYear(), selectedMonth - 1, selectedDay);
+            var dayNames = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+            var monthNames = ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Decembre'];
+
+            var dayName = dayNames[dateObj.getDay()];
+            var formattedDate = dayName + ' ' + dateObj.getDate() + ' ' + monthNames[dateObj.getMonth()];
+            $('.date').text(formattedDate);
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+}
 
 

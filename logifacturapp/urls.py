@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import IndexView, ListeFactureView, ListeFournisseurView, DetailView, ImportFactureView, DeleteFactureView, ListeClientView, AgendaEventView
+from .views import IndexView, ListeFactureView, ListeFournisseurView, DetailView, ImportFactureView, DeleteFactureView, ListeClientView, AgendaEventView, CreeAgendaEventView
 
 app_name = "logifacturapp"
 
@@ -15,4 +15,5 @@ urlpatterns = [
     path('calendrier/', AgendaEventView.as_view(), name='calendrier'),
     path('calendrier/mois/<int:month_number>/', AgendaEventView.as_view(), name='calendrier_mois'),
     path('calendrier/jour/<int:month_number>/<int:day_number>/', AgendaEventView.as_view(), name='calendrier_jour'),
+    path('calendrier/cree_evenement', CreeAgendaEventView.as_view(), name='cree_agenda_event'),
 ]

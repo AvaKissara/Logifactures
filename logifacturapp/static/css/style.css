@@ -621,6 +621,10 @@ h2.log-title {
     margin-top: 34px;
 }
 
+.start-8 {
+    grid-row-start: 1;
+}
+
 .start-9 {
     grid-row-start: 2;
 }
@@ -645,12 +649,28 @@ h2.log-title {
     grid-row-start: 7;
 }
 
+.start-3 {
+    grid-row-start: 8;
+}
+
+.end-10 {
+    grid-row-end: 3;
+}
+
+.end-11 {
+    grid-row-end: 4;
+}
+
 .end-12 {
     grid-row-end: 5;
 }
 
 .end-1 {
     grid-row-end: 7;
+}
+
+.end-2 {
+    grid-row-end: 8;
 }
 
 .end-3 {

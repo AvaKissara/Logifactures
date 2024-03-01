@@ -9,3 +9,4 @@ from .inscription_view import InscriptionView
 from .connexion_view import ConnexionView
 from django.contrib.auth.views import LogoutView
 from .agenda_event_view import AgendaEventView
+from .cree_agenda_event_view import CreeAgendaEventView
