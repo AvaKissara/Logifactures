@@ -317,12 +317,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function openPopup() {
     document.getElementById('popup-hour').style.display = 'block';
+    document.getElementById('overlay').style.display = 'block';
     refreshPopup();
     
 }
 
 function closePopup() {
     document.getElementById('popup-hour').style.display = 'none';   
+    document.getElementById('overlay').style.display = 'none';
+    closeModal();
 }
 
 function refreshPopup() {
@@ -360,6 +363,7 @@ function refreshPopup() {
 
 function openModal() {
     document.getElementById('myModalEvent').style.display = 'block';
+    selectionHourMin();
 }
 
 function closeModal() {
@@ -373,8 +377,12 @@ function eventFormSubmit() {
 
         var eventName = document.getElementById('eventName').value;
         var eventDescription = document.getElementById('eventDesc').value;
-        var eventStartTime = document.getElementById('eventDateDeb').value;
-        var eventEndTime = document.getElementById('eventDateFin').value;
+        var hourStartTime = document.getElementById('eventHourDeb').value;
+        var hourEndTime = document.getElementById('eventHourEnd').value;
+        var minStartTime = document.getElementById('eventMinDeb').value;
+        var minEndTime = document.getElementById('eventMinEnd').value;
+        var eventStartTime = hourStartTime + ":" + minStartTime;
+        var eventEndTime = hourEndTime+ ":" + minEndTime;
         var selectedMonth = $('.months-list a.selected').data('value');
         var selectedDay = $('.days-list a.selected').data('value');
         var currentYear = new Date().getFullYear();
@@ -432,4 +440,23 @@ function loadDayEvents(selectedDay, selectedMonth) {
     });
 }
 
+function selectionHourMin() {
+    var hours = Array.from({ length: 11 }, (_, i) => i + 8);
+    var minutes = Array.from({ length: 60 }, (_, i) => i);
 
+    ['eventHourDeb', 'eventHourEnd'].forEach(function(id) {
+      var dropdown = document.getElementById(id);
+      hours.forEach(function(hour) {
+        var option = new Option(hour < 10 ? '0' + hour : hour, hour);
+        dropdown.add(option);
+      });
+    });
+
+    ['eventMinDeb', 'eventMinEnd'].forEach(function(id) {
+      var dropdown = document.getElementById(id);
+      minutes.forEach(function(minute) {
+        var option = new Option(minute < 10 ? '0' + minute : minute, minute);
+        dropdown.add(option);
+      });
+    });
+  }

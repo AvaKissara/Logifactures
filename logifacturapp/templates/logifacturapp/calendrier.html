@@ -13,7 +13,8 @@
                 </ul>
                 <div class="clearfix"></div>     
                 <h1 class="date">{{ current_date }}</h1>
-                <!-- Fenêtre modale -->
+                <!-- Fenêtre modale agenda -->
+                <div id="overlay"></div>
                 <div class="popup popup-set-hour" id="popup-hour">
                     <div class="popup-content">
                         <span class="close-popup" onclick="closePopup()">&times;</span>
@@ -35,41 +36,48 @@
                             <div class="days">
                               <div class="day mon">
                                 <div class="dates">
-                                    <h2>Ajouter un événement <a href="#" id="openModal" onclick="openModal()" class="add-button-event">+</a></h2>                                   
+                                    <h2>Ajouter un événement <a href="#" id="openModal" onclick="openModal();" class="add-button-event">+</a></h2>                                   
                                 </div>
                                 <div class="events">
                                     {% for event in events_day %}
                                         <div class="event start-{{ event.start_datetime.hour }} end-{{ event.end_datetime.hour }}">
-                                            <p class="title">{{ event.title }}</p>
+                                            <p class="title">{{ event.title }}
+                                            {% if event.num_facture %}
+                                                : {{ event.num_facture }}
+                                            {% endif %}
+                                            </p>
                                             <p class="time">{{ event.start_datetime|time:'H' }}:00 - {{ event.end_datetime|time:'H' }}:00</p>
                                         </div>
                                     {% endfor %}
                                 </div>
                               </div>
                             </div>
-                        </div>
-                        
+                        </div>                       
                     </div>
                 </div>    
 
-                <!-- Fenêtre modale -->
+                <!-- Fenêtre modale ajout event-->
                 <div class="modal" id="myModalEvent">
-                <div class="modal-content">
-                    <span class="close" id="closeModal" onclick="closeModal()">&times;</span>
-                    <form id="eventForm" class="add-event-form">
-                    <label for="eventName">Nom de l'événement:</label>
-                    <input type="text" id="eventName" name="event-name" required>
-                    <label for="eventName">Description de l'événement:</label>
-                    <textarea type="text" id="eventDesc" name="event-desc"></textarea>
-
-                    <label for="eventDate">Heure de début:</label>
-                    <input type="time" id="eventDateDeb" name="event-date-deb" required>
-                    <label for="eventDate">Heure de fin:</label>
-                    <input type="time" id="eventDateFin" name="event-date-fin" required>
-
-                    <button type="submit" class="btn btn-primary" onclick="eventFormSubmit();">Ajouter</button>
-                    </form>
-                </div>
+                    <div class="modal-content">
+                        <span class="close" id="closeModal" onclick="closeModal();">&times;</span>
+                        <form id="eventForm" class="add-event-form">
+                        <label for="eventName">Nom de l'événement:</label>
+                        <input type="text" id="eventName" name="event-name" required>
+                        <label for="eventName">Description de l'événement:</label>
+                        <textarea id="eventDesc" name="event-desc"></textarea>
+                        <label for="eventDateDeb">Heure de début :</label>
+                        <div class="time-selection">
+                            <select id="eventHourDeb" name="event-hour-deb" required></select>
+                            <select id="eventMinDeb" name="event-min-deb" required></select>
+                        </div>
+                        <label for="eventDateFin">Heure de fin :</label>
+                        <div class="time-selection">                       
+                            <select id="eventHourEnd" name="event-hour-end" required></select>
+                            <select id="eventMinEnd" name="event-min-end" required></select>
+                        </div>
+                        <button type="submit" class="btn btn-primary" onclick="eventFormSubmit();">Ajouter</button>
+                        </form>
+                    </div>
                 </div>
                           
                 <div class="notes">
@@ -80,9 +88,11 @@
                     <ul class="noteList">
                     {% for event in events_day %}
                         <li>
-                            {{ event.title }}
+                            {{ event.title }} :
                             {% if event.num_facture %}
-                                : {{ event.num_facture }}
+                                 {{ event.num_facture }}
+                            {% else %}
+                                {{ event.start_datetime|time:"H:i" }} - {{ event.end_datetime|time:"H:i" }}
                             {% endif %}
                         </li>
                     {% endfor %}
@@ -102,6 +112,7 @@
                     {% endfor %}
                 </ul>
                 <div class="clearfix"></div>
+                
                 <!-- Logique pour les jours du mois -->
                 <ul class="days days-list">
                     {% for day in days_of_month %}

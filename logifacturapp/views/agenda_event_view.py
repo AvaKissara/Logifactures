@@ -28,7 +28,7 @@ class AgendaEventView(View):
     
         events = AgendaEvent.objects.filter(end_datetime__gte=first_day_of_month, start_datetime__lte=last_day_of_month)
         event_dates = [event.end_datetime.date() for event in events]
-        events_day =  AgendaEvent.objects.filter(end_datetime__year=today.year, end_datetime__month=month_number, end_datetime__day=day_number)
+        events_day =  AgendaEvent.objects.filter(end_datetime__year=today.year, end_datetime__month=month_number, end_datetime__day=day_number).order_by('start_datetime')
 
         months = [
             {'name': 'Jan', 'value': 1, 'selected': first_day_of_month.month == 1},
