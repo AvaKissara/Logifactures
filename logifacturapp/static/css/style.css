@@ -653,6 +653,10 @@ h2.log-title {
     grid-row-start: 8;
 }
 
+.start-4 {
+    grid-row-start: 9;
+}
+
 .end-10 {
     grid-row-end: 3;
 }
@@ -691,7 +695,7 @@ h2.log-title {
 
 .title {
     font-weight: 600;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.1rem;
 }
 
 .time-marker {
@@ -702,7 +706,7 @@ h2.log-title {
 .event {
     border: 1px solid var(--primary-color);
     border-radius: 5px;
-    padding: 0.5rem;
+    padding: 0.4rem 0.5rem 0.5rem;
     margin: 0 0.5rem;
     background: white;
 }

@@ -7,7 +7,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from ..forms import FactureImportForm
-from ..models import Facture, Fournisseur, Client, Devise, Ville, Civilite
+from ..models import Facture, Fournisseur, Client, Devise, Ville, Civilite, AgendaEvent 
+from datetime import datetime
 from django.contrib.auth.models import User
 
 @method_decorator(login_required, name='dispatch')
@@ -85,6 +86,8 @@ class ImportFactureView(View):
                         num_facture = df.iloc[1]['vfacture'].strip()
                     if df['Facture'][2] == 'Date de facture':
                         date_facture = df.iloc[2]['vfacture']
+                    if df['Facture'][4] == 'Échéance de paiement':
+                        echeance_p_facture = df.iloc[4]['vfacture']
                     if df['Facture'][30] == 'TOTAL HT :':
                         ht_facture = df.iloc[30]['vfacture']
                     if df['Facture'][31] == 'TAUX DE TVA :':
@@ -139,6 +142,17 @@ class ImportFactureView(View):
                 total_ttc_facture=ttc_facture,
                 statut_facture=statut,
                 )      
+                
+                debut_echeance = echeance_p_facture.strftime("%Y-%m-%d") + " 08:00"
+                fin_echeance = echeance_p_facture.strftime("%Y-%m-%d") + " 09:00"
+                agenda_event = AgendaEvent.objects.create(
+                title="Echéance",
+                num_facture=str(num_facture),
+                description=f"La facture {num_facture} doit être acquittée ce jour.",
+                start_datetime = datetime.strptime(debut_echeance, "%Y-%m-%d %H:%M"),
+                end_datetime=datetime.strptime(fin_echeance, "%Y-%m-%d %H:%M"),
+                user_id=user_id
+                )
                 messages.success(request, 'Import de la facture réussie.')
         except Exception as e:
             error_message = f"Erreur lors de l'import: {str(e)}"

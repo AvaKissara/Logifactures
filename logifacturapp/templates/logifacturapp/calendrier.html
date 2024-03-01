@@ -78,8 +78,13 @@
                         <a href="#" title="Ajouter une note" class="addNote animate" onclick="openPopup()">+</a>
                     </p>
                     <ul class="noteList">
-                        {% for event in events_day %}
-                        <li>{{ event.title }} : {{ event.num_facture }}</li>
+                    {% for event in events_day %}
+                        <li>
+                            {{ event.title }}
+                            {% if event.num_facture %}
+                                : {{ event.num_facture }}
+                            {% endif %}
+                        </li>
                     {% endfor %}
                     </ul>
                 </div>

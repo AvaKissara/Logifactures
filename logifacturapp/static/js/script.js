@@ -398,7 +398,6 @@ function eventFormSubmit() {
                 closeModal();
                 refreshPopup();
                 loadDayEvents(selectedDay, selectedMonth);
-                console.log(response);
             },
             error: function(error) {
                 console.log(error);
