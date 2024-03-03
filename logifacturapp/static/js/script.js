@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
             $(this).addClass("active");
             $(tabId).addClass("active");
         });
-
+        
         $('.months-list a').on('click', function(e) {
             e.preventDefault();
             var selectedMonth = $(this).data('value');
@@ -156,8 +156,7 @@ function eventFormSubmit() {
     });
 }
 
-function loadDayEvents(selectedDay, selectedMonth) {
-    
+function loadDayEvents(selectedDay, selectedMonth) { 
     $.ajax({
         url: 'jour/' + selectedMonth + '/' + selectedDay + '/',
         method: 'GET',
@@ -187,28 +186,52 @@ function selectionHourMin() {
     var minutes = Array.from({ length: 60 }, (_, i) => i);
 
     ['eventHourDeb', 'eventHourEnd'].forEach(function(id) {
-      var dropdown = document.getElementById(id);
-      hours.forEach(function(hour) {
+        var dropdown = document.getElementById(id);
+        hours.forEach(function(hour) {
         var option = new Option(hour < 10 ? '0' + hour : hour, hour);
         dropdown.add(option);
-      });
+        });
     });
 
     ['eventMinDeb', 'eventMinEnd'].forEach(function(id) {
-      var dropdown = document.getElementById(id);
-      minutes.forEach(function(minute) {
+        var dropdown = document.getElementById(id);
+        minutes.forEach(function(minute) {
         var option = new Option(minute < 10 ? '0' + minute : minute, minute);
         dropdown.add(option);
-      });
+        });
     });
-  }
+}
 
-  function calendarTodayLoad(){
+function calendarTodayLoad() {
     var currentDate = new Date();
-
     var dayOfMonth = currentDate.getDate();
-    
-    // Notez que getMonth() retourne les mois de 0 à 11, alors ajoutez 1 pour obtenir le mois réel
-    var month = currentDate.getMonth() + 1;
+    var month = currentDate.getMonth() + 1; 
+    $('.days-list a').removeClass('selected');  
+    $('.days-list a[data-value="' + dayOfMonth + '"]').addClass('selected');
+
     loadDayEvents(dayOfMonth, month)
-  }
+}
+
+function deleteEvent(button) {
+        var eventId = $(button).data('event-id');
+        var selectedMonth = $('.months-list a.selected').data('value');
+        var selectedDay = $('.days-list a.selected').data('value');
+        console.log(eventId);
+        $.ajax({
+            url: 'supprimer_evenement/',
+            method: 'POST',
+            data: { event_id: eventId },
+            success: function(response) {
+                if (response.success) {
+                    refreshPopup();
+                    loadDayEvents(selectedDay, selectedMonth);
+                    console.log(response.message);
+                } else {
+                    console.error(response.message);
+                }
+            },
+            error: function(error) {
+                console.error(error);
+            }
+        });
+}

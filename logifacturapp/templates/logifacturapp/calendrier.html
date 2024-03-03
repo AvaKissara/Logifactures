@@ -41,12 +41,14 @@
                                 <div class="events">
                                     {% for event in events_day %}
                                         <div class="event start-{{ event.start_datetime.hour }} end-{{ event.end_datetime.hour }}">
+                                            <button class="btn btn-td btn-danger" data-event-id="{{ event.id }}" onclick="deleteEvent(this);">X</button>  
                                             <p class="title">{{ event.title }}
                                             {% if event.num_facture %}
                                                 : {{ event.num_facture }}
-                                            {% endif %}
+                                            {% endif %} 
                                             </p>
-                                            <p class="time">{{ event.start_datetime|time:'H' }}:00 - {{ event.end_datetime|time:'H' }}:00</p>
+                                            <p class="time">{{ event.start_datetime|time:'H' }}:00 - {{ event.end_datetime|time:'H' }}:00</p> 
+                                                                                 
                                         </div>
                                     {% endfor %}
                                 </div>

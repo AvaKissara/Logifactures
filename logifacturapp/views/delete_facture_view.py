@@ -6,7 +6,6 @@ from ..models import Facture
 
 class DeleteFactureView(DeleteView):
     model = Facture
-    template_name = 'delete_facture.html'
     success_url = reverse_lazy('logifacturapp:liste_facture')
 
     def get_object(self, queryset=None):
