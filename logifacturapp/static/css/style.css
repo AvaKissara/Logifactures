@@ -55,6 +55,10 @@ a.btn.btn.btn-primary:focus {
     color: white;
 }
 
+svg {
+    margin-bottom: 2px;
+}
+
 /* SELECT */
 select {
     width: 100%;
@@ -106,7 +110,7 @@ input::file-selector-button {
 /* NAVBAR */
 a.navbar-brand {
     font-size: 3em;
-    margin-top: -10px;
+    margin-top: -8px;
 }
 
 a.navbar-brand:hover {
@@ -176,7 +180,7 @@ table.table-hover thead th{
 
 .btn-td {
     padding: 0rem 0.6rem;
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: 700;
 }
 
@@ -390,8 +394,8 @@ h2.log-title {
 	border-radius: 4px;
 	overflow: hidden;
 	width: 1800px;
-	height: 720px;
-	margin: 20px auto;
+	height: 790px;
+    margin: -14px auto;
 	background-color: #ffffff;
 	color: #333333;
 }
@@ -442,14 +446,15 @@ h2.log-title {
 }
 
 .calendar .notes p{
-	border-bottom: solid 1px rgba(255,255,255,0.4);
+	border-bottom: solid 1px rgba(255,208,184,0.4);
 }
 
 .calendar .notes input{
 	background-color: var(--secondary-color);
 	color: #ffffff;
 	border: none;
-	width: 200px;
+	width: 270px;
+    font-weight: bold;
 }
 
 .calendar .addNote,
@@ -471,7 +476,7 @@ h2.log-title {
 
 .calendar .leftCol h1{
 	color: #ffffff;
-	margin: 40px 0;
+    margin: 50px 0 20px 0;
     text-align: center;
 }
 
@@ -514,7 +519,7 @@ h2.log-title {
 .calendar .weekday li a{
     width: 150px;
 	text-align: center;
-	margin-bottom: 20px;
+	margin-bottom: 26px;
 	font-size: 16px;
 }
 
@@ -524,14 +529,14 @@ h2.log-title {
 
 .calendar .days li a{
     width: 150px;
-    height: 110px;
+    height: 102px;
     text-align: center;
     font-size: 16px;
     font-weight: bold;
     border-radius: 2px;
     padding: 10px;
+    border: 1px solid var(--primary-color);
     box-shadow: rgba(9, 30, 66, 0.326) 1px 1px 1px, rgba(9, 30, 66, 0.353) 0px 0px 2px 1px;
-    margin-bottom: 2px;
 }
 
 .calendar .days li a:hover{
@@ -607,7 +612,7 @@ h2.log-title {
 
 .calendar-agenda {
     display: grid;
-    gap: 10px;
+    gap: 6px;
     grid-template-columns: auto 1fr;
     margin: 1.8rem;
 }
@@ -622,8 +627,8 @@ h2.log-title {
     grid-template-rows: repeat(var(--numHours), var(--timeHeight));
     border-radius: 4px;
     background: var(--secondary-color);
-    margin-top: 34px;
-    padding: 2px 0;
+    margin-top: 30px;
+    padding: 1px 0;
     box-shadow:rgba(6, 24, 44, 0.4) 0px 0px 0px 1px, rgba(6, 24, 44, 0.65) 0px 2px 4px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset   
 }
 
@@ -706,15 +711,17 @@ h2.log-title {
 
 .time-marker {
     border-radius: 2px;
+    color: white;
+    background-color: rgb(86, 110, 169, 0.7);
     width: 60px;
-    margin-bottom: 1px;
     padding-top: 32%;
-    box-shadow: rgb(141, 155, 167) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+    box-shadow: rgb(3 56 101) 1px 3px 11px 0px inset, rgb(12 10 10 / 69%) -2px -3px 2px 1px inset
 }
+
 .event {
     border-radius: 5px;
     padding: 0.4rem 0.5rem 0.5rem;
-    margin: 0 0.5rem;
+    margin: 1px 4px;
     background-color:seashell;
     position: relative;
     color: var(--primary-color);
@@ -723,8 +730,8 @@ h2.log-title {
 
 .event button {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 2px;
+    right: 2px;
 }
 
 .space,
@@ -799,6 +806,36 @@ h2.log-title {
 div.time-selection {
     display: flex;
     align-items: center;
+}
+
+.bi.bi-node-plus {
+    margin-top: -7px;
+}
+
+.bi.bi-node-plus:hover  {
+    color: var(--secondary-color);
+}
+
+.bi.bi-calendar2-plus {
+    margin-top: -12px;
+    color: var(--secondary-color);
+}
+
+.bi.bi-calendar2-plus:hover  {
+    color: white;
+}
+
+.bi.bi-pencil {
+    margin-top: -6px;
+    color: var(--primary-color);
+}
+
+.bi.bi-pencil:hover  {
+    color: #dc3545;
+}
+
+a:has(.event-indicator) {
+    background-color: rgb(86, 110, 169, 0.3);
 }
 
 

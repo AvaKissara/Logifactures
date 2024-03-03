@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="container-md mt-4">
-    <h2>Calendrier</h2>
+   
     <div class="calendar">
         <div class="col leftCol">
             <div class="content">
@@ -13,6 +13,7 @@
                 </ul>
                 <div class="clearfix"></div>     
                 <h1 class="date">{{ current_date }}</h1>
+
                 <!-- Fenêtre modale agenda -->
                 <div id="overlay"></div>
                 <div class="popup popup-set-hour" id="popup-hour">
@@ -36,7 +37,9 @@
                             <div class="days">
                               <div class="day mon">
                                 <div class="dates">
-                                    <h2>Ajouter un événement <a href="#" id="openModal" onclick="openModal();" class="add-button-event">+</a></h2>                                   
+                                    <h2>Ajouter un rendez-vous <a href="#" id="openModal" onclick="openModal();" class="add-button-event"><svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" fill="currentColor" class="bi bi-node-plus" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M11 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8M6.025 7.5a5 5 0 1 1 0 1H4A1.5 1.5 0 0 1 2.5 10h-1A1.5 1.5 0 0 1 0 8.5v-1A1.5 1.5 0 0 1 1.5 6h1A1.5 1.5 0 0 1 4 7.5zM11 5a.5.5 0 0 1 .5.5v2h2a.5.5 0 0 1 0 1h-2v2a.5.5 0 0 1-1 0v-2h-2a.5.5 0 0 1 0-1h2v-2A.5.5 0 0 1 11 5M1.5 7a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z"/>
+                                      </svg></a></h2>                                   
                                 </div>
                                 <div class="events">
                                     {% for event in events_day %}
@@ -46,6 +49,9 @@
                                             {% if event.num_facture %}
                                                 : {{ event.num_facture }}
                                             {% endif %} 
+                                            <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                                <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
+                                              </svg></a>
                                             </p>
                                             <p class="time">{{ event.start_datetime|time:'H' }}:00 - {{ event.end_datetime|time:'H' }}:00</p> 
                                                                                  
@@ -84,8 +90,11 @@
                           
                 <div class="notes">
                     <p>
-                        <input type="text" value="" placeholder="Ajouter une note" id="note-input"/>
-                        <a href="#" title="Ajouter une note" class="addNote animate" onclick="openPopup()">+</a>
+                        <input type="text" value="" placeholder="Mes rendez-vous" id="note-input"/>
+                        <a href="#" title="Ajouter une note" class="addNote animate" onclick="openPopup()"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-calendar2-plus" viewBox="0 0 16 16">
+                        <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z"/>
+                        <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5zM8 8a.5.5 0 0 1 .5.5V10H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V11H6a.5.5 0 0 1 0-1h1.5V8.5A.5.5 0 0 1 8 8"/>
+                        </svg></a>
                     </p>
                     <ul class="noteList">
                     {% for event in events_day %}
@@ -106,29 +115,32 @@
 
         <div class="col rightCol">
             <div class="content">
+                <h3>Calendrier</h3>
                 <h2 class="year">2024</h2>               
                    <!-- Logique pour les jours de la semaine -->
                    <ul class="weekday">
                     {% for day in days_of_week %}
                         <li><a href="#" title="{{ day }}" data-value="{{ day }}">{{ day }}</a></li>
                     {% endfor %}
+                    </ul>
+                    <div class="clearfix"></div>
+
+                    <!-- Logique pour les jours du mois -->
+                    <ul class="days days-list">
+                    {% for day in days_of_month %}
+                        <li>
+                            <a href="jour/{{day.month}}/{{ day.day }}" title="{{ day.day }}" data-value="{{ day.day }}" {% if day.month != selected_month %}class="other-month"{% endif %} {% if not day.day %}class="hide-day"{% endif %}>
+                                {{ day.day }}
+                                {% if day in events_date %}
+                                    <span class="event-indicator"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-stickies" viewBox="0 0 16 16">
+                                        <path d="M1.5 0A1.5 1.5 0 0 0 0 1.5V13a1 1 0 0 0 1 1V1.5a.5.5 0 0 1 .5-.5H14a1 1 0 0 0-1-1z"/>
+                                        <path d="M3.5 2A1.5 1.5 0 0 0 2 3.5v11A1.5 1.5 0 0 0 3.5 16h6.086a1.5 1.5 0 0 0 1.06-.44l4.915-4.914A1.5 1.5 0 0 0 16 9.586V3.5A1.5 1.5 0 0 0 14.5 2zM3 3.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 .5.5V9h-4.5A1.5 1.5 0 0 0 9 10.5V15H3.5a.5.5 0 0 1-.5-.5zm7 11.293V10.5a.5.5 0 0 1 .5-.5h4.293z"/>
+                                      </svg></span>
+                                {% endif %}                           
+                            </a>
+                        </li>
+                    {% endfor %}
                 </ul>
-                <div class="clearfix"></div>
-
-                <!-- Logique pour les jours du mois -->
-                <ul class="days days-list">
-    {% for day in days_of_month %}
-        <li>
-            <a href="jour/{{day.month}}/{{ day.day }}" title="{{ day.day }}" data-value="{{ day.day }}" {% if day.month != selected_month %}class="other-month"{% endif %} {% if not day.day %}class="hide-day"{% endif %}>
-                {{ day.day }}
-                {% if day in events_date %}
-                    <span class="event-indicator">X</span>
-                {% endif %}                           
-            </a>
-        </li>
-    {% endfor %}
-</ul>
-
             </div>
         </div>
         <div class="clearfix"></div>
