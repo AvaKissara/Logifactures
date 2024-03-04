@@ -12,7 +12,8 @@ document.addEventListener('DOMContentLoaded', function() {
  const categorySelect = document.getElementById('categorySelect');
  const fournSelect = document.getElementById('fournSelect');
  const cliSelect = document.getElementById('clientSelect');
-console.log(fournisseursTotals);
+
+
  // Catégories 
 const uniqueCategories = new Set();
 for (const month in cat) {
@@ -69,8 +70,8 @@ function updateCatChart() {
                 {
                     label: 'Total TTC',
                     data: dataCat,
-                    backgroundColor: 'rgba(86, 110, 169, 0.6)',
-                    borderColor: 'rgba(86, 110, 169, 0.6)',
+                    backgroundColor: 'rgba(65, 77, 109, 0.8)',
+                    borderColor: 'rgb(65, 77, 109);',
                     borderWidth: 1
                 },
                 {
@@ -78,14 +79,18 @@ function updateCatChart() {
                     data: dataNumClients,
                     type: 'bar',
                     yAxisID: 'numClients', 
-                    borderColor: 'rgb(255,208,184)',
+                    borderColor: 'darkorange',
                     backgroundColor: 'rgb(255,208,184)',
                     borderWidth: 1,
-                    fill: false
                 }
             ]
         },
         options: {
+            hover: {
+                mode: 'nearest',
+                intersect: true,
+                animationDuration: 0,
+            },
             scales: {
                 y: {
                     beginAtZero: true
@@ -96,27 +101,27 @@ function updateCatChart() {
                     ticks: {
                         stepSize: 2
                     }
-                 }
+                }
             }
-         }
-     });
+        }
+    });
  };
 
- // Fournisseurs
- const uniqueFournisseurs = new Set();
- for (const month in fourn) {
-     for (const entry of fourn[month]) {
-         uniqueFournisseurs.add(entry.r_social_fourn);
-     }
- }
- for (const fournisseur of uniqueFournisseurs) {
-     const option = document.createElement('option');
-     option.value = fournisseur;
-     option.text = fournisseur;
-     fournSelect.add(option);
- }
+// Fournisseurs
+const uniqueFournisseurs = new Set();
+for (const month in fourn) {
+    for (const entry of fourn[month]) {
+        uniqueFournisseurs.add(entry.r_social_fourn);
+    }
+}
+for (const fournisseur of uniqueFournisseurs) {
+    const option = document.createElement('option');
+    option.value = fournisseur;
+    option.text = fournisseur;
+    fournSelect.add(option);
+}
 
- updateFournisseurChart();
+updateFournisseurChart();
 fournSelect.addEventListener('change', updateFournisseurChart);
 function updateFournisseurChart() {
     labelsFourn = [];
@@ -129,110 +134,145 @@ function updateFournisseurChart() {
     }
     for (const month in fourn) {
         labelsFourn.push(month);
-        const selectedFournEntries = fourn[month].filter(entry => entry.r_social_fourn === selectedFourn);
- 
-        if (selectedFournEntries.length > 0) {
-            const total = selectedFournEntries.reduce((acc, entry) => acc + parseFloat(entry.total_ttc), 0);
-            dataFourn.push(total);
-            dataPanier.push(selectedFournEntries[0].panier_moyen);
-        } else {
-            dataFourn.push(0); 
-            dataPanier.push(0);
-        }
-     }
-     const ctxFourn = document.getElementById('chartFourn').getContext('2d');
-     fournChart = new Chart(ctxFourn, {
-         type: 'bar',
-         data: {
-             labels: labelsFourn,
-             datasets: [{
-                 label: 'Total TTC',
-                 data: dataFourn,
-                 backgroundColor: 'rgba(86, 110, 169, 0.6)',
-                 borderColor: 'rgba(86, 110, 169, 0.6)',
-                 borderWidth: 1
-             },
-             {
-                 label: 'Panier moyen',
-                 data: dataPanier,
-                 type: 'bar',
-                 borderColor: 'rgb(255,208,184)',
-                 backgroundColor: 'rgb(255,208,184)',
-                 borderWidth: 1,
-                 fill: false
-             }]
-         },
+
         
-     });
- };
+        if(selectedFourn) {
+            const selectedFournEntries = fourn[month].filter(entry => entry.r_social_fourn === selectedFourn);
+            console.log(selectedFournEntries);
+            if (selectedFournEntries.length > 0) {
+                const total = selectedFournEntries.reduce((acc, entry) => acc + parseFloat(entry.total_ttc), 0);
+                dataFourn.push(total);
+                dataPanier.push(selectedFournEntries[0].panier_moyen);
+            } else {
+                dataFourn.push(0); 
+                dataPanier.push(0);
+            }
+        } else {
+            const totalAllFournisseurs = fourn[month].reduce((acc, entry) => acc + parseFloat(entry.total_ttc), 0);
+            dataFourn.push(totalAllFournisseurs);
+
+            const totalPanierMoyen = fourn[month].reduce((acc, entry) => acc + (entry.panier_moyen * entry.total_ttc), 0);
+            const panierMoyenAllFournisseurs = totalPanierMoyen / totalAllFournisseurs;
+            dataPanier.push(panierMoyenAllFournisseurs || 0);
+        }       
+    }
+    const ctxFourn = document.getElementById('chartFourn').getContext('2d');
+    fournChart = new Chart(ctxFourn, {
+        type: 'bar',
+        data: {
+            labels: labelsFourn,
+            datasets: [{
+                label: 'Total TTC',
+                data: dataFourn,
+                backgroundColor: 'rgba(65, 77, 109, 0.8)',
+                borderColor: 'rgb(65, 77, 109);',
+                borderWidth: 1
+            },
+            {
+                label: 'Panier moyen',
+                data: dataPanier,
+                type: 'bar',
+                borderColor: 'darkorange',
+                backgroundColor: 'rgb(255,208,184)',
+                borderWidth: 1,
+               
+            }]
+        },
+        options: {
+            hover: {
+                mode: 'nearest',
+                intersect: true,
+                animationDuration: 0,
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                },
+            }
+        }
+    });
+};
  
-  // Clients 
- const uniqueClient = new Set();
- for (const month in cli) {
-     for (const entry of cli[month]) {
-         const clientName = `${entry.nom_client} ${entry.prenom_client}`;
-         uniqueClient.add(clientName);
-     }
- }
+// Clients 
+const uniqueClient = new Set();
+for (const month in cli) {
+    for (const entry of cli[month]) {
+        const clientName = `${entry.nom_client} ${entry.prenom_client}`;
+        uniqueClient.add(clientName);
+    }
+}
+for (const client of uniqueClient) {
+    const option = document.createElement('option');
+    option.value = client;
+    option.text = client;
+    cliSelect.add(option);
+}
 
- for (const client of uniqueClient) {
-     const option = document.createElement('option');
-     option.value = client;
-     option.text = client;
-     cliSelect.add(option);
- }
+updateClientChart();
+cliSelect.addEventListener('change', updateClientChart);
+function updateClientChart() {
+    labelsCli = [];
+    dataCli = [];
+    dataPanier = [];
 
- updateClientChart();
- cliSelect.addEventListener('change', updateClientChart);
- function updateClientChart() {
-     labelsCli = [];
-     dataCli = [];
-     dataPanier = [];
-
-     const selectedCli = cliSelect.value;
-     if (cliChart) {
+    const selectedCli = cliSelect.value;
+    if (cliChart) {
          cliChart.destroy();
-     }
-     for (const month in cli) {
-         labelsCli.push(month);
-         const selectedCliEntries = cli[month].filter(entry => {
-             const clientName = `${entry.nom_client} ${entry.prenom_client}`;
-             return clientName === selectedCli;
-         });
- 
-         if (selectedCliEntries.length > 0) {
-             const total = selectedCliEntries.reduce((acc, entry) => acc + parseFloat(entry.total_ttc), 0);
-             dataCli.push(total);
-             dataPanier.push(selectedCliEntries[0].panier_moyen);
-         } else {
-             dataCli.push(0); 
-             dataPanier.push(0);
-         }           
-     }
-     const ctxCli = document.getElementById('chartClient').getContext('2d');
-     cliChart = new Chart(ctxCli, {
-         type: 'bar',
-         data: {
-             labels: labelsCli,
-             datasets: [{
-                 label: 'Total TTC',
-                 data: dataCli,
-                 backgroundColor: 'rgba(86, 110, 169, 0.6)',
-                 borderColor: 'rgba(86, 110, 169, 0.6)',
-                 borderWidth: 1
-             },
-             {
-                 label: 'Panier moyen',
-                 data: dataPanier,
-                 type: 'bar',
-                 borderColor: 'rgb(255,208,184)',
-                 backgroundColor: 'rgb(255,208,184)',
-                 borderWidth: 1,
-                 fill: false
-             }]
-         },
-         
-     });
- }; 
- 
+    }
+    for (const month in cli) {
+        labelsCli.push(month);
+             
+        if (selectedCli) {
+            const selectedCliEntries = cli[month].filter(entry => {
+                const clientName = `${entry.nom_client} ${entry.prenom_client}`;
+                return clientName === selectedCli;
+            });
+
+            if (selectedCliEntries.length > 0) {
+                const total = selectedCliEntries.reduce((acc, entry) => acc + parseFloat(entry.total_ttc), 0);
+                dataCli.push(total);
+                dataPanier.push(selectedCliEntries[0].panier_moyen);
+           } else {
+                dataCli.push(0); 
+                dataPanier.push(0);
+           } 
+        } else {
+            const totalAllClients = cli[month].reduce((acc, entry) => acc + parseFloat(entry.total_ttc), 0);
+            dataCli.push(totalAllClients);
+
+            const totalPanierMoyen = cli[month].reduce((acc, entry) => acc + (entry.panier_moyen * entry.total_ttc), 0);
+            const panierMoyenAllClients = totalPanierMoyen / totalAllClients;
+            dataPanier.push(panierMoyenAllClients || 0);
+        }
+    }
+    const ctxCli = document.getElementById('chartClient').getContext('2d');
+    cliChart = new Chart(ctxCli, {
+        type: 'bar',
+        data: {
+            labels: labelsCli,
+            datasets: [{
+                    label: 'Total TTC',
+                    data: dataCli,
+                    backgroundColor: 'rgba(65, 77, 109, 0.8)',
+                    borderColor: 'rgb(65, 77, 109);',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Panier moyen',
+                    data: dataPanier,
+                    type: 'bar',
+                    borderColor: 'darkorange',
+                    backgroundColor: 'rgb(255,208,184)',
+                    borderWidth: 1,
+                }]
+            },
+            options: {
+                hover: {
+                    mode: 'nearest',
+                    intersect: true,
+                    animationDuration: 0,
+                },
+            }         
+        });
+    }; 
 });

@@ -243,6 +243,11 @@ table.table-hover thead th{
     margin-right: 8px;
 }
 
+.facture-filter-form select#id_client option,
+.facture-filter-form select#id_fournisseur option{
+    text-transform: capitalize;
+}
+
 .facture-filter-form input[type="date"] {
     width: 150px;
 }
@@ -300,16 +305,26 @@ table.table-hover thead th{
     display: flex;
 }
 
+.tab-content.active > div {
+    width: 380px;
+}
 .tab-content label  {
     color: rgba(86, 110, 169);
     padding-left: 4px;
     margin-top: 24px;
 }
 
-.tab-content.active > canvas.chart-container {
+/* .tab-content.active > canvas.chart-container {
     width: 1300px !important;
     height: 630px !important; 
     margin-top: -90px;
+    z-index: 88;
+} */
+
+.tab-content.active > canvas.chart-container {
+    height: 784px !important; 
+    margin-top: -120px;
+    z-index: 88;
 }
 
 .chart-menu {
