@@ -86,9 +86,10 @@
         <p>&copy; 2024 - LogiFacture</p>
     </footer>
 
-    
+    {% if is_index_page %}
+        <script src="{% static 'js/script_chart.js' %}" ></script>
+    {% endif %}
     <script src="{% static 'js/script.js' %}" ></script>
-    <script src="{% static 'js/script_chart.js' %}" ></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>

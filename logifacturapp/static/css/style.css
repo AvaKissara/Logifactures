@@ -258,6 +258,11 @@ table.table-hover thead th{
     display: none;
 }
 
+.form-import-control p {
+    color: var(--primary-color);
+}
+
+
 /* TABS GRAPHIQUE */
 .tabs {
     list-style: none;
@@ -715,7 +720,7 @@ h2.log-title {
     background-color: rgb(86, 110, 169, 0.7);
     width: 60px;
     padding-top: 32%;
-    box-shadow: rgb(3 56 101) 1px 3px 11px 0px inset, rgb(12 10 10 / 69%) -2px -3px 2px 1px inset
+    box-shadow: rgb(3 56 101 / 13%) 1px 3px 11px 0px inset, rgb(10 33 67 / 69%) -2px -3px 2px 1px inset;
 }
 
 .event {

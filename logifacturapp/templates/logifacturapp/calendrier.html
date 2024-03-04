@@ -99,12 +99,13 @@
                     <ul class="noteList">
                     {% for event in events_day %}
                         <li>
-                            {{ event.title }} :
                             {% if event.num_facture %}
-                                 {{ event.num_facture }}
+                                Facture {{ event.num_facture }}
                             {% else %}
                                 {{ event.start_datetime|time:"H:i" }} - {{ event.end_datetime|time:"H:i" }}
                             {% endif %}
+                            : {{ event.title }} 
+                            
                         </li>
                     {% endfor %}
                     </ul>

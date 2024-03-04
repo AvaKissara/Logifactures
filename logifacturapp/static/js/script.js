@@ -53,8 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
             caseSel.addClass('selected');
         });
-    });
-    
+    });  
 });
 
 function openPopup() {
@@ -213,25 +212,25 @@ function calendarTodayLoad() {
 }
 
 function deleteEvent(button) {
-        var eventId = $(button).data('event-id');
-        var selectedMonth = $('.months-list a.selected').data('value');
-        var selectedDay = $('.days-list a.selected').data('value');
-        console.log(eventId);
-        $.ajax({
-            url: 'supprimer_evenement/',
-            method: 'POST',
-            data: { event_id: eventId },
-            success: function(response) {
-                if (response.success) {
-                    refreshPopup();
-                    loadDayEvents(selectedDay, selectedMonth);
-                    console.log(response.message);
-                } else {
-                    console.error(response.message);
-                }
-            },
-            error: function(error) {
-                console.error(error);
+    var eventId = $(button).data('event-id');
+    var selectedMonth = $('.months-list a.selected').data('value');
+    var selectedDay = $('.days-list a.selected').data('value');
+    console.log(eventId);
+    $.ajax({
+        url: 'supprimer_evenement/',
+        method: 'POST',
+        data: { event_id: eventId },
+        success: function(response) {
+            if (response.success) {
+                refreshPopup();
+                loadDayEvents(selectedDay, selectedMonth);
+                console.log(response.message);
+            } else {
+                console.error(response.message);
             }
-        });
+        },
+        error: function(error) {
+            console.error(error);
+        }
+    });
 }
