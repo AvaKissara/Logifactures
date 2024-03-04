@@ -14,13 +14,13 @@ class Facture(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     methode_paiement =models.ForeignKey('Methode_paiement', on_delete=models.CASCADE, null=True)
     devise = models.ForeignKey('Devise', on_delete=models.CASCADE, default=None)
-    num_facture = models.CharField(max_length=40, db_index=True)
+    num_facture = models.CharField(max_length=40, unique=True, db_index=True)
     date_facture =  models.DateField()
     total_ht_facture = models.DecimalField(max_digits=10, decimal_places=2)
     total_ttc_facture = models.DecimalField(max_digits=10, decimal_places=2)
     statut_facture = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"Facture {self.num_facture} - {self.date_facture}"
+        return f"Facture {self.id_facture} {self.num_facture} - {self.date_facture}"
     class Meta:
         db_table = 'Facture'

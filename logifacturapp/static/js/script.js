@@ -53,8 +53,55 @@ document.addEventListener('DOMContentLoaded', function() {
         
             caseSel.addClass('selected');
         });
-    });  
-});
+
+        function parseDate(dateString) {
+            var parts = dateString.split("-");
+            return new Date(parts[2], parts[1] - 1, parts[0]);
+        }
+        function sortTable(columnIndex, order) {
+            var table = $('.table-facture-list');
+            var rows = $('tbody tr', table).get();
+
+            rows.sort(function (a, b) {
+                var aValue = $(a).children('td').eq(columnIndex).text();
+                var bValue = $(b).children('td').eq(columnIndex).text();
+
+                if (columnIndex === 1) {  // Index de la colonne des dates
+                    aValue = parseDate(aValue);
+                    bValue = parseDate(bValue);
+                }    
+
+                if (order === 'asc') {
+                    return aValue > bValue ? 1 : -1;
+                } else {
+                    return bValue > aValue ? 1 : -1;
+                }
+            });
+
+            $.each(rows, function (index, row) {
+                table.children('tbody').append(row);
+            });
+        }
+
+        $('thead th').click(function () {
+            var columnIndex = $(this).index();
+            var currentOrder = $(this).data('order') || 'asc';
+            var newOrder = currentOrder === 'asc' ? 'desc' : 'asc';
+            
+            $('thead th').removeClass('asc desc');
+            $('.arrow').removeClass('asc desc');
+
+            $(this).find('.arrow').removeClass('neutre');
+            $(this).find('.arrow').addClass(newOrder);
+
+            $(this).addClass(newOrder);
+            $(this).data('order', newOrder);
+            sortTable(columnIndex, newOrder);
+            updateArrowClasses();
+        });
+    });
+});  
+
 
 function openPopup() {
     document.getElementById('popup-hour').style.display = 'block';
@@ -236,7 +283,17 @@ function deleteEvent(button) {
 }
 
 function openDetailPopup(idFacture) {
-    document.getElementById('popupDetailF').style.display = 'block';
+    var popupListeF = document.getElementById('popupDetailF');
+    var popupListeFCal = document.getElementById('popupDetailFCal');
+
+    if(popupListeF){
+        popupListeF.style.display = 'block';
+        document.getElementById('overlayF').style.display = 'block';
+    } else {
+        popupListeFCal.style.display = 'block';
+        document.getElementById('overlay').style.display = 'block';
+    }
+    
 
     $.ajax({
         url: `${idFacture}/`,
@@ -258,12 +315,25 @@ function openDetailPopup(idFacture) {
         }
     });
 
-    // Affichez votre popup
-    document.getElementById('popupDetailF').style.display = 'block';
+    if(popupListeF){
+        popupListeF.style.display = 'block';
+    } else {
+        popupListeFCal.style.display = 'block';
+    }
 }
 
 function closeDetailPopup() {
-    document.getElementById('popupDetailF').style.display = 'none';
+    var popupListeF = document.getElementById('popupDetailF');
+    var popupListeFCal = document.getElementById('popupDetailFCal');
+
+    if(popupListeF){
+        popupListeF.style.display ='none';
+        document.getElementById('overlayF').style.display = 'none';
+    } else {
+        popupListeFCal.style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+    }
+    document.getElementById('overlay').style.display = 'none';
 }
 
 function updateUI(data) {   
@@ -274,4 +344,13 @@ function updateUI(data) {
     } else {
         statutElement.innerHTML = '<span><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="rgb(220, 53, 69)" class="bi bi-x-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/></svg></span>';
     }
+}
+
+function updateArrowClasses() {
+    $('thead th').each(function() {
+        var arrowSpan = $(this).find('.arrow');
+        if (!arrowSpan.hasClass('asc') && !arrowSpan.hasClass('desc')) {
+            arrowSpan.addClass('neutre');
+        }
+    });
 }

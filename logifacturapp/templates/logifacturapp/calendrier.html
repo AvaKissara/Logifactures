@@ -45,16 +45,17 @@
                                     {% for event in events_day %}
                                         <div class="event start-{{ event.start_datetime.hour }} end-{{ event.end_datetime.hour }}">
                                             <button class="btn btn-td btn-danger" data-event-id="{{ event.id }}" onclick="deleteEvent(this);">X</button>  
-                                            <p class="title">{{ event.title }}
+                                            <p class="title">{{ event.title }} 
                                             {% if event.num_facture %}
-                                                : {{ event.num_facture }}
+                                                {% for facture in factures_events  %}                                               
+                                                    : <button class="btn-facture-cal" onclick="openDetailPopup('{{ facture.id_facture}}');">{{facture.num_facture }}</button>    
+                                                {% endfor %}                                           
                                             {% endif %} 
                                             <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
                                                 <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
                                               </svg></a>
                                             </p>
-                                            <p class="time">{{ event.start_datetime|time:'H' }}:00 - {{ event.end_datetime|time:'H' }}:00</p> 
-                                                                                 
+                                            <p class="time">{{ event.start_datetime|time:'H' }}:00 - {{ event.end_datetime|time:'H' }}:00</p>                                                                                 
                                         </div>
                                     {% endfor %}
                                 </div>
@@ -69,9 +70,9 @@
                     <div class="modal-content">
                         <span class="close" id="closeModal" onclick="closeModal();">&times;</span>
                         <form id="eventForm" class="add-event-form">
-                        <label for="eventName">Nom de l'événement:</label>
+                        <label for="eventName">Titre:</label>
                         <input type="text" id="eventName" name="event-name" required>
-                        <label for="eventName">Description de l'événement:</label>
+                        <label for="eventName">Description:</label>
                         <textarea id="eventDesc" name="event-desc"></textarea>
                         <label for="eventDateDeb">Heure de début :</label>
                         <div class="time-selection">
@@ -100,18 +101,66 @@
                     {% for event in events_day %}
                         <li>
                             {% if event.num_facture %}
-                                Facture {{ event.num_facture }}
+                                {% for facture in factures_events  %}                                               
+                                    <button class="btn-facture-cal" onclick="openDetailPopup('{{ facture.id_facture}}');">{{facture.num_facture }}</button>    
+                                {% endfor %}
                             {% else %}
                                 {{ event.start_datetime|time:"H:i" }} - {{ event.end_datetime|time:"H:i" }}
-                            {% endif %}
-                            : {{ event.title }} 
-                            
+                            {% endif %}                            
+                            : {{ event.title }}                            
                         </li>
                     {% endfor %}
                     </ul>
                 </div>
                 <div class="clearfix"></div>                
             </div>
+            <!-- Modale pour le détail -->
+        <div class="popup popup-detail" id="popupDetailFCal">
+            <div class="popup-content">
+                <button class="btn btn-td btn-danger" onclick="closeDetailPopup()">X</button>
+                <h3 class="mb-4" id="num_facture"></h3>
+                <div class="table-responsive">
+                  <table class="table table-detail table-hover">
+                    <tbody>       
+                      <tr>
+                        <th scope="row">Date de facture</th>
+                        <td id="date_facture"></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Nom du client</th>
+                        <td class="capitalize" id="nom_client"></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Nom du fournisseur</th>
+                        <td class="capitalize" id="r_social_fournisseur"></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Total HT</th>
+                        <td id="total_ht">{{ facture.total_ht_facture }} {{ facture.devise.symb_devise }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Total TTC</th>
+                        <td id="total_ttc"></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Méthode de paiement</th>
+                        <td class="capitalize" id="methode_paiement"></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Facture acquittée</th>
+                        <td id="statut_facture">
+                           
+                        </td>
+                      </tr>      
+                      <tr>
+                        <th scope="row">Catégorie</th>
+                        <td id="cat_facture"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+            </div>
+        </div>
         </div>
 
         <div class="col rightCol">

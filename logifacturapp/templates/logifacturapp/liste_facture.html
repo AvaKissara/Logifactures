@@ -10,15 +10,15 @@
                 {{ form.as_p }}
                 </form>
             </div>
-            <table class="table table-hover">
+            <table class="table table-hover table-facture-list">
                 <thead>
                     <tr>
-                        <th scope="col">Numéro de Facture</th>
-                        <th scope="col">Date de Facture</th>
-                        <th scope="col">Fournisseur</th>
-                        <th scope="col">Client</th>
-                        <th scope="col">Catégorie</th>
-                        <th scope="col">Total TTC</th>
+                        <th scope="col">Numéro de Facture <span class="arrow neutre"></span></th>
+                        <th scope="col">Date de Facture <span class="arrow neutre"></span></th>
+                        <th scope="col">Fournisseur <span class="arrow neutre"></span></th>
+                        <th scope="col">Client <span class="arrow neutre"></span></th>
+                        <th scope="col">Catégorie <span class="arrow neutre"></span></th>
+                        <th scope="col">Total TTC <span class="arrow neutre"></span></th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
@@ -73,10 +73,11 @@
         </table>
 
         <!-- Modale pour le détail -->
+        <div id="overlayF"></div>
         <div class="popup popup-detail" id="popupDetailF">
             <div class="popup-content">
                 <button class="btn btn-td btn-danger" onclick="closeDetailPopup()">X</button>
-                <h2 class="mb-4" id="num_facture"></h2>
+                <h3 class="mb-4" id="num_facture"></h3>
                 <div class="table-responsive">
                   <table class="table table-detail table-hover">
                     <tbody>       

@@ -252,6 +252,19 @@ table.table-hover thead th{
     width: 150px;
 }
 
+.arrow.asc:after {
+    content: ' \25B2'; 
+}
+
+.arrow.desc:after {
+    content: ' \25BC'; 
+}
+
+.arrow.neutre:after {
+    content: '\25BD'; 
+}
+
+
 /* FORM IMPORT */
 .form-import-control {
     border: 2px solid var(--primary-color);
@@ -748,7 +761,7 @@ h2.log-title {
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
-.event button {
+.event button.btn-danger {
     position: absolute;
     top: 2px;
     right: 2px;
@@ -785,6 +798,17 @@ h2.log-title {
 }
 
 #overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1;
+}
+
+#overlayF {
     display: none;
     position: fixed;
     top: 0;
@@ -858,17 +882,19 @@ a:has(.event-indicator) {
     background-color: rgb(86, 110, 169, 0.3);
 }
 
+/*POPUP DETAIL FACTURE */
 .popup.popup-detail {
     display: none;
     position: fixed;
     width: 40%;
-    top: 50%;
+    top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #fff;
     padding: 20px;
     border: 1px solid #ccc;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+
     z-index: 1000;
 }
 
@@ -878,6 +904,18 @@ a:has(.event-indicator) {
     right: 0%;
 }
 
+.btn-facture-cal {
+    color: var(--secondary-color);
+    background: none;
+    border: 1px solid var(--secondary-color);;
+    padding: 0;
+    background-color: var(--primary-color);
+}
+
+.btn-facture-cal:hover {
+    color: white;
+    background-color: var(--secondary-color);
+}
 
 /* FOOTER */
 footer {

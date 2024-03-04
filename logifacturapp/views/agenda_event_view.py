@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import View
-from ..models import AgendaEvent
+from ..models import AgendaEvent, Facture
 from datetime import date, timedelta, datetime
 
 
@@ -12,7 +12,6 @@ class AgendaEventView(View):
         month_number = kwargs.get('month_number')
         day_number = kwargs.get('day_number')
 
-        current_date = datetime.now().strftime('%A %d %B')
         today = date.today()
         if month_number is None:
             first_day_of_month = today.replace(day=1)
@@ -29,6 +28,9 @@ class AgendaEventView(View):
         events = AgendaEvent.objects.filter(end_datetime__gte=first_day_of_month, start_datetime__lte=last_day_of_month)
         event_dates = [event.end_datetime.date() for event in events]
         events_day =  AgendaEvent.objects.filter(end_datetime__year=today.year, end_datetime__month=month_number, end_datetime__day=day_number).order_by('start_datetime')
+        events_day_with_facture = events_day.exclude(num_facture__isnull=True).values_list('num_facture', flat=True)
+
+        factures_events = Facture.objects.filter(num_facture__in=events_day_with_facture).distinct()
 
         months = [
             {'name': 'Jan', 'value': 1, 'selected': first_day_of_month.month == 1},
@@ -47,5 +49,5 @@ class AgendaEventView(View):
 
         days_of_week = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim']
 
-        context = {'events': events, 'events_date':event_dates, 'events_day':events_day,'days_of_month': days_of_month, 'months': months, 'days_of_week': days_of_week, 'current_date': today}
+        context = {'events': events, 'events_date':event_dates, 'events_day':events_day,'days_of_month': days_of_month, 'months': months, 'days_of_week': days_of_week, 'current_date': today, 'factures_events': factures_events}
         return render(request, self.template_name, context)
