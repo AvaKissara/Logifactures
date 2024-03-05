@@ -11,3 +11,16 @@ Logifacture est une application web en python pour le stockage et la visualisati
 - Calendrier :
     ~Ajout automatique des écheances de paiement
     ~Gestion de rendez-vous
+
+
+
+Sous licence Apache, Version 2.0 (la "Licence"); vous ne pouvez pas utiliser ce fichier sauf en conformité avec la Licence.
+Vous pouvez obtenir une copie de la Licence sur
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Sauf obligation légale ou accord écrit, le logiciel
+distribué sous la Licence est distribué sur une base "EN L'ÉTAT",
+SANS GARANTIE NI CONDITION D'AUCUNE SORTE, que ce soit expresse ou implicite.
+Consultez la Licence pour les autorisations spécifiques liées au logiciel
+et les limitations imposées par la Licence.

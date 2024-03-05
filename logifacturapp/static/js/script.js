@@ -55,6 +55,7 @@ function parseDate(dateString) {
     return new Date(parts[2], parts[1] - 1, parts[0]);
 }
 
+//Gère tri asc desc pour listes clients, factures, fournissurs
 function sortTable(columnIndex, order) {
     var table = $('.table-facture-list');
     var rows = $('tbody tr', table).get();
@@ -68,10 +69,11 @@ function sortTable(columnIndex, order) {
             bValue = parseDate(bValue);
         }    
 
+        var comparison = aValue.localeCompare(bValue, undefined, { sensitivity: 'base' });
         if (order === 'asc') {
-            return aValue > bValue ? 1 : -1;
+            return comparison;
         } else {
-            return bValue > aValue ? 1 : -1;
+            return -comparison;
         }
     });
     $.each(rows, function (index, row) {
@@ -80,7 +82,7 @@ function sortTable(columnIndex, order) {
 }
 });
 
-
+//Ouvre popup detail facture
 function openDetailPopup(idFacture) {
     var popupListeF = document.getElementById('popupDetailF');
     var popupListeFCal = document.getElementById('popupDetailFCal');
@@ -96,6 +98,7 @@ function openDetailPopup(idFacture) {
     refreshDetailPopup(idFacture);
 }
 
+//Ferme popup detail facture
 function closeDetailPopup() {
     var popupListeF = document.getElementById('popupDetailF');
     var popupListeFCal = document.getElementById('popupDetailFCal');
@@ -109,6 +112,7 @@ function closeDetailPopup() {
     }
 }
 
+//Maj popup detail facture
 function refreshDetailPopup(idFacture) {
     $.ajax({
         url: `${idFacture}/`,
@@ -131,6 +135,7 @@ function refreshDetailPopup(idFacture) {
     });
 }
 
+//Maj flèches tri ASC DESC
 function updateUI(data, idFacture) {
     const statutElement = $('.detail_statut_facture')[0]; 
     
@@ -144,7 +149,7 @@ function updateUI(data, idFacture) {
     };
 }
 
-
+//Vérfie flèches tri ASC DESC
 function updateArrowClasses() {
     $('thead th').each(function() {
         var arrowSpan = $(this).find('.arrow');
@@ -154,6 +159,7 @@ function updateArrowClasses() {
     });
 }
 
+//Change statut paiement pour detail facture
 function changeStatutFacture(factureId) {
     $.ajax({
         url: 'change_statut_facture/' + factureId +'/',
