@@ -25,7 +25,6 @@ class CreeAgendaEventView(View):
             end_datetime=end_datetime,
             user_id=user_id 
         )
-
         response_data = {'message': 'AgendaEvent créé avec succès'}
         return JsonResponse(response_data)
 

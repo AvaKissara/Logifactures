@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 var aValue = $(a).children('td').eq(columnIndex).text();
                 var bValue = $(b).children('td').eq(columnIndex).text();
 
-                if (columnIndex === 1) {  // Index de la colonne des dates
+                if (columnIndex === 1) { 
                     aValue = parseDate(aValue);
                     bValue = parseDate(bValue);
                 }    
@@ -156,13 +156,20 @@ function openModal() {
 }
 
 function closeModal() {
+    document.getElementById('eventName').value = '';
+    document.getElementById('eventDesc').value = '';
+    document.getElementById('eventHourDeb').value = '';
+    document.getElementById('eventMinDeb').value = '';
+    document.getElementById('eventHourEnd').value = '';
+    document.getElementById('eventMinEnd').value = '';
+    document.getElementById('eventId').value = ''; 
     document.getElementById('myModalEvent').style.display = 'none';
 }
 
 
 function eventFormSubmit() {
     var csrftoken = getCookie('csrftoken');
-    document.getElementById('eventForm').addEventListener('submit', function(event) {
+    $('#eventForm').off('submit').on('submit', function(event) {
         event.preventDefault();
         var eventId = $('#eventId').val(); 
         console.log(eventId);
@@ -228,7 +235,6 @@ function eventFormSubmit() {
                 }
             });        
         }
-        
     });
 }
 
