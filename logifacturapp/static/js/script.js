@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', function() {
     $(document).ready(function () {
         //FILTRES
         $('thead th').click(function () {
-            console.log('test');
             var columnIndex = $(this).index();
             var currentOrder = $(this).data('order') || 'asc';
             var newOrder = currentOrder === 'asc' ? 'desc' : 'asc';
@@ -59,26 +58,35 @@ function parseDate(dateString) {
 function sortTable(columnIndex, order) {
     var table = $('.table-facture-list');
     var rows = $('tbody tr', table).get();
-
+    var thDateF = $('#thDateF').text();
     rows.sort(function (a, b) {
         var aValue = $(a).children('td').eq(columnIndex).text();
         var bValue = $(b).children('td').eq(columnIndex).text();
-
-        if (columnIndex === 1) { 
+      
+        if (columnIndex === 1 && thDateF.trim() === "Date de Facture") {                
             aValue = parseDate(aValue);
             bValue = parseDate(bValue);
-        }    
 
-        var comparison = aValue.localeCompare(bValue, undefined, { sensitivity: 'base' });
-        if (order === 'asc') {
-            return comparison;
-        } else {
-            return -comparison;
+            if (order === 'asc') {
+                return aValue > bValue ? 1 : -1;
+            } else {
+                return bValue > aValue ? 1 : -1;
+            }           
+        }    
+        else {
+            var comparison = aValue.localeCompare(bValue, undefined, { sensitivity: 'base' });
+            if (order === 'asc') {
+                return comparison;
+            } else {
+                return -comparison;
+            }
         }
+        
     });
     $.each(rows, function (index, row) {
         table.children('tbody').append(row);
     });
+    
 }
 });
 

@@ -6,9 +6,8 @@ from . .models import Cat_facture, Methode_paiement
 class FactureImportForm(forms.Form):
     excel_file = forms.FileField(
         label="",
-        widget=forms.ClearableFileInput(attrs={'class': 'custom-file-upload'}),
+        widget=forms.ClearableFileInput(attrs={'class': 'custom-file-upload', 'accept': '.xlsx, .xls'}),
     )
-    
     def clean_excel_file(self):
         excel_file = self.cleaned_data['excel_file']
         
