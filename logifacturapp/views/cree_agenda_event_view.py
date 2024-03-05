@@ -11,6 +11,7 @@ class CreeAgendaEventView(View):
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
 
+
     def post(self, request, *args, **kwargs):
         title = request.POST.get('title')
         description = request.POST.get('description')

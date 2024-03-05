@@ -49,5 +49,5 @@ class AgendaEventView(View):
 
         days_of_week = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim']
 
-        context = {'events': events, 'events_date':event_dates, 'events_day':events_day,'days_of_month': days_of_month, 'months': months, 'days_of_week': days_of_week, 'current_date': today, 'factures_events': factures_events}
+        context = {'is_calendrier_page' : True, 'events': events, 'events_date':event_dates, 'events_day':events_day,'days_of_month': days_of_month, 'months': months, 'days_of_week': days_of_week, 'current_date': today, 'factures_events': factures_events}
         return render(request, self.template_name, context)

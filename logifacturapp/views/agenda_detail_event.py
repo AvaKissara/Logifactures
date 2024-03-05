@@ -8,6 +8,8 @@ class DetailEvenementView(View):
     def get(self, request, *args, **kwargs):       
         pk = kwargs.get('pk')
 
+        
+
         event = AgendaEvent.objects.get(id=pk)  
         event_details = {
             'id': event.id,

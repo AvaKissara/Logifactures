@@ -119,43 +119,43 @@
         <div class="popup popup-detail" id="popupDetailFCal">
             <div class="popup-content">
                 <button class="btn btn-td btn-danger" onclick="closeDetailPopup()">X</button>
-                <h3 class="mb-4" id="num_facture"></h3>
+                <h3 class="mb-4 detail_num_facture"></h3>
                 <div class="table-responsive">
                   <table class="table table-detail table-hover">
                     <tbody>       
                       <tr>
                         <th scope="row">Date de facture</th>
-                        <td id="date_facture"></td>
+                        <td class="detail_date_facture"></td>
                       </tr>
                       <tr>
                         <th scope="row">Nom du client</th>
-                        <td class="capitalize" id="nom_client"></td>
+                        <td class="capitalize detail_nom_client"></td>
                       </tr>
                       <tr>
                         <th scope="row">Nom du fournisseur</th>
-                        <td class="capitalize" id="r_social_fournisseur"></td>
+                        <td class="capitalize detail_r_social_fournisseur"></td>
                       </tr>
                       <tr>
                         <th scope="row">Total HT</th>
-                        <td id="total_ht">{{ facture.total_ht_facture }} {{ facture.devise.symb_devise }}</td>
+                        <td class="detail_total_ht">{{ facture.total_ht_facture }} {{ facture.devise.symb_devise }}</td>
                       </tr>
                       <tr>
                         <th scope="row">Total TTC</th>
-                        <td id="total_ttc"></td>
+                        <td class="detail_total_ttc"></td>
                       </tr>
                       <tr>
                         <th scope="row">Méthode de paiement</th>
-                        <td class="capitalize" id="methode_paiement"></td>
+                        <td class="capitalize detail_methode_paiement"></td>
                       </tr>
                       <tr>
                         <th scope="row">Facture acquittée</th>
-                        <td id="statut_facture">
+                        <td class="detail_statut_facture">
                            
                         </td>
                       </tr>      
                       <tr>
                         <th scope="row">Catégorie</th>
-                        <td id="cat_facture"></td>
+                        <td class="detail_cat_facture"></td>
                       </tr>
                     </tbody>
                   </table>

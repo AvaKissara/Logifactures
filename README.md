@@ -9,5 +9,5 @@ Logifacture est une application web en pyhton avec Django pour le stockage et la
 - Gestion automatisée des fournisseurs et des clients
 - Visualisation des données pour l'année en cours en fonction de critères
 - Calendrier :
-    ~Ajout automatisée des écheances de paiement
+    ~Ajout automatique des écheances de paiement
     ~Gestion de rendez-vous
