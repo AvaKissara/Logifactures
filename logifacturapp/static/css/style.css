@@ -778,6 +778,8 @@ h2.log-title {
 
 .add-button-event {
     color: var(--primary-color);
+    background: none;
+    border: none;
 }
 
 /* POPUP AJOUT EVENT */

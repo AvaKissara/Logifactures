@@ -11,3 +11,4 @@ from django.contrib.auth.views import LogoutView
 from .agenda_event_view import AgendaEventView
 from .cree_agenda_event_view import CreeAgendaEventView
 from .delete_agenda_event_view import DeleteAgendaEventView
+from .agenda_detail_event import DetailEvenementView

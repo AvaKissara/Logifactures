@@ -152,6 +152,7 @@ function refreshPopup() {
 function openModal() {
     document.getElementById('myModalEvent').style.display = 'block';
     selectionHourMin();
+    
 }
 
 function closeModal() {
@@ -160,9 +161,11 @@ function closeModal() {
 
 
 function eventFormSubmit() {
+    var csrftoken = getCookie('csrftoken');
     document.getElementById('eventForm').addEventListener('submit', function(event) {
         event.preventDefault();
-
+        var eventId = $('#eventId').val(); 
+        console.log(eventId);
         var eventName = document.getElementById('eventName').value;
         var eventDescription = document.getElementById('eventDesc').value;
         var hourStartTime = document.getElementById('eventHourDeb').value;
@@ -178,28 +181,70 @@ function eventFormSubmit() {
         var startDatetime = currentYear + '-' +selectedMonth + '-' + selectedDay+' ' + eventStartTime;
         var endDatetime = currentYear + '-' +selectedMonth + '-' + selectedDay+' ' + eventEndTime;
 
+        if(eventId) {
+            var eventData = {
+                'id': eventId,
+                'title': eventName,
+                'description': eventDescription,
+                'start_datetime': startDatetime,
+                'end_datetime': endDatetime
+                
+            };
+            $.ajax({
+                url: 'details_evenement/'+eventId+'/', 
+                method: 'POST',  
+                headers: {
+                    'X-CSRFToken': csrftoken 
+                },
+                data: eventData,
+                success: function(response) {
+                    closeModal();
+                    refreshPopup();
+                    loadDayEvents(selectedDay, selectedMonth);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });        
+        } else {
+            var eventData = {
+                'title': eventName,
+                'description': eventDescription,
+                'start_datetime': startDatetime,
+                'end_datetime': endDatetime
+            };
     
-        var eventData = {
-            'title': eventName,
-            'description': eventDescription,
-            'start_datetime': startDatetime,
-            'end_datetime': endDatetime
-        };
-
-        $.ajax({
-            url: 'cree_evenement', 
-            method: 'POST',
-            data: eventData,
-            success: function(response) {
-                closeModal();
-                refreshPopup();
-                loadDayEvents(selectedDay, selectedMonth);
-            },
-            error: function(error) {
-                console.log(error);
-            }
-        });        
+            $.ajax({
+                url: 'cree_evenement', 
+                method: 'POST',
+                data: eventData,
+                success: function(response) {
+                    closeModal();
+                    refreshPopup();
+                    loadDayEvents(selectedDay, selectedMonth);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });        
+        }
+        
     });
+}
+
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
 }
 
 function loadDayEvents(selectedDay, selectedMonth) { 
@@ -354,3 +399,26 @@ function updateArrowClasses() {
         }
     });
 }
+
+function getEvent(eventId) {
+    $.ajax({
+        url: 'details_evenement/'+eventId,  
+        method: 'GET',
+        success: function(response) {
+            $('#eventId').val(response.id);
+            $('#eventName').val(response.title);
+            $('#eventDesc').val(response.description);
+
+            var startDate = new Date(response.start_datetime);
+            var endDate = new Date(response.end_datetime);
+            $('#eventHourDeb').val(startDate.getHours()-1);
+            $('#eventMinDeb').val(startDate.getMinutes());
+            $('#eventHourEnd').val(endDate.getHours()-1);
+            $('#eventMinEnd').val(endDate.getMinutes());           
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+}
+
