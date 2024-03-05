@@ -1,48 +1,93 @@
 document.addEventListener('DOMContentLoaded', function() {
-console.log("CALENDRIER !!");
+    $(document).ready(function () {
+        calendarTodayLoad();
+        
+        $('.months-list a').on('click', function(e) {
+            e.preventDefault();
+            var selectedMonth = $(this).data('value');
+            var $thisLink = $(this);
 
-$(document).ready(function () {
-    calendarTodayLoad();
-    $('.months-list a').on('click', function(e) {
-        e.preventDefault();
-        var selectedMonth = $(this).data('value');
-        var $thisLink = $(this);
-
-        $.ajax({
-            url: 'mois/' + selectedMonth + '/',
-            method: 'GET',
-            success: function(data) {
-                var $data = $(data);
-                var daysContent = $data.find('.days-list').html();
-                $('.months-list a').removeClass('selected');
-                $thisLink.addClass('selected');                
-                $('.days-list').html(daysContent);
-            },
-            error: function(error) {
-                console.log(error);
-            }
+            $.ajax({
+                url: 'mois/' + selectedMonth + '/',
+                method: 'GET',
+                success: function(data) {
+                    var $data = $(data);
+                    var daysContent = $data.find('.days-list').html();
+                    $('.months-list a').removeClass('selected');
+                    $thisLink.addClass('selected');                
+                    $('.days-list').html(daysContent);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        });
+        $('.days-list').on('click', 'a', function(e) {
+            e.preventDefault();
+            var selectedDay = $(this).data('value');
+            var selectedMonth = $('.months-list a.selected').data('value');
+            var caseSel = $(this);
+            $('.days-list a').removeClass('selected');
+        
+            loadDayEvents(selectedDay, selectedMonth);
+        
+            caseSel.addClass('selected');
         });
     });
-    $('.days-list').on('click', 'a', function(e) {
-        e.preventDefault();
-        var selectedDay = $(this).data('value');
-        var selectedMonth = $('.months-list a.selected').data('value');
-        var caseSel = $(this);
-        $('.days-list a').removeClass('selected');
-    
-        loadDayEvents(selectedDay, selectedMonth);
-    
-        caseSel.addClass('selected');
-    });
-});
 });
 
-function openModal() {
-    document.getElementById('myModalEvent').style.display = 'block';
-    selectionHourMin();
-    
+function openPopup() {
+    document.getElementById('popup-hour').style.display = 'block';
+    document.getElementById('overlay').style.display = 'block';
+    refreshPopup();    
 }
 
+function closePopup() {
+    document.getElementById('popup-hour').style.display = 'none';   
+    document.getElementById('overlay').style.display = 'none';
+    closeModal();
+}
+
+function refreshPopup() {
+    var selectedMonth = $('.months-list a.selected').data('value');
+    var selectedDay = $('.days-list a.selected').data('value');
+
+    $.ajax({
+        url: 'jour/' + selectedMonth + '/' + selectedDay + '/',
+        method: 'GET',
+        success: function(data) {
+            var $data = $(data);
+            var $dataPerHourContent = $data.find('.events').html();
+            var $hourList = $('.events');
+            $hourList.empty();
+
+            var $tempDiv = $('<div>').html($dataPerHourContent);   
+            $tempDiv.find('.event').each(function() {
+                var startHour = parseInt($(this).attr('class').match(/start-(\d+)/)[1]);
+                var endHour = parseInt($(this).attr('class').match(/end-(\d+)/)[1]);
+    
+                if (startHour > 12) {
+                    $(this).removeClass('start-' + startHour).addClass('start-' + (startHour - 12));
+                }    
+                if (endHour > 12) {
+                    $(this).removeClass('end-' + endHour).addClass('end-' + (endHour - 12));
+                }
+            });
+            $hourList.append($tempDiv.html());
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });   
+}
+
+//Ouvre popup formulaire agenda
+function openModal() {
+    document.getElementById('myModalEvent').style.display = 'block';
+    selectionHourMin();  
+}
+
+//Ferme popup formulaire agenda
 function closeModal() {
     document.getElementById('eventName').value = '';
     document.getElementById('eventDesc').value = '';
@@ -54,7 +99,7 @@ function closeModal() {
     document.getElementById('myModalEvent').style.display = 'none';
 }
 
-
+//Ajoute ou Modifie event agenda
 function eventFormSubmit() {
     var csrftoken = getCookie('csrftoken');
     $('#eventForm').off('submit').on('submit', function(event) {
@@ -126,21 +171,9 @@ function eventFormSubmit() {
     });
 }
 
-function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
 
+
+//Charge les events du jour dans le calendrier
 function loadDayEvents(selectedDay, selectedMonth) { 
     $.ajax({
         url: 'jour/' + selectedMonth + '/' + selectedDay + '/',
@@ -166,6 +199,7 @@ function loadDayEvents(selectedDay, selectedMonth) {
     });
 }
 
+//Selection horaire formulaire agenda
 function selectionHourMin() {
     var hours = Array.from({ length: 11 }, (_, i) => i + 8);
     var minutes = Array.from({ length: 60 }, (_, i) => i);
@@ -187,6 +221,7 @@ function selectionHourMin() {
     });
 }
 
+//Charge la date du jour pour le calendrier
 function calendarTodayLoad() {
     var currentDate = new Date();
     var dayOfMonth = currentDate.getDate();
@@ -197,6 +232,7 @@ function calendarTodayLoad() {
     loadDayEvents(dayOfMonth, month)
 }
 
+//Efface un event dans l'agenda
 function deleteEvent(button) {
     var eventId = $(button).data('event-id');
     var selectedMonth = $('.months-list a.selected').data('value');
@@ -210,7 +246,6 @@ function deleteEvent(button) {
             if (response.success) {
                 refreshPopup();
                 loadDayEvents(selectedDay, selectedMonth);
-                console.log(response.message);
             } else {
                 console.error(response.message);
             }
@@ -221,6 +256,7 @@ function deleteEvent(button) {
     });
 }
 
+//Récupère une event pour le formulaire de l'agenda
 function getEvent(eventId) {
     $.ajax({
         url: 'details_evenement/'+eventId,  

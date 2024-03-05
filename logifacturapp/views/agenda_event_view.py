@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import View
 from ..models import AgendaEvent, Facture
-from datetime import date, timedelta, datetime
+from datetime import date, timedelta
 
 
 class AgendaEventView(View):

@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    //FILTRE
+    //FILTRES
     const forms = document.querySelectorAll('.filter-form');
     for (const form of forms) {
         for(i=0; i<form.length; i++){
@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     $(document).ready(function () {
+        //FILTRES
         $('thead th').click(function () {
             var columnIndex = $(this).index();
             var currentOrder = $(this).data('order') || 'asc';
@@ -43,14 +44,16 @@ document.addEventListener('DOMContentLoaded', function() {
             sortTable(columnIndex, newOrder);
             updateArrowClasses();
         });
+
+       
     });
 
-});
 
 function parseDate(dateString) {
     var parts = dateString.split("-");
     return new Date(parts[2], parts[1] - 1, parts[0]);
 }
+
 function sortTable(columnIndex, order) {
     var table = $('.table-facture-list');
     var rows = $('tbody tr', table).get();
@@ -74,52 +77,8 @@ function sortTable(columnIndex, order) {
         table.children('tbody').append(row);
     });
 }
+});
 
-function openPopup() {
-    document.getElementById('popup-hour').style.display = 'block';
-    document.getElementById('overlay').style.display = 'block';
-    refreshPopup();
-    
-}
-
-function closePopup() {
-    document.getElementById('popup-hour').style.display = 'none';   
-    document.getElementById('overlay').style.display = 'none';
-    closeModal();
-}
-
-function refreshPopup() {
-    var selectedMonth = $('.months-list a.selected').data('value');
-    var selectedDay = $('.days-list a.selected').data('value');
-
-    $.ajax({
-        url: 'jour/' + selectedMonth + '/' + selectedDay + '/',
-        method: 'GET',
-        success: function(data) {
-            var $data = $(data);
-            var $dataPerHourContent = $data.find('.events').html();
-            var $hourList = $('.events');
-            $hourList.empty();
-
-            var $tempDiv = $('<div>').html($dataPerHourContent);   
-            $tempDiv.find('.event').each(function() {
-                var startHour = parseInt($(this).attr('class').match(/start-(\d+)/)[1]);
-                var endHour = parseInt($(this).attr('class').match(/end-(\d+)/)[1]);
-    
-                if (startHour > 12) {
-                    $(this).removeClass('start-' + startHour).addClass('start-' + (startHour - 12));
-                }    
-                if (endHour > 12) {
-                    $(this).removeClass('end-' + endHour).addClass('end-' + (endHour - 12));
-                }
-            });
-            $hourList.append($tempDiv.html());
-        },
-        error: function(error) {
-            console.log(error);
-        }
-    });   
-}
 
 function openDetailPopup(idFacture) {
     var popupListeF = document.getElementById('popupDetailF');
@@ -132,33 +91,8 @@ function openDetailPopup(idFacture) {
         popupListeFCal.style.display = 'block';
         document.getElementById('overlay').style.display = 'block';
     }
-    
-
-    $.ajax({
-        url: `${idFacture}/`,
-        method: 'GET',
-        success: function(data) {
-            $('.detail_date_facture').text(data.date_facture);
-            $('.detail_nom_client').text(data.nom_client);
-            $('.detail_r_social_fournisseur').text(data.r_social_fournisseur);
-            $('.detail_num_facture').text(data.num_facture);
-            $('.detail_total_ht').text(data.total_ht);
-            $('.detail_total_ttc').text(data.total_ttc);
-            $('.detail_methode_paiement').text(data.methode_paiement);
-            $('.detail_statut_facture').text(data.statut_facture);
-            $('.detail_cat_facture').text(data.cat_facture);
-            updateUI(data.statut_facture);
-        },
-        error: function(error) {
-            console.log(error);
-        }
-    });
-
-    if(popupListeF){
-        popupListeF.style.display = 'block';
-    } else {
-        popupListeFCal.style.display = 'block';
-    }
+     
+    refreshDetailPopup(idFacture);
 }
 
 function closeDetailPopup() {
@@ -172,17 +106,41 @@ function closeDetailPopup() {
         popupListeFCal.style.display = 'none';
         document.getElementById('overlay').style.display = 'none';
     }
-    document.getElementById('overlay').style.display = 'none';
 }
 
-function updateUI(data) {
+function refreshDetailPopup(idFacture) {
+    $.ajax({
+        url: `${idFacture}/`,
+        method: 'GET',
+        success: function(data) {
+            $('.detail_date_facture').text(data.date_facture);
+            $('.detail_nom_client').text(data.nom_client);
+            $('.detail_r_social_fournisseur').text(data.r_social_fournisseur);
+            $('.detail_num_facture').text(data.num_facture);
+            $('.detail_total_ht').text(data.total_ht);
+            $('.detail_total_ttc').text(data.total_ttc);
+            $('.detail_methode_paiement').text(data.methode_paiement);
+            $('.detail_statut_facture').text(data.statut_facture);
+            $('.detail_cat_facture').text(data.cat_facture);
+            updateUI(data.statut_facture, idFacture); 
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+}
+
+function updateUI(data, idFacture) {
     const statutElement = $('.detail_statut_facture')[0]; 
     
     if (data) {
-        statutElement.innerHTML = '<span><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="green" class="bi bi-check2-circle" viewBox="0 0 16 16"><path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0"/><path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/></svg></span>';
+        statutElement.innerHTML = '<span><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="green" class="bi bi-check2-circle" viewBox="0 0 16 16"><path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0"/><path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/></svg></span><button class="add-button-event change-button-statut-f"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16"><path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/></svg></button>';
     } else {
-        statutElement.innerHTML = '<span><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="rgb(220, 53, 69)" class="bi bi-x-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/></svg></span>';
+        statutElement.innerHTML = '<span><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="rgb(220, 53, 69)" class="bi bi-x-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/></svg></span><button class="add-button-event change-button-statut-f"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16"><path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/></svg></button>';
     }
+    statutElement.onclick = function() {
+        changeStatutFacture(idFacture);
+    };
 }
 
 
@@ -195,3 +153,34 @@ function updateArrowClasses() {
     });
 }
 
+function changeStatutFacture(factureId) {
+    $.ajax({
+        url: 'change_statut_facture/' + factureId +'/',
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        success: function(data) {
+            refreshDetailPopup(factureId)
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+}
+
+//Récupère cookie pour modification event
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}

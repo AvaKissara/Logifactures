@@ -1,4 +1,3 @@
-from django.views import View
 from django.views import generic
 from . .models import Facture
 from django.http import JsonResponse
@@ -11,6 +10,7 @@ class DetailView(generic.DetailView):
         pk = kwargs.get('pk')
         facture = Facture.objects.get(pk=pk)
         data = {
+            'id_facture' : facture.id_facture,
             'num_facture' : facture.num_facture,
             'date_facture': facture.date_facture.strftime("%d-%m-%Y"),
             'nom_client': f"{facture.client.nom_client} {facture.client.prenom_client}",

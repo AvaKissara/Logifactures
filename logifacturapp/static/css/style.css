@@ -919,6 +919,13 @@ a:has(.event-indicator) {
     background-color: var(--secondary-color);
 }
 
+.detail_statut_facture:hover {
+    background-color: var(--secondary-color);
+}
+.change-button-statut-f {
+    margin-left: 70%;
+}
+
 /* FOOTER */
 footer {
     background-color: var(--secondary-color);
