@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
     $(document).ready(function () {
         //FILTRES
         $('thead th').click(function () {
+            console.log('test');
             var columnIndex = $(this).index();
             var currentOrder = $(this).data('order') || 'asc';
             var newOrder = currentOrder === 'asc' ? 'desc' : 'asc';
