@@ -1,5 +1,4 @@
 from django.db import models
-from .pays import Pays
 
 class Region(models.Model):
     id_reg = models.AutoField(primary_key=True, db_column='id_reg', default=None)

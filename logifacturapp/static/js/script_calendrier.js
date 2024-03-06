@@ -173,7 +173,7 @@ function eventFormSubmit() {
 
 
 
-//Charge les events du jour dans le calendrier
+//Charge date du jour dans le calendrier
 function loadDayEvents(selectedDay, selectedMonth) { 
     $.ajax({
         url: 'jour/' + selectedMonth + '/' + selectedDay + '/',

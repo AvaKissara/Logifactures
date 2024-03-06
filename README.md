@@ -1,6 +1,6 @@
 # Logifacture
 
-Logifacture est une application web en python pour le stockage et la visualisation des factures.
+Logifacture est une plateforme dédiée à la gestion simplifiée des factures. Elle permet aux utilisateurs de centraliser le stockage des factures et d'avoir un suivi efficace afin d'optimiser leur organisation quotidienne.
 
 ## Fonctionnalités
 

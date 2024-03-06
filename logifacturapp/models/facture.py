@@ -1,9 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import User
-from .cat_facture import Cat_facture
-from .fournisseur import Fournisseur
-from .client import Client
-from .methode_paiement import Methode_paiement
 from django.conf import settings 
 
 class Facture(models.Model):

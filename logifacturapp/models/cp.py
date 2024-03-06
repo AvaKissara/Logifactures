@@ -1,5 +1,4 @@
 from django.db import models
-from .ville import Ville
 
 class Cp(models.Model):
     cp = models.CharField(max_length=9, primary_key=True, db_column='cp', default=None)

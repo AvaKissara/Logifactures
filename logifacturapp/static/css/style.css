@@ -1,6 +1,8 @@
 :root {
     --primary-color: rgb(86, 110, 169);
     --secondary-color: rgb(255,208,184) ;
+    --gradient-color: linear-gradient(-222deg, var(--secondary-color), #ffb5a9);
+    --gradient-color-secondary: linear-gradient(-222deg, var(--primary-color), #38506b);
     --numDays: 1;
     --numHours: 11;
     --timeHeight: 64px;
@@ -147,7 +149,7 @@ nav.navbar.navbar-expand-lg.navbar-dark{
 table.table-hover> thead{
     text-transform: uppercase;
     color: var(--primary-color);
-    background-color: var(--secondary-color);  
+    background-image: var(--gradient-color);
 }
 
 table.table-hover thead th{
@@ -350,29 +352,50 @@ table.table-hover thead th{
 }
 
 .guest-message {
-    padding: 20px 40px;
+    padding: 0px 180px 12px;
     text-align: center;   
 }
 
 .guest-message p {
     color: var(--primary-color);
-    font-size: 1.4em;
-    margin-bottom: 50px;
+    font-size: 1.2em;
+    margin-bottom: 10px;
 }
 
 .welcome-log{
-    margin-top: 30px;
     display: flex;
-    -webkit-box-shadow: -1px -2px 42px -19px rgba(0,0,0,0.74);
-    -moz-box-shadow: -1px -2px 42px -19px rgba(0,0,0,0.74);
-    box-shadow: -1px -2px 42px -19px rgba(0,0,0,0.74);
     border: 1px solid var(--primary-color);
 }
 
 .welcome-log h3 {
     text-transform: none;
-    padding-bottom: 20px;
-    font-size: 1.9em;
+    font-size: 1.6em;
+    margin-bottom: 20px;
+}
+
+.presentation-box-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.presentation-box {
+    height: 300px;
+    padding: 16px;
+    margin: 10px 1px 4px;
+    width: 40%;
+    background-color: var(--secondary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.presentation-box p {
+    margin: 10px 0;
+    color: var(--primary-color);
+    font-size: 1.2em;
+}
+
+.presentation-box h5 {
+    color: white;
 }
 
 .column {
@@ -382,15 +405,21 @@ table.table-hover thead th{
 
 .column#main {
     flex: 50%;
-    padding: 50px;
-    margin-top: 24px;
-    margin-left: 15px;
+    padding: 40px 0 20px;
 }
 
 #secondary {
-    background-color: var(--secondary-color);
+    background-color: var(--primary-color);
     text-align: center;
-    padding-top: 4.4%;
+    padding-top: 2.85%;
+}
+
+#secondary h3 {
+    color: white;
+}
+
+#secondary .btn.btn-primary {
+    border: 1px solid white;
 }
 
 h2.log-title {
@@ -466,6 +495,10 @@ h2.log-title {
 	background-color: rgb(65, 77, 109);
 }
 
+.calendar ul.noteList {
+    width: 90%;
+}
+
 .calendar .noteList li{
 	color: #ffffff;
 	margin-bottom: 10px;
@@ -490,12 +523,15 @@ h2.log-title {
     font-weight: bold;
 }
 
+.calendar .noteList li:hover {
+    font-size: 1.1em;
+}
+
 .calendar .addNote,
-.calendar .removeNote{
+.calendar .removeNote {
 	float: right;
 	color: rgba(255,255,255,0.4);
 	font-weight: bold;
-	margin-left: 20px;
 }
 
 .calendar .addNote:hover,
@@ -577,7 +613,7 @@ h2.log-title {
 }
 
 .calendar .days li .selected{
-	background-color: var(--secondary-color);
+	background-image: var(--gradient-color);
 	color: #ffffff;
 }
 
@@ -595,6 +631,54 @@ h2.log-title {
 ::-moz-placeholder {color: var(--primary-color); }
 :-ms-input-placeholder {color: var(--primary-color); }
 
+.calendar_plan {
+    margin:40px 0;
+}
+
+.cl_plan{
+    width:100%;
+    height: 140px;
+    background-image: var(--gradient-color);
+    padding:30px;
+    color:#fff;
+    border-radius: 4px;
+}
+
+.cl_copy.date {
+    margin: 18px 0;
+    display: inline-block;
+}
+
+.cl_title {
+    font-weight: bold;
+}
+
+.cl_add{
+    display: flex;
+    height:40px;
+    cursor: pointer;
+    color:white;
+    padding: 7px 9px;
+    justify-content: end;
+    align-items: end;
+    margin-top: -28%;
+}
+
+
+.cal-event_item:hover {
+    background-image: linear-gradient(-222deg, var(--primary-color), #3d6ca2);
+    border-radius: 4px;
+    box-shadow: 0px 0px 52px -18px rgba(0, 0, 0, 0.75);
+    transform: scale(1.1);
+    transition: transform 0.2s ease; 
+    padding: 1px;
+}
+
+.cal-event_item:hover p{
+    border: none;
+}
+
+/*AGENDA*/
 .popup-set-hour {
     display: none;
     position: fixed;
@@ -797,6 +881,8 @@ h2.log-title {
 
 .modal-content {
     border: none;
+    background-color: rgb(86 110 169 / 92%);
+    color: white;
 }
 
 #overlay {
@@ -853,6 +939,10 @@ div.time-selection {
     display: flex;
     align-items: center;
 }
+.btn.btn-primary.submit-add-event {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
 
 .bi.bi-node-plus {
     margin-top: -7px;
@@ -863,12 +953,16 @@ div.time-selection {
 }
 
 .bi.bi-calendar2-plus {
-    margin-top: -12px;
-    color: var(--secondary-color);
+    color: var(--primary-color);
+    /* border: 1px solid var(--primary-color); */
+    padding: 3px;
+    background-color: white;
+    border-radius: 4px;
 }
 
 .bi.bi-calendar2-plus:hover  {
     color: white;
+    background-color: transparent;
 }
 
 .bi.bi-pencil {
@@ -909,14 +1003,15 @@ a:has(.event-indicator) {
 .btn-facture-cal {
     color: var(--secondary-color);
     background: none;
-    border: 1px solid var(--secondary-color);;
+    border: 1px solid var(--secondary-color);
     padding: 0;
     background-color: var(--primary-color);
 }
 
 .btn-facture-cal:hover {
     color: white;
-    background-color: var(--secondary-color);
+    border: 1px dotted white;
+    /* background-color: var(--secondary-color); */
 }
 
 .detail_statut_facture:hover {
@@ -926,10 +1021,69 @@ a:has(.event-indicator) {
     margin-left: 70%;
 }
 
+
 /* FOOTER */
 footer {
-    background-color: var(--secondary-color);
+    background-image: var(--gradient-color);
     padding-top: 10px;
     text-align: center;
     color: var(--primary-color);
 }
+
+.footer{
+
+    padding:12px 0px 0px;
+    font-family: 'Play', sans-serif;
+    text-align:center;
+    }
+
+.footer .row-footer a{
+    text-decoration:none;
+    color:var(--primary-color);
+    transition:0.5s;
+}
+
+.footer .row-footer a:hover{
+    color:#fff; 
+}
+
+.footer .row-footer ul{
+    width:100%;
+    margin-bottom: 10px;
+}
+
+.footer .row-footer ul li{
+    display:inline-block;
+    margin:0px 30px;
+}
+
+.icone-social {
+    padding-bottom: 0.3%;
+}
+
+.icone-social a {
+    margin:0% 1%;
+}
+
+.row-footer.copyright {
+    border-top: 1px solid white;
+    margin-top: 6px;
+    padding: 2px 0;
+    font-size: 0.9em; 
+    color: white;
+}
+    
+    /* @media (max-width:720px){
+    .footer{
+    text-align:left;
+    padding:5%;
+    }
+    .footer .row ul li{
+    display:block;
+    margin:10px 0px;
+    text-align:left;
+    }
+    .footer .row a svg{
+    margin:0% 3%;
+    }
+    } */

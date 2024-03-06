@@ -1,6 +1,4 @@
 from django.db import models
-from .civilite import Civilite
-from .ville import Ville
 
 class Fournisseur(models.Model):
     id_fourn = models.AutoField(primary_key=True, db_column='id_fourn', default=None)
