@@ -1021,6 +1021,27 @@ a:has(.event-indicator) {
     margin-left: 70%;
 }
 
+/* POPUP MAJ CLIENT */
+.popup-maj-client {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.popup-maj-client-content {
+    background: #fff;
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
 
 /* FOOTER */
 footer {

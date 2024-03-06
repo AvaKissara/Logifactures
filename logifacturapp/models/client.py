@@ -14,6 +14,8 @@ class Client(models.Model):
     adr2_client = models.CharField(max_length=100, null=True)
     tel_client = models.IntegerField(null=True)
     mail_client = models.CharField(max_length=180, null=True)
+    cree_le = models.DateTimeField(auto_now_add=True)
+    modifie_le = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"{self.nom_client} {self.prenom_client}"

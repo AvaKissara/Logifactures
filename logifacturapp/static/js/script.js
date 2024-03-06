@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+
     $(document).ready(function () {
         //FILTRES
         $('thead th').click(function () {
@@ -198,4 +199,58 @@ function getCookie(name) {
         }
     }
     return cookieValue;
+}
+
+//Verifie l'adresse du client à l'import
+function checkAdresseClient() {
+
+    var confirmButton = document.getElementById("confirmClientButton");
+    var cancelButton = document.getElementById("cancelClientButton");
+    var checkAdrClientElement = document.getElementById('checkAdrClient');
+
+    var adresseDiffere = checkAdrClientElement.getAttribute('data-value');
+    adresseDiffere = JSON.parse(adresseDiffere.toLowerCase());
+
+    if (adresseDiffere) {
+        openPopupMajClient();
+        
+console.log("ddd");
+    } else {
+        closePopupMajClient();
+    }
+}
+
+function openPopupMajClient(){
+    var popup = document.getElementById("confirmationClientPopup");
+    popup.style.display = "block";
+
+}
+
+function closePopupMajClient(){
+    var popup = document.getElementById("confirmationClientPopup");
+    popup.style.display = "none";   
+}
+
+function majInfoClient(idClient) {
+    console.log("maj en cours"+idClient);
+    var oldAdrClient = document.getElementById('oldAdrClient');
+    var newAdrClient = document.getElementById('newAdrClient').innerHTML;
+    console.log(newAdrClient);
+    $.ajax({
+        type: 'POST',
+        url: 'mise_a_jour/client/'+ idClient +'/',
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        data: {
+            idClient: idClient,
+            newAdrClient: newAdrClient,
+        },
+        success: function (data) {
+            alert('Mise à jour côté serveur effectuée avec succès !');
+        },
+        error: function (error) {
+            console.error('Erreur lors de la mise à jour :', error);
+        }
+    });
 }

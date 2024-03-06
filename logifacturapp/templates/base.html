@@ -110,9 +110,10 @@
             &copy; 2024 LogiFacture - Réalisé par <a href="https://lilabadi.tech" target="_blank">@rtisan_du_virtuel </a>
         </div>        
     </footer>
-
-    {% if is_index_page %}
-        <script src="{% static 'js/script_chart.js' %}" ></script>
+    {% if user.is_authenticated %}
+        {% if is_index_page %}
+            <script src="{% static 'js/script_chart.js' %}" ></script>
+        {% endif %}
     {% endif %}
     {% if is_calendrier_page %}
         <script src="{% static 'js/script_calendrier.js' %}" ></script>

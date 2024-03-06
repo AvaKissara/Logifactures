@@ -21,6 +21,7 @@ class ImportFactureView(View):
 
     def post(self, request):
         form = FactureImportForm(request.POST, request.FILES)
+        context = {}
 
         if form.is_valid():
             excel_file = request.FILES['excel_file']
@@ -125,7 +126,12 @@ class ImportFactureView(View):
                 messages.success(request, 'Le client a été ajouté')   
             if client_instance and client_instance.adr_client != adr_client_value: 
                 messages.warning(request, 'L\'adresse du client diffère de celle dans la base de données.')   
-
+                context['adresse_differe'] = True
+                context['id_client']=client_instance.id_client
+                context['old_adr'] = client_instance.adr_client
+                context['new_adr'] = adr_client_value
+            else:
+                context['adresse_differe'] = False
             if facture_instance:
                 messages.error(request, 'Cette facture existe déjà.')                                                                         
             else :
@@ -159,4 +165,4 @@ class ImportFactureView(View):
             messages.error(request,  error_message)
         else:
             form = FactureImportForm()
-        return render(request, 'logifacturapp/import_facture.html', {'form': form})
+        return render(request, 'logifacturapp/import_facture.html', {'form': form,  'context':context})

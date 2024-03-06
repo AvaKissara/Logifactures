@@ -6,15 +6,27 @@
     <div class="row">
       <div class="col-md-9 offset-md-2">
         <h2 class="text-center mb-3">Import des factures</h2>
+
         <form method="post" enctype="multipart/form-data" class="form-import-control">
           {% csrf_token %}
           {{ form.as_p }}
           <div class="form-group">
             {{ form.label_tag }}
             {{ form.file }}
-          </div>
-          <button type="submit" class="btn btn-primary btn-block">Importer</button>
+          </div >
+          <button type="submit" class="btn btn-primary btn-block" onclick="checkAdresseClient();">Importer</button>
         </form>
+
+        <div class="popup popup-maj-client" id="confirmationClientPopup">
+          <div class="popup-maj-client-content">
+              <p>L'adresse du client a changé</p>
+              <p>Voulez-vous mettre à jour ces informations ?</p>
+              <p><span id="oldAdrClient">{{context.old_adr}}</span> - <span id="newAdrClient">{{context.new_adr}}</span></p>
+              <button id="confirmClientButton" onclick=" majInfoClient('{{ context.id_client }}')">Oui</button>
+              <button id="cancelClientButton" onclick="closePopupMajClient();">Annuler</button>
+          </div>
+      </div>
+        <div id="checkAdrClient" data-value="{{ context.adresse_differe }}">{{ context.id_client }}</div>
         {% if messages %}
           <ul class="mt-3 messages">
             {% for message in messages %}
