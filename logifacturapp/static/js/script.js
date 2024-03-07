@@ -233,8 +233,10 @@ function closePopupMajClient(){
 
 function majInfoClient(idClient) {
     console.log("maj en cours"+idClient);
-    var oldAdrClient = document.getElementById('oldAdrClient');
+    var newAdrVilleClient = document.getElementById('newAdrVilleClient').innerHTML;
     var newAdrClient = document.getElementById('newAdrClient').innerHTML;
+    var newAdr2Client = document.getElementById('newAdr2Client').innerHTML;
+
     console.log(newAdrClient);
     $.ajax({
         type: 'POST',
@@ -245,6 +247,8 @@ function majInfoClient(idClient) {
         data: {
             idClient: idClient,
             newAdrClient: newAdrClient,
+            newAdr2Client: newAdr2Client,
+            newAdrVilleClient: newAdrVilleClient
         },
         success: function (data) {
             alert('Mise à jour côté serveur effectuée avec succès !');

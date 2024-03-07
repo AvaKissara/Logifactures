@@ -12,8 +12,12 @@ class ImportFactureMajClientView(View):
         try:
             client = get_object_or_404(Client, id_client=pk)
             new_adr_client = request.POST.get('newAdrClient')
+            new_adr2_client = request.POST.get('newAdr2Client')
+            new_adr_ville_client = request.POST.get('newAdrVilleClient')
 
             client.adr_client = new_adr_client
+            client.adr2_client = new_adr2_client
+            client.adr_ville_client = new_adr_ville_client
             client.save()
 
             return JsonResponse({'message': 'Mise à jour réussie.'})

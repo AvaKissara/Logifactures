@@ -20,8 +20,8 @@
         <div class="popup popup-maj-client" id="confirmationClientPopup">
           <div class="popup-maj-client-content">
               <p>L'adresse du client a changé</p>
-              <p>Voulez-vous mettre à jour ces informations ?</p>
-              <p><span id="oldAdrClient">{{context.old_adr}}</span> - <span id="newAdrClient">{{context.new_adr}}</span></p>
+              <p>Voulez-vous enregistrer cette nouvelle adresse ?</p>
+              <p><span id="newAdrClient">{{context.new_adr}}</span> <span id="newAdr2Client">{{context.new_adr2}}</span> <span id="newAdrVilleClient">{{context.new_adr_ville}}</span></p>
               <button id="confirmClientButton" onclick=" majInfoClient('{{ context.id_client }}')">Oui</button>
               <button id="cancelClientButton" onclick="closePopupMajClient();">Annuler</button>
           </div>

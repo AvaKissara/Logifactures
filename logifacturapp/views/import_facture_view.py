@@ -102,6 +102,7 @@ class ImportFactureView(View):
             client_nom_instances = client_instances.filter(nom_client=l_name_client_value).all()
             client_prenom_instances = client_nom_instances.filter(prenom_client=f_name_client_value).all()
             client_instance = client_prenom_instances.filter(ville=ville_client).first()
+            
             devise_instance = devise_instances.filter(symb_devise= currency_symbol).first()
             user_instance = user_instances.get(id=user_id)
             ttc_facture_calculated = ht_facture * (1 + tva_facture)
@@ -130,6 +131,8 @@ class ImportFactureView(View):
                 context['id_client']=client_instance.id_client
                 context['old_adr'] = client_instance.adr_client
                 context['new_adr'] = adr_client_value
+                context['new_adr2'] = adr2_client_value
+                context['new_adr_ville'] = ville_client_value
             else:
                 context['adresse_differe'] = False
             if facture_instance:
