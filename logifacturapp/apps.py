@@ -6,4 +6,5 @@ class logifacturappConfig(AppConfig):
     default_auto_field = 'django.db.models.AutoField'
     name = 'logifacturapp'
 
-  
+def get_wsgi_application(self):
+        return get_wsgi_application()
