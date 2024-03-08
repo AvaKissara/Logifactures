@@ -23,22 +23,8 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
---
--- Structure de la table `Cat_facture`
---
 
-DROP TABLE IF EXISTS `Cat_facture`;
-CREATE TABLE IF NOT EXISTS `Cat_facture` (
-  `id_Cat_facture` int NOT NULL AUTO_INCREMENT,
-  `nom_Cat_facture` varchar(100) NOT NULL,
-  PRIMARY KEY (`id_Cat_facture`)
-) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Déchargement des données de la table `Cat_facture`
---
-
-INSERT INTO `Cat_facture` (`id_Cat_facture`, `nom_Cat_facture`) VALUES
+INSERT INTO `Cat_facture` (`id_cat_facture`, `nom_cat_facture`) VALUES
 (1, 'Achat de biens ou services'),
 (7, 'Frais généraux'),
 (6, 'Vente de biens ou services'),

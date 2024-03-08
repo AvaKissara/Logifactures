@@ -24,23 +24,8 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `Ville`
---
 
-DROP TABLE IF EXISTS `Ville`;
-CREATE TABLE IF NOT EXISTS `Ville` (
-  `id_Ville` int NOT NULL AUTO_INCREMENT,
-  `nom_Ville` varchar(60) NOT NULL,
-  `region_id` int NOT NULL,
-  PRIMARY KEY (`id_Ville`),
-  KEY `Ville_region_id_6fdcae40` (`region_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=278 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Déchargement des données de la table `Ville`
---
-
-INSERT INTO `Ville` (`id_Ville`, `nom_Ville`, `region_id`) VALUES
+INSERT INTO `Ville` (`id_ville`, `nom_ville`, `region_id`) VALUES
 (1, 'Nice', 1),
 (2, 'Marseille', 1),
 (3, 'Marseille', 1),

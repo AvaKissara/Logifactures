@@ -23,23 +23,9 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
---
--- Structure de la table `Pays`
---
 
-DROP TABLE IF EXISTS `Pays`;
-CREATE TABLE IF NOT EXISTS `Pays` (
-  `id_Pays` varchar(3) NOT NULL,
-  `nom_Pays` varchar(45) NOT NULL,
-  `indicatif_Pays` smallint NOT NULL,
-  PRIMARY KEY (`id_Pays`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Déchargement des données de la table `Pays`
---
-
-INSERT INTO `Pays` (`id_Pays`, `nom_Pays`, `indicatif_Pays`) VALUES
+INSERT INTO `Pays` (`id_pays`, `nom_pays`, `indicatif_pays`) VALUES
 ('FR', 'France', 33),
 ('0', 'Sahara occidental', 0),
 ('IT', 'Italie', 39),

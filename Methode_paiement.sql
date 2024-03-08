@@ -27,16 +27,6 @@ SET time_zone = "+00:00";
 -- Structure de la table `Methode_paiement`
 --
 
-DROP TABLE IF EXISTS `Methode_paiement`;
-CREATE TABLE IF NOT EXISTS `Methode_paiement` (
-  `id_m_paie` int NOT NULL AUTO_INCREMENT,
-  `nom_m_paie` varchar(20) NOT NULL,
-  PRIMARY KEY (`id_m_paie`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Déchargement des données de la table `Methode_paiement`
---
 
 INSERT INTO `Methode_paiement` (`id_m_paie`, `nom_m_paie`) VALUES
 (1, 'Espèces'),

@@ -24,21 +24,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `Region`
---
-
-DROP TABLE IF EXISTS `Region`;
-CREATE TABLE IF NOT EXISTS `Region` (
-  `id_reg` int NOT NULL AUTO_INCREMENT,
-  `nom_reg` varchar(60) NOT NULL,
-  `pays_id` varchar(3) NOT NULL,
-  PRIMARY KEY (`id_reg`),
-  KEY `Region_pays_id_83dfb4ea` (`pays_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Déchargement des données de la table `Region`
---
 
 INSERT INTO `Region` (`id_reg`, `nom_reg`, `pays_id`) VALUES
 (1, 'Provence-alpes-côte-d\'azur', 'FR'),

@@ -23,21 +23,7 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
---
--- Structure de la table `Civilite`
---
 
-DROP TABLE IF EXISTS `Civilite`;
-CREATE TABLE IF NOT EXISTS `Civilite` (
-  `id_civi` int NOT NULL AUTO_INCREMENT,
-  `nom_civi` varchar(14) NOT NULL,
-  `abbr_civi` varchar(5) NOT NULL,
-  PRIMARY KEY (`id_civi`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Déchargement des données de la table `Civilite`
---
 
 INSERT INTO `Civilite` (`id_civi`, `nom_civi`, `abbr_civi`) VALUES
 (1, 'madame', 'mme'),
