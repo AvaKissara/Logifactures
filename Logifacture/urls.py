@@ -20,6 +20,8 @@ from django.contrib.auth import views as auth_views
 from logifacturapp.views import InscriptionView
 from django.contrib.auth.views import LogoutView
 from logifacturapp.views import ConnexionView
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path("logifacturapp/", include("logifacturapp.urls")),
@@ -32,3 +34,6 @@ urlpatterns = [
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     path('signup/', InscriptionView.as_view(), name='signup'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
