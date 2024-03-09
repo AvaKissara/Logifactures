@@ -12,6 +12,7 @@
 html, body {
     height: 100%;
     margin: 0;
+    width: 100vw;
 }
 
 body {
@@ -1093,18 +1094,15 @@ footer {
     font-size: 0.9em; 
     color: white;
 }
-    
-    /* @media (max-width:720px){
-    .footer{
-    text-align:left;
-    padding:5%;
+  
+div.container-fourn-list {
+    margin: 1.5em 3em 0 3em;
+}
+
+
+@media (max-width: 768px) {
+    div.container-fourn-list {
+        margin-left: 0;
+        margin-right: 0;
     }
-    .footer .row ul li{
-    display:block;
-    margin:10px 0px;
-    text-align:left;
-    }
-    .footer .row a svg{
-    margin:0% 3%;
-    }
-    } */
+  }

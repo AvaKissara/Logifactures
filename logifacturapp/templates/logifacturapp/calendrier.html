@@ -12,7 +12,6 @@
                     {% endfor %}
                 </ul>
                 <div class="clearfix"></div>     
-                <!-- <h1 class="date">{{ current_date }}</h1> -->
 
                 <!-- Fenêtre modale agenda -->
                 <div id="overlay"></div>
@@ -47,8 +46,10 @@
                                             <button class="btn btn-td btn-danger" data-event-id="{{ event.id }}" onclick="deleteEvent(this);">X</button>  
                                             <p class="title">{{ event.title }} 
                                             {% if event.num_facture %}
-                                                {% for facture in factures_events  %}                                               
+                                                {% for facture in factures_events  %} 
+                                                    {% if facture.num_facture == event.num_facture %}                                              
                                                     : <button class="btn-facture-cal" onclick="openDetailPopup('{{ facture.id_facture}}');">{{facture.num_facture }}</button>    
+                                                    {% endif %}
                                                 {% endfor %}                                           
                                             {% endif %} 
                                             <button class="add-button-event" onclick="openModal(); getEvent('{{ event.id }}');"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
@@ -114,8 +115,10 @@
                     {% for event in events_day %}
                         <li class="cal-event_item">
                             {% if event.num_facture %}
-                                {% for facture in factures_events  %}                                               
+                                {% for facture in factures_events  %}  
+                                    {% if facture.num_facture == event.num_facture %}                                               
                                     <button class="btn-facture-cal" onclick="openDetailPopup('{{ facture.id_facture}}');">{{facture.num_facture }}</button>    
+                                    {% endif %}  
                                 {% endfor %}
                             {% else %}
                                 {{ event.start_datetime|time:"H:i" }} - {{ event.end_datetime|time:"H:i" }}
