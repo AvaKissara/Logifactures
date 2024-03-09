@@ -50,7 +50,7 @@ class ImportFactureView(View):
             for index, row in df.iterrows():
                 if pd.notna(row['Fournisseur']) :
                     if df['Fournisseur'][0] == 'Raison sociale':
-                        r_social_fourn_value = df.iloc[0]['vfournisseur'].strip() 
+                        r_social_fourn_value = df.iloc[0]['vfournisseur'].lower().strip() 
                     if df['Fournisseur'][1] == 'Siret':
                         siret_fourn_value = df.iloc[1]['vfournisseur']
                     if df['Fournisseur'][2] == 'Adresse':
@@ -102,7 +102,6 @@ class ImportFactureView(View):
             client_nom_instances = client_instances.filter(nom_client=l_name_client_value).all()
             client_prenom_instances = client_nom_instances.filter(prenom_client=f_name_client_value).all()
             client_instance = client_prenom_instances.filter(ville=ville_client).first()
-            
             devise_instance = devise_instances.filter(symb_devise= currency_symbol).first()
             user_instance = user_instances.get(id=user_id)
             ttc_facture_calculated = ht_facture * (1 + tva_facture)
