@@ -15,14 +15,14 @@ class AgendaEventView(View):
         today = date.today()
         if month_number is None:
             first_day_of_month = today.replace(day=1)
-            last_day_of_month = today.replace(month=today.month % 12 + 1, day=1) - timedelta(days=1)            
+            last_day_of_month = today.replace(month=(today.month % 12) + 1, day=1) - timedelta(days=1)           
         else:
             first_day_of_month = today.replace(month=month_number, day=1)
-            last_day_of_month = today.replace(month=month_number % 12 + 1, day=1) - timedelta(days=1)
+            last_day_of_month = today.replace(month=(month_number % 12) + 1, day=1) - timedelta(days=1)
 
         first_day_weekday = first_day_of_month.weekday()
         days_to_prepend = first_day_weekday
-        days_of_month = [None] * days_to_prepend
+        days_of_month = [None] * days_to_prepend 
         days_of_month.extend(first_day_of_month + timedelta(days=x) for x in range((last_day_of_month - first_day_of_month).days + 1))
     
         events = AgendaEvent.objects.filter(end_datetime__gte=first_day_of_month, start_datetime__lte=last_day_of_month)
@@ -44,7 +44,7 @@ class AgendaEventView(View):
             {'name': 'Sep', 'value': 9, 'selected': first_day_of_month.month == 9},
             {'name': 'Oct', 'value': 10, 'selected': first_day_of_month.month == 10},
             {'name': 'Nov', 'value': 11, 'selected': first_day_of_month.month == 11},
-            {'name': 'Dec', 'value': 12, 'selected': first_day_of_month.month == 12}
+            {'name': 'Dec', 'value': 12, 'selected': first_day_of_month.month == 12},
         ]
 
         days_of_week = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim']

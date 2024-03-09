@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     $('.months-list a').removeClass('selected');
                     $thisLink.addClass('selected');                
                     $('.days-list').html(daysContent);
+                    console.log(selectedMonth, data);
                 },
                 error: function(error) {
                     console.log(error);
