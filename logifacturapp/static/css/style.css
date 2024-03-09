@@ -1100,8 +1100,8 @@ div.container-fourn-list {
 
 
 @media (max-width: 768px) {
-    div.container-fourn-list {
+    /* div.container-fourn-list {
         margin-left: 0;
         margin-right: 0;
-    }
+    } */
   }
