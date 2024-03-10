@@ -12,6 +12,7 @@
 html, body {
     height: 100%;
     margin: 0;
+    background-color: rgb(255,250,250);
 }
 
 body {
@@ -468,6 +469,9 @@ h2.log-title {
 	text-transform: uppercase;
 	margin: 0px 0px 20px 0px;
 }
+.calendar h2.agenda-h2 {
+    font-size: 34px;
+}
 
 .calendar h1 span{
 	display: block;
@@ -551,6 +555,7 @@ h2.log-title {
 
 .calendar .rightCol{
 	width: 69%;
+    background-color: rgb(255,250,250);
 }
 
 .calendar .rightCol h2{
@@ -687,7 +692,7 @@ h2.log-title {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #fff;
+    background-color: rgb(255,250,250);
     padding: 0px;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
     z-index: 100;
@@ -703,7 +708,8 @@ h2.log-title {
     top: 10px;
     right: 30px;
     cursor: pointer;
-    font-size: 28px;
+    font-size: 34px;
+    color: var(--primary-color);
 }
 
 .popup-set-hour  table {
@@ -744,7 +750,7 @@ h2.log-title {
     grid-template-rows: repeat(var(--numHours), var(--timeHeight));
     border-radius: 4px;
     background: var(--secondary-color);
-    margin-top: 20px;
+    margin-top: 24px;
     padding: 1px 0;
     box-shadow:rgba(6, 24, 44, 0.4) 0px 0px 0px 1px, rgba(6, 24, 44, 0.65) 0px 2px 4px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset   
 }
@@ -864,7 +870,20 @@ h2.log-title {
     color: var(--primary-color);
     background: none;
     border: none;
+    outline: none;
 }
+
+.add-button-event:hover {
+    border: none;
+    outline: none;
+}
+
+.add-button-event:focus {
+    border: none;
+    outline: none;
+}
+
+
 
 /* POPUP AJOUT EVENT */
 .modal {
@@ -944,16 +963,17 @@ div.time-selection {
     color: var(--primary-color);
 }
 
-.bi.bi-plus-lg {
-    margin-top: -7px;
+.bi.bi-window-plus {
+    margin-top: -11px;
+    color: #dc3545;
 }
 
-.bi.bi-plus-lg:hover  {
+.bi.bi-window-plus:hover  {
     transform: scale(1.4);
     transition: transform 0.2s ease; 
 }
 
-.bi.bi-plus-lg:focus  {
+.bi.bi-window-plus:focus  {
    border: none;
 }
 
@@ -979,7 +999,11 @@ div.time-selection {
     color: #dc3545;
 }
 
-a:has(.event-indicator) {
+a.other-month:not(:has(.event-indicator)) {
+    background-color: white;
+}
+
+a.other-month:has(.event-indicator) {
     background-color: rgb(86, 110, 169, 0.3);
 }
 
@@ -991,7 +1015,7 @@ a:has(.event-indicator) {
     top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #fff;
+    background-color: rgb(255,250,250);
     padding: 20px;
     border: 1px solid #ccc;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
