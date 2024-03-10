@@ -944,12 +944,17 @@ div.time-selection {
     color: var(--primary-color);
 }
 
-.bi.bi-node-plus {
+.bi.bi-plus-lg {
     margin-top: -7px;
 }
 
-.bi.bi-node-plus:hover  {
-    color: var(--secondary-color);
+.bi.bi-plus-lg:hover  {
+    transform: scale(1.4);
+    transition: transform 0.2s ease; 
+}
+
+.bi.bi-plus-lg:focus  {
+   border: none;
 }
 
 .bi.bi-calendar2-plus {

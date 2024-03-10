@@ -2,11 +2,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <div class="container mt-4">
+  <div class="container mt-3">
     <div class="row">
       <div class="col-md-9 offset-md-2">
         <h2 class="text-center mb-3">Import des factures</h2>
 
+        <div class="form-import-control mb-3">
+          <p>Afin d'utiliser Logifacture et commencer à importer vos factures, télécharger ce modèle de facture et saisissez vos informations. Importez ensuite le fichier dûment rempli juste via le formulaire ci-dessus.</p>
+          <a href="../../static/modele_doc_facture/Modele-facture.xlsx" class="btn btn-primary" download="modele-facture.xls">Télécharger le modèle Excel</a>
+        </div>
         <form method="post" enctype="multipart/form-data" class="form-import-control">
           {% csrf_token %}
           {{ form.as_p }}
@@ -25,7 +29,7 @@
               <button id="confirmClientButton" onclick=" majInfoClient('{{ context.id_client }}')">Oui</button>
               <button id="cancelClientButton" onclick="closePopupMajClient();">Annuler</button>
           </div>
-      </div>
+        </div>
         <div id="checkAdrClient" data-value="{{ context.adresse_differe }}">{{ context.id_client }}</div>
         {% if messages %}
           <ul class="mt-3 messages">
@@ -33,12 +37,7 @@
               <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
             {% endfor %}
           </ul>
-        {% endif %}
-
-        <div class="form-import-control mt-3">
-          <p>Afin d'utiliser Logifacture et commencer à importer vos factures, télécharger ce modèle de facture et saisissez vos informations. Importez ensuite le fichier dûment rempli juste via le formulaire ci-dessus.</p>
-          <a href="../../static/modele_doc_facture/Modele-facture.xlsx" class="btn btn-primary" download="modele-facture.xls">Télécharger le modèle Excel</a>
-        </div>
+        {% endif %}        
       </div>     
     </div>    
   </div>
