@@ -744,7 +744,7 @@ h2.log-title {
     grid-template-rows: repeat(var(--numHours), var(--timeHeight));
     border-radius: 4px;
     background: var(--secondary-color);
-    margin-top: 30px;
+    margin-top: 20px;
     padding: 1px 0;
     box-shadow:rgba(6, 24, 44, 0.4) 0px 0px 0px 1px, rgba(6, 24, 44, 0.65) 0px 2px 4px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset   
 }
