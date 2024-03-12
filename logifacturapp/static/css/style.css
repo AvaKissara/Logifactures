@@ -1088,8 +1088,7 @@ footer {
 }
 
 .footer{
-
-    padding:12px 0px 0px;
+    padding:12px 0 0 0;
     font-family: 'Play', sans-serif;
     text-align:center;
     }
@@ -1134,11 +1133,46 @@ div.container-fourn-list {
     margin: 1.5em 3em 0 3em;
 }
 
+.container-fourn-list.container-md > h2 {
+    margin-bottom: 1.5em;
+}
 
 @media (max-width: 768px) {
+    .navbar-nav.ml-auto {
+        flex-direction: row;
+        margin: 0.4em 0;
+    }
     div.container-fourn-list {
         margin-left: 0;
         margin-right: 0;
+        margin-top: 1em;
+    }
+    table.table-hover thead th {
+        vertical-align: top;
+        font-size: 0.9em;
+    }
+    .filter-form {
+        grid-template-columns: repeat(2, 0fr);
+    }
+    .facture-filter-form {
+        margin-top: 0;
+        margin-left: 1.4em;
+    }
+    .facture-filter-form select {
+        width: 150px;
+    }
+    .container-fourn-list.container-md > h2 {
+        margin-bottom: 0.5em;
+        font-size: 1.8em;
+    }
+    .table.table-hover{
+        font-size: 0.9em;
+    }
+    .btn-td.btn-primary {
+        padding: 0rem 1.8rem;
+    }
+    .btn-td.btn-danger {
+        padding: 0rem 2rem;
     }
     h3 {
         font-size: 1.6em;
@@ -1168,5 +1202,18 @@ div.container-fourn-list {
     }
     .tab-content.tabs-graph  > div {
         width: 320px;
+    }
+    .custom-file-upload {
+        padding: 0;
+        font-size: 0.9em;
+    }
+    input::file-selector-button {
+        margin-right: 4px;
+    }
+    .footer .row-footer ul {
+        width: 90%;
+    }
+    .footer .row-footer ul li {
+        margin: 6px 0 0 0;
     }
   }

@@ -2,30 +2,32 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <div class="container-md mt-4 mx-5">
-    <h2 class="mb-4">Clients</h2>
-    <table class="table table-hover table-facture-list">
-      <thead>
-        <tr>
-          <th scope="col">Nom <span class="arrow neutre"></span></th>
-          <th scope="col">Prénom <span class="arrow neutre"></span></th>
-          <th scope="col">Adresse <span class="arrow neutre"></span></th>
-          <th scope="col">Ville <span class="arrow neutre"></span></th>
-          <th scope="col">Téléphone <span class="arrow neutre"></span></th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for client in clients %}
-          <tr class="capitalize">
-            <td>{{ client.nom_client }}</td>
-            <td>{{ client.prenom_client }}</td>
-            <td>{{ client.adr_client }}</td>
-            <td>{{ client.ville.nom_ville }}</td>
-            <td>+{{ client.ville.region.pays.indicatif_pays }}{{ client.tel_client }}</td>
+  <div class="container-fourn-list container-md">
+    <h2>Clients</h2>
+    <div class="table-responsive">
+      <table class="table table-hover table-facture-list">
+        <thead>
+          <tr>
+            <th scope="col">Nom <span class="arrow neutre"></span></th>
+            <th scope="col">Prénom <span class="arrow neutre"></span></th>
+            <th scope="col">Adresse <span class="arrow neutre"></span></th>
+            <th scope="col">Ville <span class="arrow neutre"></span></th>
+            <th scope="col">Téléphone <span class="arrow neutre"></span></th>
           </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {% for client in clients %}
+            <tr class="capitalize">
+              <td>{{ client.nom_client }}</td>
+              <td>{{ client.prenom_client }}</td>
+              <td>{{ client.adr_client }}</td>
+              <td>{{ client.ville.nom_ville }}</td>
+              <td>+{{ client.ville.region.pays.indicatif_pays }}{{ client.tel_client }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>   
   </div>
 {% endblock %}
 

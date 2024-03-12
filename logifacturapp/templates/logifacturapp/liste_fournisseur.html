@@ -2,30 +2,34 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <div class="container-fourn-list container-md ">
-    <h2 class="mb-4">Fournisseurs</h2>
-    <table class="table table-hover table-facture-list">
-      <thead>
-        <tr>
-          <th scope="col">Raison Sociale <span class="arrow neutre"></span></th>
-          <th scope="col">Siret <span class="arrow neutre"></span></th>
-          <th scope="col">Adresse <span class="arrow neutre"></span></th>
-          <th scope="col">Ville <span class="arrow neutre"></span></th>
-          <th scope="col">Téléphone <span class="arrow neutre"></span></th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for fournisseur in fournisseurs %}
-          <tr class="capitalize">
-            <td>{{ fournisseur.r_social_fourn }}</td>
-            <td>{{ fournisseur.siret_fourn }}</td>
-            <td>{{ fournisseur.adr_fourn }}</td>
-            <td>{{ fournisseur.ville.nom_ville }}</td>
-            <td>+{{ fournisseur.ville.region.pays.indicatif_pays }}{{ fournisseur.tel_fourn }}</td>
+  <div class="container-fourn-list container-md">
+    <h2>Fournisseurs</h2>
+    <div class="table-responsive">
+      <table class="table table-hover table-facture-list">
+        <thead>
+          <tr>
+            <th scope="col">Raison Sociale <span class="arrow neutre"></span></th>
+            <th scope="col">Siret <span class="arrow neutre"></span></th>
+            <th scope="col">Adresse <span class="arrow neutre"></span></th>
+            <th scope="col">Ville <span class="arrow neutre"></span></th>
+            <th scope="col">Téléphone <span class="arrow neutre"></span></th>
           </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {% for fournisseur in fournisseurs %}
+            <tr class="capitalize">
+              <td>{{ fournisseur.r_social_fourn }}</td>
+              <td>{{ fournisseur.siret_fourn }}</td>
+              <td>{{ fournisseur.adr_fourn }}</td>
+              <td>{{ fournisseur.ville.nom_ville }}</td>
+              <td>+{{ fournisseur.ville.region.pays.indicatif_pays }}{{ fournisseur.tel_fourn }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+   
   </div>
 {% endblock %}
 
