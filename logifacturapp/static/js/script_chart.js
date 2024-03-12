@@ -86,6 +86,8 @@ function updateCatChart() {
             ]
         },
         options: {
+            responsive: true,
+            maintainAspectRatio: false,
             hover: {
                 mode: 'nearest',
                 intersect: true,

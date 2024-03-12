@@ -161,6 +161,7 @@ function eventFormSubmit() {
                 data: eventData,
                 success: function(response) {
                     closeModal();
+                    closeModal();
                     refreshPopup();
                     loadDayEvents(selectedDay, selectedMonth);
                 },

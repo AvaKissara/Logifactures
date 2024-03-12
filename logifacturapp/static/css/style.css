@@ -75,8 +75,15 @@ select {
 
 }
 
+
+.container-suivi{
+    margin: 3em 3em 0 3em;
+}
+
+
 .chart-menu select{
     max-width: 350px;
+    width: 100%;
 }
 
 select:focus {
@@ -337,11 +344,11 @@ table.table-hover thead th{
     z-index: 88;
 } */
 
-.tab-content.active > canvas.chart-container {
-    height: 784px !important; 
-    margin-top: -120px;
-    z-index: 88;
-}
+.tab-content.active > div.chart-display {
+    width: 1320px;
+    height: 630px;
+    margin-top: -90px;
+ }
 
 .chart-menu {
     margin-right: 60px;
@@ -1133,4 +1140,23 @@ div.container-fourn-list {
         margin-left: 0;
         margin-right: 0;
     } */
+    h3 {
+        font-size: 1.6em;
+    }
+    .container-suivi {
+        margin: 1em 0.6em 0;
+    }
+    .tab-content label {
+        margin-top: 4px;
+    }
+    .tab-content.active {
+        flex-direction: column;
+    }
+    .tab-content.active > div.chart-display {
+        margin-top: 10px;
+        width: 100%;
+    }
+    .tabs a {
+        padding: 4px 6px;
+    }
   }
