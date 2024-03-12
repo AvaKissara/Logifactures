@@ -24,7 +24,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path("logifacturapp/", include("logifacturapp.urls")),
+    path("", include("logifacturapp.urls")),
     path("admin/", admin.site.urls),
     path('login/', ConnexionView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
