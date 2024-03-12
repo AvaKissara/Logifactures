@@ -1192,7 +1192,7 @@ div.container-fourn-list {
     .change-button-statut-f {
         margin-left: 40%;
     }
-    
+
     .container-suivi {
         margin: 1em 0.6em 0;
     }
@@ -1220,6 +1220,25 @@ div.container-fourn-list {
         margin-right: 6px;
         margin-left: 8px;
     }
+    .guest-message {
+        padding: 0px 18px 12px;
+    }
+    .presentation-box-container {
+        flex-direction: column;
+    }
+    .presentation-box {
+        width: 100%;
+        height: 230px;
+        font-size: 0.9em;
+        padding: 22px 16px;
+    }
+    .welcome-log {
+        flex-direction: column;
+    }
+    form.log-form {
+        padding: 10px 12px;
+    }
+    
     .custom-file-upload {
         padding: 0;
         font-size: 0.9em;
