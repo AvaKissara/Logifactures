@@ -1143,7 +1143,8 @@ div.container-fourn-list {
         margin: 0.4em 0;
     }
     a.navbar-brand {
-        font-size: 2.4em;
+        font-size: 2.6em;
+        margin-top: -6px;
     }
     div.container-fourn-list {
         margin-left: 0;
