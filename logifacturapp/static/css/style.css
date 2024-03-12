@@ -344,7 +344,7 @@ table.table-hover thead th{
     z-index: 88;
 } */
 
-.tab-content.active > div.chart-display {
+.tab-content.tabs-graph  > div.chart-display {
     width: 1320px;
     height: 630px;
     margin-top: -90px;
@@ -1136,27 +1136,37 @@ div.container-fourn-list {
 
 
 @media (max-width: 768px) {
-    /* div.container-fourn-list {
+    div.container-fourn-list {
         margin-left: 0;
         margin-right: 0;
-    } */
+    }
     h3 {
         font-size: 1.6em;
+    }
+    select {
+        margin: 2px 0 0 0;
+        font-size: 0.9em;
     }
     .container-suivi {
         margin: 1em 0.6em 0;
     }
     .tab-content label {
         margin-top: 4px;
+        font-size: 0.9em;
     }
-    .tab-content.active {
+    .tab-content.tabs-graph  {
         flex-direction: column;
     }
-    .tab-content.active > div.chart-display {
+    div.tab-content.tabs-graph  > div.chart-display {
         margin-top: 10px;
         width: 100%;
+        height: 540px;
     }
     .tabs a {
-        padding: 4px 6px;
+        padding: 6px 4px;
+        font-size: 0.94em;
+    }
+    .tab-content.tabs-graph  > div {
+        width: 320px;
     }
   }

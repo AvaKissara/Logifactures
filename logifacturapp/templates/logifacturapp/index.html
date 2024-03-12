@@ -11,7 +11,7 @@
             <li><a href="#clients">Par client</a></li>
         </ul>
 
-        <div id="categories" class="tab-content active" data-categories-totals="{{ categories_totals|safe }}">
+        <div id="categories" class="tab-content tabs-graph active" data-categories-totals="{{ categories_totals|safe }}">
             <div class="chart-menu">
                 <label for="categorySelect">Sélectionnez une catégorie :</label>
                 <select id="categorySelect">
@@ -23,7 +23,7 @@
             </div>
             
         </div>            
-        <div id="fournisseurs" class="tab-content" data-fournisseurs-totals="{{ fournisseurs_totals|safe }}">   
+        <div id="fournisseurs" class="tab-content tabs-graph " data-fournisseurs-totals="{{ fournisseurs_totals|safe }}">   
             <div class="chart-menu">
                 <label for="fournSelect">Sélectionnez un fournisseur :</label>
                 <select id="fournSelect" class="capitalize">
@@ -35,7 +35,7 @@
             </div>
            
         </div>       
-        <div id="clients" class="tab-content" data-clients-totals="{{ clients_totals|safe }}">
+        <div id="clients" class="tab-content tabs-graph " data-clients-totals="{{ clients_totals|safe }}">
             <div class="chart-menu">
                 <label for="clientSelect">Sélectionnez un client :</label>
                 <select id="clientSelect" class="capitalize">

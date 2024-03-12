@@ -72,6 +72,7 @@ function updateCatChart() {
                     data: dataCat,
                     backgroundColor: 'rgba(65, 77, 109, 0.8)',
                     borderColor: 'rgb(65, 77, 109);',
+                    
                     borderWidth: 1
                 },
                 {
@@ -181,6 +182,8 @@ function updateFournisseurChart() {
             }]
         },
         options: {
+            responsive: true,
+            maintainAspectRatio: false,
             hover: {
                 mode: 'nearest',
                 intersect: true,
@@ -188,7 +191,7 @@ function updateFournisseurChart() {
             },
             scales: {
                 y: {
-                    beginAtZero: true
+                    beginAtZero: true,
                 },
             }
         }
@@ -269,6 +272,8 @@ function updateClientChart() {
                 }]
             },
             options: {
+                responsive: true,
+                maintainAspectRatio: false,
                 hover: {
                     mode: 'nearest',
                     intersect: true,
