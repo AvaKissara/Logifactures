@@ -11,7 +11,7 @@ media
 settings.py
 Logifacture/settings.py
 Logifacture/Logifacture/settings.py
-apps.py
+logifacturapp/apps.py
 gunicorn_config.py
 gunicorn_config.py~
 Logifacture/__init__.py
