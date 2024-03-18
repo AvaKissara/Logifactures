@@ -18,6 +18,7 @@ html, body {
 body {
     display: flex;
     flex-direction: column;
+    caret-color: transparent;
 }
 ::-webkit-scrollbar{
     display: none;
@@ -140,7 +141,8 @@ nav.navbar.navbar-expand-lg.navbar-dark{
 .navbar-dark .navbar-nav .nav-link  {
     font-size: 1.3em;
     color: rgba(255,255,255,.8);
-    margin-right: 0.8em;
+    margin-right: 1em;
+    margin-left: 1em;
 }
 
 .navbar-dark .navbar-nav .nav-link:hover  {
@@ -152,6 +154,39 @@ nav.navbar.navbar-expand-lg.navbar-dark{
 .nav-item.import-link{
     font-weight: 700;
 }
+
+.sub-menu {
+    display: none;
+    position: absolute;
+    background-color: var(--primary-color);
+    border: 1px solid #ccc; 
+    padding:2px 2px;
+    list-style-type: none;
+    border-radius: 4px;
+    margin-left: 1em;
+    z-index: 99;
+}
+
+.sub-menu > li> a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1em;
+}
+
+.sub-menu > li{
+    padding: 3px 4px;
+}
+.sub-menu > li:hover {
+    background-color: white;
+}
+.sub-menu > li:hover a {
+    color: var(--primary-color);
+}
+
+.nav-item:hover .sub-menu {
+    display: block;
+}
+
 
 /* TABLE */
 table.table-hover> thead{
@@ -282,9 +317,10 @@ table.table-hover thead th{
     border-radius: 4px;
 }
 
-.form-import-control p label {
+.form-import-control p label:not([for="id_statut_facture"]) {
     display: none;
 }
+
 
 .form-import-control p {
     color: var(--primary-color);
@@ -1078,6 +1114,26 @@ a.other-month:has(.event-indicator) {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
+.form-create_bill > p > input:not([type='checkbox']) {
+    width: 50%;
+    padding: 4px;
+    border-radius: 4px;
+    border: 1px solid var(--primary-color);
+}
+
+.form-create_bill > p > select {
+    margin: 0;
+    padding: 6px;
+}
+
+.form-create_bill > p >input.disabled-field {
+    background-color: #f8f9fa; 
+    border: 1px solid #b4cbe1;  
+    cursor: not-allowed; 
+}
+.disabled-field::placeholder {
+    color: #6f8aa3; 
+  }
 
 /* FOOTER */
 footer {
@@ -1133,9 +1189,15 @@ div.container-fourn-list {
     margin: 1.5em 3em 0 3em;
 }
 
+.calendar {
+    display: block;
+}
+
 .container-fourn-list.container-md > h2 {
     margin-bottom: 1.5em;
 }
+
+
 
 @media (max-width: 768px) {
     .navbar-nav.ml-auto {
@@ -1238,7 +1300,12 @@ div.container-fourn-list {
     form.log-form {
         padding: 10px 12px;
     }
-    
+
+    .calendar {
+        display: flex;
+        flex-direction: column;
+    }
+
     .custom-file-upload {
         padding: 0;
         font-size: 0.9em;

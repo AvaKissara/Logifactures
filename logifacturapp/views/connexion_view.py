@@ -9,7 +9,7 @@ class ConnexionView(LoginView):
         if next_url:
             return next_url
         
-        return '/logifacturapp/'
+        return '/'
 
     def form_valid(self, form):
         response = super().form_valid(form)

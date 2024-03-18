@@ -1,4 +1,16 @@
 document.addEventListener('DOMContentLoaded', function() {
+    var tvaInput = document.getElementById('id_tva_facture');
+    var ttcInput = document.querySelector('input[name="total_ttc_facture"]');
+
+    if(tvaInput) {
+        tvaInput.addEventListener('input', function () {
+            var tva = parseFloat(tvaInput.value) || 0;
+            var ht = parseFloat(document.getElementById('id_total_ht_facture').value) || 0;
+            var ttc = ht * (1 + tva / 100);
+            ttcInput.value = ttc.toFixed(2);
+        });
+    }
+
     //FILTRES
     const forms = document.querySelectorAll('.filter-form');
     for (const form of forms) {
@@ -26,7 +38,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-
     $(document).ready(function () {
         //FILTRES
         $('thead th').click(function () {
@@ -44,18 +55,15 @@ document.addEventListener('DOMContentLoaded', function() {
             $(this).data('order', newOrder);
             sortTable(columnIndex, newOrder);
             updateArrowClasses();
-        });
-
-       
+        });      
     });
 
-
-function parseDate(dateString) {
-    var parts = dateString.split("-");
-    return new Date(parts[2], parts[1] - 1, parts[0]);
+    function parseDate(dateString) {
+        var parts = dateString.split("-");
+        return new Date(parts[2], parts[1] - 1, parts[0]);
 }
 
-//Gère tri asc desc pour listes clients, factures, fournissurs
+//Gère tri asc desc pour listes clients, factures, fournisseurs
 function sortTable(columnIndex, order) {
     var table = $('.table-facture-list');
     var rows = $('tbody tr', table).get();

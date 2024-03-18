@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import IndexView, ListeFactureView, ChangeStatutFactureView, ListeFournisseurView, DetailView, ImportFactureView, ImportFactureMajClientView, DeleteFactureView, ListeClientView, AgendaEventView, CreeAgendaEventView, DeleteAgendaEventView, DetailEvenementView
+from .views import IndexView, ListeFactureView, ChangeStatutFactureView, ListeFournisseurView, DetailView, ImportFactureView, ImportFactureMajClientView, CreateFactureView, DeleteFactureView, ListeClientView, AgendaEventView, CreeAgendaEventView, DeleteAgendaEventView, DetailEvenementView
 
 app_name = "logifacturapp"
 
@@ -9,6 +9,7 @@ urlpatterns = [
     path('import-facture/mise_a_jour/client/<int:pk>/', ImportFactureMajClientView.as_view(), name='import_facture_maj_client'),
     path("facture/liste_facture/<int:pk>/", DetailView.as_view(), name="detail"),
     path('', IndexView.as_view(), name='index'),
+    path('facture/create/', CreateFactureView.as_view(), name='ajout_facture'),
     path('facture/delete/<int:facture_id>/', DeleteFactureView.as_view(), name='delete_facture'),
     path('facture/liste_facture/', ListeFactureView.as_view(), name='liste_facture'),
     path('facture/liste_facture/change_statut_facture/<int:pk>/', ChangeStatutFactureView.as_view(), name='change_statut_facture'),

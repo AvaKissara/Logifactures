@@ -1,0 +1,20 @@
+<!-- logifacturapp/ajout_facture.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-9 offset-md-2">
+            <h2 class="text-center mb-3">Ajout d'une facture</h2>
+            <div class="form-import-control mb-3">
+                <form method="post" class="form-create_bill">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary btn-block">Enregistrer</button>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+</div>
+{% endblock %}

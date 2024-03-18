@@ -1,7 +1,7 @@
 # forms.py
 from django import forms
 from openpyxl import load_workbook
-from . .models import Cat_facture, Methode_paiement
+from ..models import Cat_facture, Methode_paiement
 
 class FactureImportForm(forms.Form):
     excel_file = forms.FileField(
