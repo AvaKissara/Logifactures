@@ -1,7 +1,26 @@
 document.addEventListener('DOMContentLoaded', function() {
+    //CHANGE INPUT DATE EN TEXT POUR PLACEHOLDER
+    var datePaieField = document.getElementById('id_date_e_paie_facture');
+    var dateFactureField = document.getElementById('id_date_facture');
+    var dateFactureField = document.getElementById('id_date_facture');
+    if (dateFactureField) {
+        dateFactureField.type = 'text'; 
+        dateFactureField.placeholder = 'Date de la facture'; 
+        dateFactureField.addEventListener('click', function () {
+            dateFactureField.type = 'date';
+        });
+    } 
+    if (datePaieField) {
+        datePaieField.type = 'text'; 
+        datePaieField.placeholder = 'Echeance de paiement'; 
+        datePaieField.addEventListener('click', function () {
+            datePaieField.type = 'date';
+        });
+    }
+
+    //CALCUL DYNAMIQUE TOTAL TTC
     var tvaInput = document.getElementById('id_tva_facture');
     var ttcInput = document.querySelector('input[name="total_ttc_facture"]');
-
     if(tvaInput) {
         tvaInput.addEventListener('input', function () {
             var tva = parseFloat(tvaInput.value) || 0;
