@@ -1,4 +1,34 @@
 document.addEventListener('DOMContentLoaded', function() {
+    //CALCUL DYNAMIQUE TOTAL HT
+    var quantiteFields = document.querySelectorAll('[id^="id_quantite_"]');
+    var prixUnitaireFields = document.querySelectorAll('[id^="id_prix_unitaire_"]');
+    if(quantiteFields || prixUnitaireFields) {
+        quantiteFields.forEach(function(field) {
+            field.addEventListener('input', function() {
+                calculerTotalHT();
+            });
+        });
+        
+        prixUnitaireFields.forEach(function(field) {
+            field.addEventListener('input', function() {
+                calculerTotalHT();
+            });
+        });
+        
+        function calculerTotalHT() {
+            var totalHT = 0;
+            quantiteFields.forEach(function(quantiteField, index) {
+                var prixUnitaireField = prixUnitaireFields[index];
+                var quantite = parseFloat(quantiteField.value);
+                var prixUnitaire = parseFloat(prixUnitaireField.value);
+                if (!isNaN(quantite) && !isNaN(prixUnitaire)) {
+                    totalHT += quantite * prixUnitaire;
+                }
+            });
+            document.getElementById('id_total_ht_facture').value = totalHT.toFixed(2);
+        }
+    }
+    
     //CHANGE INPUT DATE EN TEXT POUR PLACEHOLDER
     var datePaieField = document.getElementById('id_date_e_paie_facture');
     var dateFactureField = document.getElementById('id_date_facture');

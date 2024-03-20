@@ -1138,7 +1138,22 @@ a.other-month:has(.event-indicator) {
 
 .form_bill_line.bill_line1 {
     position: absolute;
-    top: 74.6%;
+    top: 63.6%;
+}
+.form_bill_line.bill_line2 {
+    position: absolute;
+    top: 68.6%;
+}
+
+.form_bill_line.bill_line3 {
+    position: absolute;
+    top: 73.6%;
+}
+
+.form_bill_line.bill_line4 {
+    position: absolute;
+    top: 80%;
+    margin-bottom: 6%;
 }
 
 .form_bill_line.bill_line1.d1 {
@@ -1151,12 +1166,7 @@ a.other-month:has(.event-indicator) {
 }
 .form_bill_line.bill_line1.pu1  {
     width: 30%;
-    left: 67%;
-}
-
-.form_bill_line.bill_line2 {
-    position: absolute;
-    top: 79.6%;
+    left: 66.7%;
 }
 
 .form_bill_line.bill_line2.d2 {
@@ -1169,13 +1179,7 @@ a.other-month:has(.event-indicator) {
 }
 .form_bill_line.bill_line2.pu2  {
     width: 30%;
-    left: 67%;
-}
-
-.form_bill_line.bill_line3 {
-    position: absolute;
-    top: 84.6%;
-    margin-bottom: 6%;
+    left: 66.7%;
 }
 
 .form_bill_line.bill_line3.d3 {
@@ -1188,11 +1192,28 @@ a.other-month:has(.event-indicator) {
 }
 .form_bill_line.bill_line3.pu3  {
     width: 30%;
-    left: 67%;
+    left: 66.7%;
+}
+
+.form_bill_line.bill_line4.ht4 {
+    width: 30%;
+}
+
+.form_bill_line.bill_line4.tva4 {
+    width: 30%;
+    left: 36%;
+}
+.form_bill_line.bill_line4.ttc4  {
+    width: 30%;
+    left: 66.7%;
 }
 
 .form_create_bill > .btn.btn-primary.btn-block {
-    margin-top: 22%;
+    margin-top: 32%;
+}
+
+.form_create_bill> p > label {
+    margin-bottom: 0;
 }
 
 /* FOOTER */
