@@ -5,7 +5,8 @@ from django.contrib import messages
 import openpyxl
 from django.http import HttpResponse
 from decimal import Decimal
-from django.http import HttpResponseRedirect
+import os
+from django.conf import settings
 
 class CreateFactureView(FormView):
     template_name = 'logifacturapp/ajout_facture.html'
@@ -58,7 +59,8 @@ class CreateFactureView(FormView):
         form.save()
         
 
-        workbook = openpyxl.load_workbook('E:\Projets\Logifacture\logifacturapp\static\modele_doc_facture\Modele-facture.xlsx')
+        file_path = os.path.join(settings.BASE_DIR, 'logifacturapp', 'static', 'modele_doc_facture', 'Modele-facture.xlsx')
+        workbook = openpyxl.load_workbook(file_path)
         sheet = workbook['Modèle de facture']
 
         sheet['C3'] = fournisseur.r_social_fourn

@@ -17,7 +17,7 @@ class FactureForm(forms.ModelForm):
 
     class Meta:
         model = Facture
-        fields = ['num_facture', 'date_facture', 'date_e_paie_facture', 'statut_facture', 'cat_facture', 'fournisseur', 'client', 'devise', 'methode_paiement', 'tva_facture', 'total_ht_facture', 'total_ttc_facture']
+        fields = ['num_facture', 'date_facture', 'date_e_paie_facture', 'statut_facture', 'cat_facture', 'fournisseur', 'client', 'devise', 'methode_paiement','total_ht_facture', 'tva_facture', 'total_ttc_facture']
         labels = {
             'cat_facture': 'Catégorie',
             'methode_paiement': 'Méthode de paiement',
