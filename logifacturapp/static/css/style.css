@@ -1114,26 +1114,86 @@ a.other-month:has(.event-indicator) {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
-.form-create_bill > p > input:not([type='checkbox']) {
+/* FORM CREATION FACTURE */
+.form_create_bill > p > input:not([type='checkbox']) {
     width: 50%;
     padding: 4px;
     border-radius: 4px;
     border: 1px solid var(--primary-color);
 }
 
-.form-create_bill > p > select {
+.form_create_bill > p > select {
     margin: 0;
     padding: 6px;
 }
 
-.form-create_bill > p >input.disabled-field {
+.form_create_bill > p >input.disabled-field {
     background-color: #f8f9fa; 
     border: 1px solid #b4cbe1;  
     cursor: not-allowed; 
 }
 .disabled-field::placeholder {
     color: #6f8aa3; 
-  }
+}
+
+.form_bill_line.bill_line1 {
+    position: absolute;
+    top: 74.6%;
+}
+
+.form_bill_line.bill_line1.d1 {
+    width: 30%;
+}
+
+.form_bill_line.bill_line1.q1 {
+    width: 30%;
+    left: 36%;
+}
+.form_bill_line.bill_line1.pu1  {
+    width: 30%;
+    left: 67%;
+}
+
+.form_bill_line.bill_line2 {
+    position: absolute;
+    top: 79.6%;
+}
+
+.form_bill_line.bill_line2.d2 {
+    width: 30%;
+}
+
+.form_bill_line.bill_line2.q2 {
+    width: 30%;
+    left: 36%;
+}
+.form_bill_line.bill_line2.pu2  {
+    width: 30%;
+    left: 67%;
+}
+
+.form_bill_line.bill_line3 {
+    position: absolute;
+    top: 84.6%;
+    margin-bottom: 6%;
+}
+
+.form_bill_line.bill_line3.d3 {
+    width: 30%;
+}
+
+.form_bill_line.bill_line3.q3 {
+    width: 30%;
+    left: 36%;
+}
+.form_bill_line.bill_line3.pu3  {
+    width: 30%;
+    left: 67%;
+}
+
+.form_create_bill > .btn.btn-primary.btn-block {
+    margin-top: 22%;
+}
 
 /* FOOTER */
 footer {

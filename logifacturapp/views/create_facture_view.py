@@ -1,9 +1,7 @@
 from django.views.generic import FormView
 from ..forms import FactureForm
-from ..models import Facture
 from django.urls import reverse_lazy
 from django.contrib import messages
-from openpyxl import Workbook
 import openpyxl
 from django.http import HttpResponse
 from decimal import Decimal
@@ -12,7 +10,8 @@ from django.http import HttpResponseRedirect
 class CreateFactureView(FormView):
     template_name = 'logifacturapp/ajout_facture.html'
     form_class = FactureForm
-    success_url = reverse_lazy('logifacturapp:ajout_facture')
+    success_url = reverse_lazy('logifacturapp:liste_facture')
+
 
     def form_valid(self, form):
         # Converti les données du formulaire en types appropriés
@@ -29,6 +28,17 @@ class CreateFactureView(FormView):
         methode_paiement = form.cleaned_data['methode_paiement']
         statut_facture = form.cleaned_data['statut_facture']
 
+        designation_list = []
+        quantite_list = []
+        prix_unitaire_list = []
+        for i in range(1, 4):
+            designation = form.cleaned_data[f'designation_{i}']
+            quantite = form.cleaned_data[f'quantite_{i}']
+            prix_unitaire = form.cleaned_data[f'prix_unitaire_{i}']
+            designation_list.append(designation)
+            quantite_list.append(quantite)
+            prix_unitaire_list.append(prix_unitaire)
+
         # Affecte les valeurs converties au modèle 
         form.instance.num_facture = num_facture
         form.instance.date_facture = date_facture
@@ -42,6 +52,7 @@ class CreateFactureView(FormView):
         form.instance.devise = devise
         form.instance.methode_paiement = methode_paiement
         form.instance.statut_facture = statut_facture
+
         user = self.request.user
         form.instance.user = user
         form.save()
@@ -65,46 +76,19 @@ class CreateFactureView(FormView):
         sheet['F4'] = num_facture
         sheet['F5'] = date_facture
         sheet['F7'] = date_e_paie_facture
-        sheet['F33'] = total_ht_facture
         sheet['F34'] = tva_facture 
+        sheet['B23'] = designation_list[0]
+        sheet['B24'] = designation_list[1]
+        sheet['B25'] = designation_list[2]
+        sheet['D23'] = quantite_list[0]
+        sheet['D24'] = quantite_list[1]
+        sheet['D25'] = quantite_list[2]
+        sheet['E23'] = prix_unitaire_list[0]
+        sheet['E24'] = prix_unitaire_list[1]
+        sheet['E25'] = prix_unitaire_list[2]
    
 
         response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
         response['Content-Disposition'] = 'attachment; filename=facture_'+num_facture+'.xlsx'
-
         workbook.save(response)
         return response
-
-
-        # workbook = openpyxl.Workbook()
-        # sheet = workbook.active
-
-        # # Ajoute les en-têtes
-        # headers = ['num_facture', 'date_facture', 'total_ht_facture', 'tva_facture', 'total_ttc_facture']
-        # sheet.append(headers)
-
-        # # Récupére les données de la facture
-        # facture_data = {
-        #     'num_facture': form.cleaned_data['num_facture'],
-        #     'date_facture': form.cleaned_data['date_facture'],
-        #     'total_ht_facture': form.cleaned_data['total_ht_facture'],
-        #     'tva_facture': form.cleaned_data['tva_facture'],
-        #     'total_ttc_facture': form.cleaned_data['total_ttc_facture'],
-        # }
-
-        # # Ajouter les données de la facture dans le fichier Excel
-        # row_data = [facture_data[header.lower()] for header in headers]
-        # sheet.append(row_data)
-
-        # # Sauvegarde le fichier Excel
-        # response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-        # response['Content-Disposition'] = 'attachment; filename=facture.xlsx'
-        # workbook.save(response)
-
-        # messages.success(self.request, 'Facture enregistrée avec succès.')
-        # return response
-
-        # messages.success(self.request, 'Facture enregistrée avec succès.')
-        # return super().form_valid(form)
-    
-    

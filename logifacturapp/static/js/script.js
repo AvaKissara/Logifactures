@@ -240,8 +240,6 @@ function checkAdresseClient() {
 
     if (adresseDiffere) {
         openPopupMajClient();
-        
-console.log("ddd");
     } else {
         closePopupMajClient();
     }
@@ -284,3 +282,9 @@ function majInfoClient(idClient) {
         }
     });
 }
+
+function reloadCreateFormBill() {
+    setTimeout(function() {
+        window.location.reload();
+    }, 1000);
+}    

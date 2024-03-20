@@ -5,6 +5,7 @@ Logifacture est une plateforme dédiée à la gestion simplifiée des factures. 
 ## Fonctionnalités
 
 - Import de factures depuis un fichier excel
+- Création et export de factures en format excel
 - Visualisation détaillée des factures
 - Gestion automatisée des fournisseurs et des clients
 - Visualisation des données pour l'année en cours en fonction de critères
