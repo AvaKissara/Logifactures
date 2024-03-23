@@ -1125,6 +1125,7 @@ a.other-month:has(.event-indicator) {
 .form_create_bill > p > select {
     margin: 0;
     padding: 6px;
+    width: 68%;
 }
 
 .form_create_bill > p >input.disabled-field {
@@ -1210,6 +1211,18 @@ a.other-month:has(.event-indicator) {
 
 .form_create_bill > .btn.btn-primary.btn-block {
     margin-top: 32%;
+}
+
+.form_create_bill > .add-button-event.add-fourn{
+    position: absolute;
+    top: 38.2%;
+    left: 68%;
+}
+
+.form_create_bill > .add-button-event.add-cli {
+    position: absolute;
+    top: 44.4%;
+    left: 68%;
 }
 
 .form_create_bill> p > label {

@@ -8,7 +8,7 @@ class ListeClientView(View):
     def get(self, request, *args, **kwargs):
         user_id = request.user.id
         
-        clients = Client.objects.filter(facture__user_id=user_id).distinct().order_by('nom_client')
+        clients = Client.objects.filter(user_id=user_id).order_by('nom_client')
 
         context = {'clients': clients}
         return render(request, self.template_name, context)

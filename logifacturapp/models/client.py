@@ -1,6 +1,5 @@
 from django.db import models
-from .civilite import Civilite
-from .ville import Ville
+from django.conf import settings 
 
 class Client(models.Model):
     id_client = models.AutoField(primary_key=True, db_column='id_client', default=None)
@@ -14,6 +13,7 @@ class Client(models.Model):
     adr2_client = models.CharField(max_length=100, null=True)
     tel_client = models.IntegerField(null=True)
     mail_client = models.CharField(max_length=180, null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     cree_le = models.DateTimeField(auto_now_add=True)
     modifie_le = models.DateTimeField(auto_now=True)
 

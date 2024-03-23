@@ -318,3 +318,214 @@ function reloadCreateFormBill() {
         window.location.reload();
     }, 1000);
 }    
+
+function openModalAddFourn(event) {
+    event.preventDefault(); 
+    
+    var link = event.target.closest('a'); 
+    var url = link.href; 
+    
+    if (!url) {
+        console.error('L\'URL de la requête est indéfinie.');
+        return;
+    }
+    var overlay = document.createElement('div');
+    overlay.style.position = 'fixed';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100%';
+    overlay.style.height = '100%';
+    overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
+    overlay.style.zIndex = '9998'; 
+    document.body.appendChild(overlay);
+
+    overlay.addEventListener('click', function(event) {
+        popup.focus();
+    });
+    var screenWidth = window.screen.width;
+    var screenHeight = window.screen.height;
+    
+    var popupWidth = 600;
+    var popupHeight = 686; 
+    var popupLeft = (screenWidth - popupWidth) / 2;
+    var popupTop = (screenHeight - popupHeight) / 2;
+    
+    var popup = window.open('', 'popup', `width=${popupWidth},height=${popupHeight},left=${popupLeft},top=${popupTop}`);
+  
+    fetch(url)
+        .then(response => response.text())
+        .then(html => {
+            var parser = new DOMParser();
+            var doc = parser.parseFromString(html, 'text/html');
+            
+            var form = doc.querySelector('.form_create_bill');
+            var paragraphs = form.querySelectorAll('p');
+            
+         
+            popup.document.write('<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="shortcut icon" type="image/x-icon" href="../../static/img/favicon.png"><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"><link rel="stylesheet" href="../../static/css/style.css"></head><body><div class="container mt-3"><div class="row"><div class="col-md-9 offset-md-2"><h2>Ajouter un fournisseur</h2><div class="form-import-control mb-3"><form method="post" class="form_create_bill"><input type="hidden" name="csrfmiddlewaretoken" value="' + getCookie('csrftoken') + '">');
+
+            paragraphs.forEach(paragraph => {
+                popup.document.write(paragraph.outerHTML);
+            });
+            popup.document.write('<button onclick="submitModalAddFourn(event);" href="nouveau-fournisseur"  class="btn btn-primary">Ajouter</button></form></div></div></div></div><script src="../../static/js/script.js" async></script><script src="https://cdn.jsdelivr.net/npm/chart.js" async></script><script src="https://code.jquery.com/jquery-3.6.0.min.js" async></script><script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" async></script><script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" async></script></body>');
+            popup.addEventListener('beforeunload', function() {
+                popup.document.body.innerHTML = ''; 
+                document.body.removeChild(overlay);
+                updateFournisseurSelect();
+            });
+          
+        })
+        .catch(error => console.error('Une erreur est survenue lors du chargement du formulaire :', error));
+}
+
+function submitModalAddFourn(event) {
+    event.preventDefault(); 
+    var form = document.querySelector('.form_create_bill');
+    var formData = new FormData(form);
+
+    fetch('/facture/create/nouveau-fournisseur/', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken')
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            console.log("YEAH§§§");
+            window.close();
+        } else {
+            console.error('Erreur lors de l\'ajout du fournisseur');
+        }
+    })
+    .catch(error => {
+        console.error('Une erreur est survenue lors de la soumission du formulaire :', error);
+    });
+}
+
+function openModalAddCli(event) {
+    event.preventDefault(); 
+    
+    var link = event.target.closest('a'); 
+    var url = link.href; 
+    
+    if (!url) {
+        console.error('L\'URL de la requête est indéfinie.');
+        return;
+    }
+    var overlay = document.createElement('div');
+    overlay.style.position = 'fixed';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100%';
+    overlay.style.height = '100%';
+    overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
+    overlay.style.zIndex = '9998'; 
+    document.body.appendChild(overlay);
+
+    overlay.addEventListener('click', function(event) {
+        popup.focus();
+    });
+    var screenWidth = window.screen.width;
+    var screenHeight = window.screen.height;
+    
+    var popupWidth = 600;
+    var popupHeight = 686; 
+    var popupLeft = (screenWidth - popupWidth) / 2;
+    var popupTop = (screenHeight - popupHeight) / 2;
+    
+    var popup = window.open('', 'popup', `width=${popupWidth},height=${popupHeight},left=${popupLeft},top=${popupTop}`);
+  
+    fetch(url)
+        .then(response => response.text())
+        .then(html => {
+            var parser = new DOMParser();
+            var doc = parser.parseFromString(html, 'text/html');
+            
+            var form = doc.querySelector('.form_create_bill');
+            var paragraphs = form.querySelectorAll('p');
+            
+         
+            popup.document.write('<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="shortcut icon" type="image/x-icon" href="../../static/img/favicon.png"><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"><link rel="stylesheet" href="../../static/css/style.css"></head><body><div class="container mt-3"><div class="row"><div class="col-md-9 offset-md-2"><h2>Ajouter un client</h2><div class="form-import-control mb-3"><form method="post" class="form_create_bill"><input type="hidden" name="csrfmiddlewaretoken" value="' + getCookie('csrftoken') + '">');
+
+            paragraphs.forEach(paragraph => {
+                popup.document.write(paragraph.outerHTML);
+            });
+            popup.document.write('<button onclick="submitModalAddCli(event);" href="nouveau-client"  class="btn btn-primary">Ajouter</button></form></div></div></div></div><script src="../../static/js/script.js" async></script><script src="https://cdn.jsdelivr.net/npm/chart.js" async></script><script src="https://code.jquery.com/jquery-3.6.0.min.js" async></script><script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" async></script><script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" async></script></body>');
+            popup.addEventListener('beforeunload', function() {
+                popup.document.body.innerHTML = ''; 
+                document.body.removeChild(overlay);
+                updateClientSelect();
+            });
+          
+        })
+        .catch(error => console.error('Une erreur est survenue lors du chargement du formulaire :', error));
+}
+
+function submitModalAddCli(event) {
+    event.preventDefault(); 
+    var form = document.querySelector('.form_create_bill');
+    var formData = new FormData(form);
+
+    fetch('/facture/create/nouveau-client/', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken')
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            window.close();
+        } else {
+
+        }
+    })
+    .catch(error => {
+        console.error('Une erreur est survenue lors de la soumission du formulaire :', error);
+    });
+}
+
+function updateFournisseurSelect() {
+    fetch('/facture/create/fournisseurs/')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            const selectElement = document.getElementById('id_fournisseur');
+            selectElement.innerHTML = ''; 
+            let lastFournisseurId; 
+            data.forEach(fournisseur => {
+                const option = document.createElement('option');
+                option.value = fournisseur.id_fourn;
+                option.textContent = fournisseur.r_social_fourn;
+                selectElement.appendChild(option);
+                lastFournisseurId = fournisseur.id_fourn;
+            });
+            if (lastFournisseurId) {
+                selectElement.value = lastFournisseurId;
+            }
+        })
+        .catch(error => console.error('Une erreur est survenue lors de la récupération des fournisseurs :', error));
+}
+
+function updateClientSelect() {
+    fetch('/facture/create/clients/')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            const selectElement = document.getElementById('id_client');
+            selectElement.innerHTML = ''; 
+            let lastClientId; 
+            data.forEach(client => {
+                const option = document.createElement('option');
+                option.value = client.id_client;
+                option.textContent = client.nom_client + ' ' + client.prenom_client;
+                selectElement.appendChild(option);
+                lastClientId = client.id_client;
+            });
+            if (lastClientId) {
+                selectElement.value = lastClientId;
+            }
+        })
+        .catch(error => console.error('Une erreur est survenue lors de la récupération des clients :', error));
+}

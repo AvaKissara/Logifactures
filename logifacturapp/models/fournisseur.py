@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings 
 
 class Fournisseur(models.Model):
     id_fourn = models.AutoField(primary_key=True, db_column='id_fourn', default=None)
@@ -12,6 +13,7 @@ class Fournisseur(models.Model):
     adr2_fourn = models.CharField(max_length=100, null=True)
     tel_fourn = models.IntegerField(null=True)
     mail_fourn = models.CharField(max_length=180, null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     cree_le = models.DateTimeField(auto_now_add=True)
     modifie_le = models.DateTimeField(auto_now=True)
 
