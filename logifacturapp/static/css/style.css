@@ -7,6 +7,11 @@
     --numHours: 11;
     --timeHeight: 64px;
 }
+@media (max-width: 768px) {
+    :root {
+        --timeHeight: 56px;
+    }
+}
 
 /* GENERAL */
 html, body {
@@ -326,6 +331,9 @@ table.table-hover thead th{
     color: var(--primary-color);
 }
 
+#checkAdrClient {
+    display: none;
+}
 
 /* TABS GRAPHIQUE */
 .tabs {
@@ -1410,17 +1418,21 @@ div.container-fourn-list {
         margin-top: 1rem;
     }
     .calendar {
-        width: 1200px;
-        height: 680px;
-        margin-bottom: 0;
+        width: 1130px;
+        height: 650px;
+        margin: 0;
         padding-bottom: 0;
+        border-radius: 2px;
+    }
+    .calendar ul {
+        padding-left: 26px;
     }
     .calendar .col {
-        padding-left: 8px;
-        padding-right: 8px;
+        padding-left: 4px;
+        padding-right: 6px;
     }
     .calendar .col .content {
-        padding: 20px 0;
+        padding: 20px 2px 10px 3px;
     }
     .calendar .months li a {
         font-size: 18px;
@@ -1431,22 +1443,61 @@ div.container-fourn-list {
         font-size: 20px;
     }
     .calendar .leftCol {
-        width: 28%;
+        width: 27%;
     }
     .calendar .weekday li a {
         width: 101px;
     }
     .calendar .days li {
-        width: 102px;
+        width: 101px;
     }
     .calendar .days li a {
-        width: 102px;
-        height: 86px;
+        width: 101px;
+        height: 80px;
     }
     .cl_plan {
         height: 120px;
         padding: 20px;
     }
+    .cl_add {
+        padding: 7px 0;
+    }
+    .popup-set-hour {
+        width: 98%;
+    }
+    .popup-set-hour .close-popup {
+        top: 0px;
+        right: 10px;
+    }
+    .time-marker {
+        width: 56px;
+        padding-top: 24%;
+    }
+    .event > .btn-td.btn-danger {
+        padding: 0rem 0.6rem;
+    }
+    .calendar-agenda {
+        margin: 0.6em;
+    }
+    .calendar h2.agenda-h2 {
+        font-size: 28px;
+        margin: 0 26px 14px 0;
+    }
+    .events {
+        margin-top: 0;
+    }
+    .modal {
+        top: 45%;
+        left: 59%;
+        padding: 18px;
+        width: 85%;
+        height: 52%;
+    }
+    .bi.bi-window-plus:hover {
+        transform: scale(1.2);
+        width: 32px;
+    }
+
     /*IMPORT*/
     .custom-file-upload {
         padding: 0;
