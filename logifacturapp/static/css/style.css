@@ -495,6 +495,9 @@ h2.log-title {
 
 
 /*CALENDRIER*/
+.container-md.calendar-container {
+    margin-top: 1.5rem;
+}
 .calendar{
     border: 1px solid rgb(65, 77, 109);
 	border-radius: 4px;
@@ -1241,6 +1244,7 @@ footer {
     padding:12px 0 0 0;
     font-family: 'Play', sans-serif;
     text-align:center;
+    margin-top: 1.5rem;
     }
 
 .footer .row-footer a{
@@ -1297,11 +1301,16 @@ div.container-fourn-list {
     .navbar-nav.ml-auto {
         flex-direction: row;
         margin: 0.4em 0;
+        padding-left: 6%;
     }
     a.navbar-brand {
         font-size: 2.6em;
         margin-top: -4px;
     }
+    .sub-menu {
+        margin-left: 1.3em;
+    }
+
     div.container-fourn-list {
         margin-left: 0;
         margin-right: 0;
@@ -1395,11 +1404,50 @@ div.container-fourn-list {
         padding: 10px 12px;
     }
 
-    .calendar {
-        display: flex;
-        flex-direction: column;
+    /*CALENDAR*/
+    .container-md.calendar-container {
+        overflow-x:auto;  
+        margin-top: 1rem;
     }
-
+    .calendar {
+        width: 1200px;
+        height: 680px;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+    .calendar .col {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+    .calendar .col .content {
+        padding: 20px 0;
+    }
+    .calendar .months li a {
+        font-size: 18px;
+        color: var(--secondary-color);
+        width: 62px;
+    }
+    .calendar h1, .calendar h2 {
+        font-size: 20px;
+    }
+    .calendar .leftCol {
+        width: 28%;
+    }
+    .calendar .weekday li a {
+        width: 101px;
+    }
+    .calendar .days li {
+        width: 102px;
+    }
+    .calendar .days li a {
+        width: 102px;
+        height: 86px;
+    }
+    .cl_plan {
+        height: 120px;
+        padding: 20px;
+    }
+    /*IMPORT*/
     .custom-file-upload {
         padding: 0;
         font-size: 0.9em;
@@ -1407,6 +1455,91 @@ div.container-fourn-list {
     input::file-selector-button {
         margin-right: 4px;
     }
+
+    .form-import-control {
+        padding: 10px;
+    }
+
+    h2.add-bill-main {
+        font-size: 1.8em;
+    }
+    .form_create_bill > p > input:not([type='checkbox']) {
+        width: 100%;
+    }
+    .form_create_bill > .add-button-event.add-fourn {
+        top: 46.1%;
+        left: 70%;
+    }
+    .form_create_bill > .add-button-event.add-cli {
+        top: 52.7%;
+        left: 70%;
+    }
+    .form_bill_line.bill_line1 {
+        top: 66%;
+    }
+    .form_bill_line.bill_line2 {
+        top: 72%;
+    }   
+    .form_bill_line.bill_line3 {
+        top: 78%;
+    }
+    
+    .form_bill_line.bill_line4 {
+        top: 84%;
+    }
+    .form_bill_line.bill_line1.d1 {
+        width: 28%;
+    }
+    .form_bill_line.bill_line1.q1 {
+        width: 28%;
+    }
+    .form_bill_line.bill_line1.pu1 {
+        width: 28%;
+        left: 64.4%;
+    }
+    
+    .form_bill_line.bill_line2.d2 {
+        width: 28%;
+    }
+    
+    .form_bill_line.bill_line2.q2 {
+        width: 28%;
+    }
+    .form_bill_line.bill_line2.pu2  {
+        width: 28%;
+        left: 64.4%;
+    }
+    
+    .form_bill_line.bill_line3.d3 {
+        width: 28%;
+    }
+    
+    .form_bill_line.bill_line3.q3 {
+        width: 28%;
+    }
+    .form_bill_line.bill_line3.pu3  {
+        width: 28%;
+        left: 64.4%;
+    }
+    
+    .form_bill_line.bill_line4.ht4 {
+        width: 28%;
+    }
+    
+    .form_bill_line.bill_line4.tva4 {
+        width: 28%;
+    }
+    .form_bill_line.bill_line4.ttc4  {
+        width: 28%;
+        left: 64.4%;
+    }
+    .form_create_bill > .btn.btn-primary.btn-block {
+        margin-top: 68%;
+    }
+
+    .footer{
+        margin-top: 1rem;
+        }
     .footer .row-footer ul {
         width: 90%;
     }
