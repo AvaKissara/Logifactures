@@ -14,6 +14,7 @@ class AddFournisseurView(CreateView):
     def get(self, request, *args, **kwargs):
             form = FournisseurForm()
             return render(request, 'logifacturapp/ajout_facture.html', {'form': form})
+    
     def get_all_fournisseurs(request):
         fournisseurs = Fournisseur.objects.all().values('id', 'nom') 
         return JsonResponse(list(fournisseurs), safe=False)

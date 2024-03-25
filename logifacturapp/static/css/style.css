@@ -1226,14 +1226,44 @@ a.other-month:has(.event-indicator) {
 
 .form_create_bill > .add-button-event.add-fourn{
     position: absolute;
-    top: 38.2%;
-    left: 68%;
+    top: 38.1%;
+    left: 67%;
+    border: 1px solid var(--primary-color);
+    padding: 2px 2px 1px;
+    border-radius: 2px;
+    background-image: var(--gradient-color);
+}
+
+.form_create_bill > .add-button-event.maj-fourn {
+    position: absolute;
+    visibility: hidden;
+    top: 38.1%;
+    left: 71.8%;
+    border: 1px solid var(--primary-color);
+    padding: 2px 2px 1px;
+    border-radius: 2px;
+    background-image: var(--gradient-color);
 }
 
 .form_create_bill > .add-button-event.add-cli {
     position: absolute;
-    top: 44.4%;
-    left: 68%;
+    top: 44.3%;
+    left: 67%;
+    border: 1px solid var(--primary-color);
+    padding: 2px 2px 1px;
+    border-radius: 2px;
+    background-image: var(--gradient-color);
+}
+
+.form_create_bill > .add-button-event.maj-cli {
+    position: absolute;
+    visibility: hidden;
+    top: 44.3%;
+    left: 71.8%;
+    border: 1px solid var(--primary-color);
+    padding: 2px 2px 1px;
+    border-radius: 2px;
+    background-image: var(--gradient-color);
 }
 
 .form_create_bill> p > label {
@@ -1519,12 +1549,30 @@ div.container-fourn-list {
         width: 100%;
     }
     .form_create_bill > .add-button-event.add-fourn {
-        top: 46.1%;
-        left: 70%;
+        top: 39.2%;
+        left: 68%;
+    }
+    .form_create_bill > .add-button-event.maj-fourn {
+        position: absolute;
+        top: 39.2%;
+        left: 78.8%;
+        border: 1px solid var(--primary-color);
+        padding: 2px 2px 1px;
+        border-radius: 2px;
+        background-image: var(--gradient-color);
+    }
+    .form_create_bill > .add-button-event.maj-cli {
+        position: absolute;
+        top: 45.8%;
+        left: 78.8%;
+        border: 1px solid var(--primary-color);
+        padding: 2px 2px 1px;
+        border-radius: 2px;
+        background-image: var(--gradient-color);
     }
     .form_create_bill > .add-button-event.add-cli {
-        top: 52.7%;
-        left: 70%;
+        top: 45.8%;
+        left: 68%;
     }
     .form_bill_line.bill_line1 {
         top: 66%;

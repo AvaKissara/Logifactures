@@ -11,15 +11,29 @@ class AddClientView(CreateView):
     template_name = 'logifacturapp/ajout_facture.html'
     success_url = reverse_lazy('logifacturapp:ajout_facture')
     
-    def get(self, request, *args, **kwargs):
-            form = ClientForm()
-            return render(request, 'logifacturapp/ajout_facture.html', {'form': form})
-    
     def post(self, request, *args, **kwargs):
         form = ClientForm(request.POST)
         if form.is_valid():
-            user = self.request.user
-            form.instance.user = user
-            client = form.save()
-
-        return JsonResponse({'success': True})
+            nom = form.cleaned_data['nom_client']
+            prenom = form.cleaned_data['prenom_client']
+            adr1 = form.cleaned_data['adr_client']
+            ville = form.cleaned_data['ville']
+            
+            # Vérifie si un client avec les mêmes informations existe déjà
+            existing_client = Client.objects.filter(
+                nom_client=nom,
+                prenom_client=prenom,
+                adr_client=adr1,
+                ville=ville,
+                user=request.user  
+            ).exists()
+            
+            if existing_client:
+                return JsonResponse({'success': False, 'message': 'Un client avec les mêmes informations existe déjà.'})
+            else:
+                client = form.save(commit=False)
+                client.user = request.user
+                client.save()
+                return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False, 'errors': form.errors})

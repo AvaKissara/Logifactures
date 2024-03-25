@@ -20,7 +20,9 @@ class FactureForm(forms.ModelForm):
         widgets = {
             'date_facture': forms.DateInput(attrs={'type': 'date'}),
             'date_e_paie_facture' :forms.DateInput(attrs={'type': 'date', 'id': 'id_date_e_paie_facture'}),
-            'total_ht_facture' : forms.TextInput(attrs={'readonly': 'readonly', 'class': 'disabled-field form_bill_line bill_line4 ht4'})
+            'total_ht_facture' : forms.TextInput(attrs={'readonly': 'readonly', 'class': 'disabled-field form_bill_line bill_line4 ht4'}),
+            'client' : forms.Select(attrs={'class': 'capitalize', 'onchange': 'checkSelectedClient(0)'}),
+            'fournisseur' : forms.Select(attrs={'onchange': 'checkSelectedFournisseur(0)'})
         }
 
     def __init__(self, *args, **kwargs):

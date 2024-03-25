@@ -291,7 +291,6 @@ function majInfoClient(idClient) {
     var newAdrClient = document.getElementById('newAdrClient').innerHTML;
     var newAdr2Client = document.getElementById('newAdr2Client').innerHTML;
 
-    console.log(newAdrClient);
     $.ajax({
         type: 'POST',
         url: 'mise_a_jour/client/'+ idClient +'/',
@@ -346,7 +345,7 @@ function openModalAddFourn(event) {
     var screenHeight = window.screen.height;
     
     var popupWidth = 600;
-    var popupHeight = 686; 
+    var popupHeight = 688; 
     var popupLeft = (screenWidth - popupWidth) / 2;
     var popupTop = (screenHeight - popupHeight) / 2;
     
@@ -371,7 +370,7 @@ function openModalAddFourn(event) {
             popup.addEventListener('beforeunload', function() {
                 popup.document.body.innerHTML = ''; 
                 document.body.removeChild(overlay);
-                updateFournisseurSelect();
+                updateFournisseurSelect(-1);
             });
           
         })
@@ -392,7 +391,6 @@ function submitModalAddFourn(event) {
     })
     .then(response => {
         if (response.ok) {
-            console.log("YEAH§§§");
             window.close();
         } else {
             console.error('Erreur lors de l\'ajout du fournisseur');
@@ -430,7 +428,7 @@ function openModalAddCli(event) {
     var screenHeight = window.screen.height;
     
     var popupWidth = 600;
-    var popupHeight = 686; 
+    var popupHeight = 688; 
     var popupLeft = (screenWidth - popupWidth) / 2;
     var popupTop = (screenHeight - popupHeight) / 2;
     
@@ -455,7 +453,7 @@ function openModalAddCli(event) {
             popup.addEventListener('beforeunload', function() {
                 popup.document.body.innerHTML = ''; 
                 document.body.removeChild(overlay);
-                updateClientSelect();
+                updateClientSelect(-1);
             });
           
         })
@@ -486,11 +484,10 @@ function submitModalAddCli(event) {
     });
 }
 
-function updateFournisseurSelect() {
+function updateFournisseurSelect(fournisseurId) { 
     fetch('/facture/create/fournisseurs/')
         .then(response => response.json())
-        .then(data => {
-            console.log(data);
+        .then(data => {          
             const selectElement = document.getElementById('id_fournisseur');
             selectElement.innerHTML = ''; 
             let lastFournisseurId; 
@@ -501,18 +498,44 @@ function updateFournisseurSelect() {
                 selectElement.appendChild(option);
                 lastFournisseurId = fournisseur.id_fourn;
             });
-            if (lastFournisseurId) {
-                selectElement.value = lastFournisseurId;
-            }
+            checkSelectedFournisseur(fournisseurId);
         })
         .catch(error => console.error('Une erreur est survenue lors de la récupération des fournisseurs :', error));
 }
 
-function updateClientSelect() {
+function checkSelectedFournisseur(fournisseurId) {
+    var selectElement = document.getElementById('id_fournisseur');
+    var selectedOption = selectElement.options[selectElement.selectedIndex];
+    var openModalLink = document.getElementById('openModalUpdFourn');
+    if (selectedOption.value !== '') {
+        openModalLink.style.visibility = 'visible';
+        if(fournisseurId > 0) {
+            selectElement.value = fournisseurId;
+        }
+        else if(fournisseurId == -1){
+            var maxOptionValue = Number.MIN_VALUE;
+            var maxOptionIndex = -1;
+            for (var i = 0; i < selectElement.options.length; i++) {
+                var optionValue = parseInt(selectElement.options[i].value);
+                if (optionValue > maxOptionValue) {
+                    maxOptionValue = optionValue;
+                    maxOptionIndex = i;
+                }
+            }
+            if (maxOptionIndex !== -1) {
+                selectElement.selectedIndex = maxOptionIndex +1;
+            }
+        }
+    } else {
+        openModalLink.style.visibility = 'hidden';
+    }
+}
+
+function updateClientSelect(clientId) {
     fetch('/facture/create/clients/')
         .then(response => response.json())
         .then(data => {
-            console.log(data);
+
             const selectElement = document.getElementById('id_client');
             selectElement.innerHTML = ''; 
             let lastClientId; 
@@ -523,9 +546,209 @@ function updateClientSelect() {
                 selectElement.appendChild(option);
                 lastClientId = client.id_client;
             });
-            if (lastClientId) {
-                selectElement.value = lastClientId;
-            }
+            checkSelectedClient(clientId);
         })
         .catch(error => console.error('Une erreur est survenue lors de la récupération des clients :', error));
 }
+
+function checkSelectedClient(clientId) {
+    var selectElement = document.getElementById('id_client');
+    var selectedOption = selectElement.options[selectElement.selectedIndex];
+    var openModalLink = document.getElementById('openModalUpdCli');
+
+    if (selectedOption.value !== '') {
+        openModalLink.style.visibility = 'visible';
+        if(clientId > 0) {
+            selectElement.value = clientId;
+        }
+        else if(clientId == -1){
+            var maxOptionValue = Number.MIN_VALUE;
+            var maxOptionIndex = -1;
+            for (var i = 0; i < selectElement.options.length; i++) {
+                var optionValue = parseInt(selectElement.options[i].value);
+                if (optionValue > maxOptionValue) {
+                    maxOptionValue = optionValue;
+                    maxOptionIndex = i;
+                }
+            }
+            if (maxOptionIndex !== -1) {
+                selectElement.selectedIndex = maxOptionIndex;
+            }
+        }
+    } else {
+        openModalLink.style.visibility = 'hidden';
+    }
+}
+
+function openModalUpdFourn(event) {
+    event.preventDefault(); 
+
+    var overlay = document.createElement('div');
+    overlay.style.position = 'fixed';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100%';
+    overlay.style.height = '100%';
+    overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
+    overlay.style.zIndex = '9998'; 
+    document.body.appendChild(overlay);
+
+    overlay.addEventListener('click', function(event) {
+        popup.focus();
+    });
+    var screenWidth = window.screen.width;
+    var screenHeight = window.screen.height;
+    
+    var popupWidth = 600;
+    var popupHeight = 686; 
+    var popupLeft = (screenWidth - popupWidth) / 2;
+    var popupTop = (screenHeight - popupHeight) / 2;
+
+    var selectElement = document.getElementById('id_fournisseur');
+    var valeurSelectionnee = selectElement.options[selectElement.selectedIndex];
+    var fournisseurId = valeurSelectionnee.value;
+    var url = '/facture/create/maj-fournisseur/' + fournisseurId + '/';
+
+    var popup = window.open(url, 'popup', `width=${popupWidth},height=${popupHeight},left=${popupLeft},top=${popupTop}`);
+
+    fetch(url)
+        .then(response => response.text())
+        .then(html => {
+            var parser = new DOMParser();
+            var doc = parser.parseFromString(html, 'text/html');
+            
+            var form = doc.querySelector('.form_create_bill');
+            var paragraphs = form.querySelectorAll('p');            
+         
+            popup.document.write('<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="shortcut icon" type="image/x-icon" href="../../static/img/favicon.png"><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"><link rel="stylesheet" href="../../static/css/style.css"></head><body><div class="container mt-3"><div class="row"><div class="col-md-9 offset-md-2"><h2>Modifier un fournisseur</h2><div class="form-import-control mb-3"><form method="post" class="form_create_bill"><input type="hidden" name="csrfmiddlewaretoken" value="' + getCookie('csrftoken') + '"><input type="hidden" name="id_fourn" value="'+ fournisseurId +'">');
+
+            paragraphs.forEach(paragraph => {
+                popup.document.write(paragraph.outerHTML);
+            });
+            popup.document.write('<button onclick="submitModalUpdFourn(event);" href="maj-fournisseur"  class="btn btn-primary">Mettre à jour</button></form></div></div></div></div><script src="../../static/js/script.js" async></script><script src="https://cdn.jsdelivr.net/npm/chart.js" async></script><script src="https://code.jquery.com/jquery-3.6.0.min.js" async></script><script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" async></script><script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" async></script></body>');
+            popup.addEventListener('beforeunload', function() {
+                popup.document.body.innerHTML = ''; 
+                document.body.removeChild(overlay);
+                updateFournisseurSelect(fournisseurId);
+            });
+          
+        })
+        .catch(error => console.error('Une erreur est survenue lors du chargement du formulaire :', error));
+}
+
+function openModalUpdCli(event) {
+    event.preventDefault(); 
+
+    var overlay = document.createElement('div');
+    overlay.style.position = 'fixed';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100%';
+    overlay.style.height = '100%';
+    overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
+    overlay.style.zIndex = '9998'; 
+    document.body.appendChild(overlay);
+
+    overlay.addEventListener('click', function(event) {
+        popup.focus();
+    });
+    var screenWidth = window.screen.width;
+    var screenHeight = window.screen.height;
+    
+    var popupWidth = 600;
+    var popupHeight = 686; 
+    var popupLeft = (screenWidth - popupWidth) / 2;
+    var popupTop = (screenHeight - popupHeight) / 2;
+
+    var selectElement = document.getElementById('id_client');
+    var valeurSelectionnee = selectElement.options[selectElement.selectedIndex];
+    var clientId = valeurSelectionnee.value;
+    var url = '/facture/create/maj-client/' + clientId + '/';
+
+    var popup = window.open(url, 'popup', `width=${popupWidth},height=${popupHeight},left=${popupLeft},top=${popupTop}`);
+
+    fetch(url)
+        .then(response => response.text())
+        .then(html => {
+            var parser = new DOMParser();
+            var doc = parser.parseFromString(html, 'text/html');
+            
+            var form = doc.querySelector('.form_create_bill');
+            var paragraphs = form.querySelectorAll('p');
+            
+         
+            popup.document.write('<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="shortcut icon" type="image/x-icon" href="../../static/img/favicon.png"><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"><link rel="stylesheet" href="../../static/css/style.css"></head><body><div class="container mt-3"><div class="row"><div class="col-md-9 offset-md-2"><h2>Modifier un client</h2><div class="form-import-control mb-3"><form method="post" class="form_create_bill"><input type="hidden" name="csrfmiddlewaretoken" value="' + getCookie('csrftoken') + '"><input type="hidden" name="id_cli" value="'+ clientId +'">');
+
+            paragraphs.forEach(paragraph => {
+                popup.document.write(paragraph.outerHTML);
+            });
+            popup.document.write('<button onclick="submitModalUpdCli(event);" href="maj-client"  class="btn btn-primary">Mettre à jour</button></form></div></div></div></div><script src="../../static/js/script.js" async></script><script src="https://cdn.jsdelivr.net/npm/chart.js" async></script><script src="https://code.jquery.com/jquery-3.6.0.min.js" async></script><script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" async></script><script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" async></script></body>');
+            popup.addEventListener('beforeunload', function() {
+                popup.document.body.innerHTML = ''; 
+                document.body.removeChild(overlay);
+                updateClientSelect(clientId);
+            });
+          
+        })
+        .catch(error => console.error('Une erreur est survenue lors du chargement du formulaire :', error));
+}
+
+function submitModalUpdFourn(event) {
+    event.preventDefault(); 
+    var form = document.querySelector('.form_create_bill');
+    var formData = new FormData(form);
+    var inputElement = document.querySelector('input[name="id_fourn"]');
+    if (inputElement) {
+        var fournisseurId = inputElement.value;
+    }
+    var url = '/facture/create/maj-fournisseur/' + fournisseurId +'/';
+
+    fetch(url, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken')
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            window.close();
+        } else {
+            console.error('Erreur lors de l\'ajout du fournisseur');
+        }
+    })
+    .catch(error => {
+        console.error('Une erreur est survenue lors de la soumission du formulaire :', error);
+    });
+}
+
+
+function submitModalUpdCli(event) {
+    event.preventDefault(); 
+    var form = document.querySelector('.form_create_bill');
+    var formData = new FormData(form);
+    var inputElement = document.querySelector('input[name="id_cli"]');
+    if (inputElement) {
+        var clientId = inputElement.value;
+    }
+    var url = '/facture/create/maj-client/' + clientId +'/';
+
+    fetch(url, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken')
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            window.close();
+        } else {
+            console.error('Erreur lors de l\'ajout du client');
+        }
+    })
+    .catch(error => {
+        console.error('Une erreur est survenue lors de la soumission du formulaire :', error);
+    });
+}
+

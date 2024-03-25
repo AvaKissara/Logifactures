@@ -13,7 +13,11 @@ class CreateFactureView(FormView):
     form_class = FactureForm
     success_url = reverse_lazy('logifacturapp:liste_facture')
 
-
+    def get_form_kwargs(self):
+            kwargs = super().get_form_kwargs()
+            kwargs['user'] = self.request.user
+            return kwargs
+    
     def form_valid(self, form):
         # Converti les données du formulaire en types appropriés
         num_facture = form.cleaned_data['num_facture']
@@ -53,12 +57,10 @@ class CreateFactureView(FormView):
         form.instance.devise = devise
         form.instance.methode_paiement = methode_paiement
         form.instance.statut_facture = statut_facture
-
         user = self.request.user
         form.instance.user = user
         form.save()
         
-
         file_path = os.path.join(settings.BASE_DIR, 'logifacturapp', 'static', 'modele_doc_facture', 'Modele-facture.xlsx')
         workbook = openpyxl.load_workbook(file_path)
         sheet = workbook['Modèle de facture']
@@ -89,7 +91,6 @@ class CreateFactureView(FormView):
         sheet['E24'] = prix_unitaire_list[1]
         sheet['E25'] = prix_unitaire_list[2]
    
-
         response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
         response['Content-Disposition'] = 'attachment; filename=facture_'+num_facture+'.xlsx'
         workbook.save(response)

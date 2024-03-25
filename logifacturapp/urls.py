@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import IndexView, ListeFactureView, ChangeStatutFactureView,AddFournisseurView, GetClientsView, GetFournisseursView, AddClientView, ListeFournisseurView, DetailView, ImportFactureView, ImportFactureMajClientView, CreateFactureView, DeleteFactureView, ListeClientView, AgendaEventView, CreeAgendaEventView, DeleteAgendaEventView, DetailEvenementView
+from .views import IndexView, ListeFactureView, ChangeStatutFactureView,AddFournisseurView, MajFournisseurView, GetClientsView, GetFournisseursView, AddClientView, MajClientView, ListeFournisseurView, DetailView, ImportFactureView, ImportFactureMajClientView, CreateFactureView, DeleteFactureView, ListeClientView, AgendaEventView, CreeAgendaEventView, DeleteAgendaEventView, DetailEvenementView
 
 app_name = "logifacturapp"
 
@@ -11,6 +11,8 @@ urlpatterns = [
     path('', IndexView.as_view(), name='index'),
     path('facture/create/', CreateFactureView.as_view(), name='ajout_facture'),
     path('facture/create/nouveau-fournisseur/', AddFournisseurView.as_view(), name='ajout_fournisseur'),
+    path('facture/create/maj-fournisseur/<int:pk>/', MajFournisseurView.as_view(), name='maj_fournisseur'),
+    path('facture/create/maj-client/<int:pk>/', MajClientView.as_view(), name='maj_fclient'),
     path('facture/create/fournisseurs/', GetFournisseursView.as_view(), name='get_fournisseurs'),
     path('facture/create/clients/', GetClientsView.as_view(), name='get_clients'),
     path('facture/create/nouveau-client/', AddClientView.as_view(), name='ajout_client'),

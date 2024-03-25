@@ -16,6 +16,8 @@ from .change_statut_facture_view import ChangeStatutFactureView
 from .import_facture_maj_client_view import ImportFactureMajClientView
 from .create_facture_view import CreateFactureView
 from .add_fourn_view import AddFournisseurView
+from .maj_fourn_view import MajFournisseurView
 from .add_cli_view import AddClientView
+from .maj_cli_view import MajClientView;
 from .get_fournisseurs_view import GetFournisseursView
-from    .get_clients_view import GetClientsView
+from .get_clients_view import GetClientsView
