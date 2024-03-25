@@ -512,18 +512,21 @@ function checkSelectedFournisseur(fournisseurId) {
         if(fournisseurId > 0) {
             selectElement.value = fournisseurId;
         }
-        else if(fournisseurId == -1){
-            var maxOptionValue = Number.MIN_VALUE;
+        else if (fournisseurId === -1) {
+            var maxValue = -Infinity;
             var maxOptionIndex = -1;
+        
             for (var i = 0; i < selectElement.options.length; i++) {
                 var optionValue = parseInt(selectElement.options[i].value);
-                if (optionValue > maxOptionValue) {
-                    maxOptionValue = optionValue;
+                if (!isNaN(optionValue) && optionValue > maxValue) {
+                    maxValue = optionValue;
                     maxOptionIndex = i;
                 }
-            }
+            }      
             if (maxOptionIndex !== -1) {
-                selectElement.selectedIndex = maxOptionIndex +1;
+                selectElement.selectedIndex = maxOptionIndex;
+            } else {
+                console.error('Aucune option avec une valeur numérique trouvée.');
             }
         }
     } else {
@@ -562,17 +565,20 @@ function checkSelectedClient(clientId) {
             selectElement.value = clientId;
         }
         else if(clientId == -1){
-            var maxOptionValue = Number.MIN_VALUE;
+            var maxValue = -Infinity;
             var maxOptionIndex = -1;
+        
             for (var i = 0; i < selectElement.options.length; i++) {
                 var optionValue = parseInt(selectElement.options[i].value);
-                if (optionValue > maxOptionValue) {
-                    maxOptionValue = optionValue;
+                if (!isNaN(optionValue) && optionValue > maxValue) {
+                    maxValue = optionValue;
                     maxOptionIndex = i;
                 }
-            }
+            }      
             if (maxOptionIndex !== -1) {
                 selectElement.selectedIndex = maxOptionIndex;
+            } else {
+                console.error('Aucune option avec une valeur numérique trouvée.');
             }
         }
     } else {
