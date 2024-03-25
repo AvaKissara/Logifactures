@@ -1,5 +1,5 @@
 from django import forms
-from ..models import Facture
+from ..models import Facture,Client, Fournisseur
 
 class FactureForm(forms.ModelForm):
     tva_facture = forms.DecimalField(label='TVA (%)', widget=forms.TextInput(attrs={'id': 'id_tva_facture', 'class':f'form_bill_line bill_line4 tva4'}))
@@ -24,7 +24,14 @@ class FactureForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
+
+        if user:
+            self.fields['client'].queryset = Client.objects.filter(user=user)
+
+        if user:
+            self.fields['fournisseur'].queryset = Fournisseur.objects.filter(user=user)
         
         for i in range(1, 4):
             self.fields[f'designation_{i}'] = forms.CharField(label=f'Désignation', widget=forms.TextInput(attrs={ 'class':f'form_bill_line bill_line{i} d{i}'}))

@@ -1305,7 +1305,7 @@ div.container-fourn-list {
 
 
 
-@media (max-width: 768px) {
+@media (max-width: 662px) {
     .navbar-nav.ml-auto {
         flex-direction: row;
         margin: 0.4em 0;
@@ -1464,6 +1464,7 @@ div.container-fourn-list {
     }
     .popup-set-hour {
         width: 98%;
+        top: 48%;
     }
     .popup-set-hour .close-popup {
         top: 0px;
@@ -1477,7 +1478,7 @@ div.container-fourn-list {
         padding: 0rem 0.6rem;
     }
     .calendar-agenda {
-        margin: 0.6em;
+        margin: 0.6em 0.2em;
     }
     .calendar h2.agenda-h2 {
         font-size: 28px;
