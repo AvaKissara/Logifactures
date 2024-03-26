@@ -302,6 +302,20 @@ function reloadCreateFormBill() {
     }, 1000);
 }    
 
+//Crée un overlay pour les popups d'ajout/maj
+function addOverlayFormsCF() {
+    var overlay = document.createElement('div');
+    overlay.className="overlay-popup";
+    overlay.style.position = 'fixed';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100%';
+    overlay.style.height = '100%';
+    overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
+    overlay.style.zIndex = '9998'; 
+    document.body.appendChild(overlay);
+}
+
 function openModalAddFourn(event) {
     event.preventDefault();     
     var link = event.target.closest('a'); 
@@ -330,11 +344,11 @@ function openModalAddFourn(event) {
             var doc = parser.parseFromString(html, 'text/html');           
             var form = doc.querySelector('.form_create_bill');
             var paragraphs = form.querySelectorAll('p');        
-            popup.document.write('<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="shortcut icon" type="image/x-icon" href="../../staticfiles/img/favicon.png"><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"><link rel="stylesheet" href="../../staticfiles/css/style.css"></head><body><div class="container mt-3"><div class="row"><div class="col-md-9 offset-md-2"><h2>Ajouter un fournisseur</h2><div class="form-import-control mb-3"><form method="post" class="form_create_bill"><input type="hidden" name="csrfmiddlewaretoken" value="' + getCookie('csrftoken') + '">');
+            popup.document.write('<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="shortcut icon" type="image/x-icon" href="../../static/img/favicon.png"><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"><link rel="stylesheet" href="../../static/css/style.css"></head><body><div class="container mt-3"><div class="row"><div class="col-md-9 offset-md-2"><h2>Ajouter un fournisseur</h2><div class="form-import-control mb-3"><form method="post" class="form_create_bill"><input type="hidden" name="csrfmiddlewaretoken" value="' + getCookie('csrftoken') + '">');
             paragraphs.forEach(paragraph => {
                 popup.document.write(paragraph.outerHTML);
             });
-            popup.document.write('<button onclick="submitModalAddFourn(event);" href="nouveau-fournisseur"  class="btn btn-primary">Ajouter</button></form></div></div></div></div><script src="../../staticfiles/js/script.js" async></script><script src="https://cdn.jsdelivr.net/npm/chart.js" async></script><script src="https://code.jquery.com/jquery-3.6.0.min.js" async></script><script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" async></script><script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" async></script></body>');
+            popup.document.write('<button onclick="submitModalAddFourn(event);" href="nouveau-fournisseur"  class="btn btn-primary">Ajouter</button></form></div></div></div></div><script src="../../static/js/script.js" async></script><script src="https://cdn.jsdelivr.net/npm/chart.js" async></script><script src="https://code.jquery.com/jquery-3.6.0.min.js" async></script><script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" async></script><script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" async></script></body>');
             popup.addEventListener('beforeunload', function() {
                 popup.document.body.innerHTML = ''; 
                 document.body.removeChild(overlay);
@@ -367,19 +381,6 @@ function submitModalAddFourn(event) {
     });
 }
 
-function addOverlayFormsCF() {
-    var overlay = document.createElement('div');
-    overlay.className="overlay-popup";
-    overlay.style.position = 'fixed';
-    overlay.style.top = '0';
-    overlay.style.left = '0';
-    overlay.style.width = '100%';
-    overlay.style.height = '100%';
-    overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
-    overlay.style.zIndex = '9998'; 
-    document.body.appendChild(overlay);
-}
-
 function openModalAddCli(event) {
     event.preventDefault(); 
     
@@ -410,12 +411,12 @@ function openModalAddCli(event) {
             var form = doc.querySelector('.form_create_bill');
             var paragraphs = form.querySelectorAll('p');
                      
-            popup.document.write('<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="shortcut icon" type="image/x-icon" href="../../staticfiles/img/favicon.png"><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"><link rel="stylesheet" href="../../staticfiles/css/style.css"></head><body><div class="container mt-3"><div class="row"><div class="col-md-9 offset-md-2"><h2>Ajouter un client</h2><div class="form-import-control mb-3"><form method="post" class="form_create_bill"><input type="hidden" name="csrfmiddlewaretoken" value="' + getCookie('csrftoken') + '">');
+            popup.document.write('<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="shortcut icon" type="image/x-icon" href="../../static/img/favicon.png"><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"><link rel="stylesheet" href="../../static/css/style.css"></head><body><div class="container mt-3"><div class="row"><div class="col-md-9 offset-md-2"><h2>Ajouter un client</h2><div class="form-import-control mb-3"><form method="post" class="form_create_bill"><input type="hidden" name="csrfmiddlewaretoken" value="' + getCookie('csrftoken') + '">');
 
             paragraphs.forEach(paragraph => {
                 popup.document.write(paragraph.outerHTML);
             });
-            popup.document.write('<button onclick="submitModalAddCli(event);" href="nouveau-client"  class="btn btn-primary">Ajouter</button></form></div></div></div></div><script src="../../staticfiles/js/script.js" async></script><script src="https://cdn.jsdelivr.net/npm/chart.js" async></script><script src="https://code.jquery.com/jquery-3.6.0.min.js" async></script><script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" async></script><script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" async></script></body>');
+            popup.document.write('<button onclick="submitModalAddCli(event);" href="nouveau-client"  class="btn btn-primary">Ajouter</button></form></div></div></div></div><script src="../../static/js/script.js" async></script><script src="https://cdn.jsdelivr.net/npm/chart.js" async></script><script src="https://code.jquery.com/jquery-3.6.0.min.js" async></script><script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" async></script><script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" async></script></body>');
             popup.addEventListener('beforeunload', function() {
                 popup.document.body.innerHTML = ''; 
                 document.body.removeChild(overlay);
@@ -570,11 +571,11 @@ function openModalUpdFourn(event) {
             var doc = parser.parseFromString(html, 'text/html');            
             var form = doc.querySelector('.form_create_bill');
             var paragraphs = form.querySelectorAll('p');                    
-            popup.document.write('<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="shortcut icon" type="image/x-icon" href="../../staticfiles/img/favicon.png"><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"><link rel="stylesheet" href="../../staticfiles/css/style.css"></head><body><div class="container mt-3"><div class="row"><div class="col-md-9 offset-md-2"><h2>Modifier un fournisseur</h2><div class="form-import-control mb-3"><form method="post" class="form_create_bill"><input type="hidden" name="csrfmiddlewaretoken" value="' + getCookie('csrftoken') + '"><input type="hidden" name="id_fourn" value="'+ fournisseurId +'">');
+            popup.document.write('<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="shortcut icon" type="image/x-icon" href="../../static/img/favicon.png"><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"><link rel="stylesheet" href="../../static/css/style.css"></head><body><div class="container mt-3"><div class="row"><div class="col-md-9 offset-md-2"><h2>Modifier un fournisseur</h2><div class="form-import-control mb-3"><form method="post" class="form_create_bill"><input type="hidden" name="csrfmiddlewaretoken" value="' + getCookie('csrftoken') + '"><input type="hidden" name="id_fourn" value="'+ fournisseurId +'">');
             paragraphs.forEach(paragraph => {
                 popup.document.write(paragraph.outerHTML);
             });
-            popup.document.write('<button onclick="submitModalUpdFourn(event);" href="maj-fournisseur"  class="btn btn-primary">Mettre à jour</button></form></div></div></div></div><script src="../../staticfiles/js/script.js" async></script><script src="https://cdn.jsdelivr.net/npm/chart.js" async></script><script src="https://code.jquery.com/jquery-3.6.0.min.js" async></script><script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" async></script><script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" async></script></body>');
+            popup.document.write('<button onclick="submitModalUpdFourn(event);" href="maj-fournisseur"  class="btn btn-primary">Mettre à jour</button></form></div></div></div></div><script src="../../static/js/script.js" async></script><script src="https://cdn.jsdelivr.net/npm/chart.js" async></script><script src="https://code.jquery.com/jquery-3.6.0.min.js" async></script><script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" async></script><script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" async></script></body>');
             popup.addEventListener('beforeunload', function() {
                 popup.document.body.innerHTML = ''; 
                 document.body.removeChild(overlay);
@@ -610,11 +611,11 @@ function openModalUpdCli(event) {
             var doc = parser.parseFromString(html, 'text/html');           
             var form = doc.querySelector('.form_create_bill');
             var paragraphs = form.querySelectorAll('p');                   
-            popup.document.write('<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="shortcut icon" type="image/x-icon" href="../../staticfiles/img/favicon.png"><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"><link rel="stylesheet" href="../../staticfiles/css/style.css"></head><body><div class="container mt-3"><div class="row"><div class="col-md-9 offset-md-2"><h2>Modifier un client</h2><div class="form-import-control mb-3"><form method="post" class="form_create_bill"><input type="hidden" name="csrfmiddlewaretoken" value="' + getCookie('csrftoken') + '"><input type="hidden" name="id_cli" value="'+ clientId +'">');
+            popup.document.write('<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="shortcut icon" type="image/x-icon" href="../../static/img/favicon.png"><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"><link rel="stylesheet" href="../../static/css/style.css"></head><body><div class="container mt-3"><div class="row"><div class="col-md-9 offset-md-2"><h2>Modifier un client</h2><div class="form-import-control mb-3"><form method="post" class="form_create_bill"><input type="hidden" name="csrfmiddlewaretoken" value="' + getCookie('csrftoken') + '"><input type="hidden" name="id_cli" value="'+ clientId +'">');
             paragraphs.forEach(paragraph => {
                 popup.document.write(paragraph.outerHTML);
             });
-            popup.document.write('<button onclick="submitModalUpdCli(event);" href="maj-client"  class="btn btn-primary">Mettre à jour</button></form></div></div></div></div><script src="../../staticfiles/js/script.js" async></script><script src="https://cdn.jsdelivr.net/npm/chart.js" async></script><script src="https://code.jquery.com/jquery-3.6.0.min.js" async></script><script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" async></script><script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" async></script></body>');
+            popup.document.write('<button onclick="submitModalUpdCli(event);" href="maj-client"  class="btn btn-primary">Mettre à jour</button></form></div></div></div></div><script src="../../static/js/script.js" async></script><script src="https://cdn.jsdelivr.net/npm/chart.js" async></script><script src="https://code.jquery.com/jquery-3.6.0.min.js" async></script><script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" async></script><script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" async></script></body>');
             popup.addEventListener('beforeunload', function() {
                 popup.document.body.innerHTML = ''; 
                 document.body.removeChild(overlay);
