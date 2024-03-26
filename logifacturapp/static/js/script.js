@@ -311,16 +311,8 @@ function openModalAddFourn(event) {
         console.error('L\'URL de la requête est indéfinie.');
         return;
     }
-    var overlay = document.createElement('div');
-    overlay.style.position = 'fixed';
-    overlay.style.top = '0';
-    overlay.style.left = '0';
-    overlay.style.width = '100%';
-    overlay.style.height = '100%';
-    overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
-    overlay.style.zIndex = '9998'; 
-    document.body.appendChild(overlay);
-
+    addOverlayFormsCF();
+    var overlay = document.querySelector('.overlay-popup');
     overlay.addEventListener('click', function(event) {
         popup.focus();
     });
@@ -329,8 +321,7 @@ function openModalAddFourn(event) {
     var popupWidth = 600;
     var popupHeight = 688; 
     var popupLeft = (screenWidth - popupWidth) / 2;
-    var popupTop = (screenHeight - popupHeight) / 2;
-    
+    var popupTop = (screenHeight - popupHeight) / 2;   
     var popup = window.open('', 'popup', `width=${popupWidth},height=${popupHeight},left=${popupLeft},top=${popupTop}`);
   
     fetch(url)
@@ -377,6 +368,19 @@ function submitModalAddFourn(event) {
     });
 }
 
+function addOverlayFormsCF() {
+    var overlay = document.createElement('div');
+    overlay.className="overlay-popup";
+    overlay.style.position = 'fixed';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100%';
+    overlay.style.height = '100%';
+    overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
+    overlay.style.zIndex = '9998'; 
+    document.body.appendChild(overlay);
+}
+
 function openModalAddCli(event) {
     event.preventDefault(); 
     
@@ -386,27 +390,17 @@ function openModalAddCli(event) {
         console.error('L\'URL de la requête est indéfinie.');
         return;
     }
-    var overlay = document.createElement('div');
-    overlay.style.position = 'fixed';
-    overlay.style.top = '0';
-    overlay.style.left = '0';
-    overlay.style.width = '100%';
-    overlay.style.height = '100%';
-    overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
-    overlay.style.zIndex = '9998'; 
-    document.body.appendChild(overlay);
-
+    addOverlayFormsCF();
+    var overlay = document.querySelector('.overlay-popup');
     overlay.addEventListener('click', function(event) {
         popup.focus();
     });
     var screenWidth = window.screen.width;
-    var screenHeight = window.screen.height;
-    
+    var screenHeight = window.screen.height;   
     var popupWidth = 600;
     var popupHeight = 688; 
     var popupLeft = (screenWidth - popupWidth) / 2;
-    var popupTop = (screenHeight - popupHeight) / 2;
-    
+    var popupTop = (screenHeight - popupHeight) / 2;   
     var popup = window.open('', 'popup', `width=${popupWidth},height=${popupHeight},left=${popupLeft},top=${popupTop}`);
   
     fetch(url)
@@ -462,13 +456,11 @@ function updateFournisseurSelect(fournisseurId) {
         .then(data => {          
             const selectElement = document.getElementById('id_fournisseur');
             selectElement.innerHTML = ''; 
-            let lastFournisseurId; 
             data.forEach(fournisseur => {
                 const option = document.createElement('option');
                 option.value = fournisseur.id_fourn;
                 option.textContent = fournisseur.r_social_fourn;
-                selectElement.appendChild(option);
-                lastFournisseurId = fournisseur.id_fourn;
+                selectElement.appendChild(option)
             });
             checkSelectedFournisseur(fournisseurId);
         })
@@ -557,16 +549,8 @@ function checkSelectedClient(clientId) {
 
 function openModalUpdFourn(event) {
     event.preventDefault(); 
-
-    var overlay = document.createElement('div');
-    overlay.style.position = 'fixed';
-    overlay.style.top = '0';
-    overlay.style.left = '0';
-    overlay.style.width = '100%';
-    overlay.style.height = '100%';
-    overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
-    overlay.style.zIndex = '9998'; 
-    document.body.appendChild(overlay);
+    addOverlayFormsCF();
+    var overlay = document.querySelector('.overlay-popup');
     overlay.addEventListener('click', function(event) {
         popup.focus();
     });
@@ -605,16 +589,8 @@ function openModalUpdFourn(event) {
 
 function openModalUpdCli(event) {
     event.preventDefault(); 
-    var overlay = document.createElement('div');
-    overlay.style.position = 'fixed';
-    overlay.style.top = '0';
-    overlay.style.left = '0';
-    overlay.style.width = '100%';
-    overlay.style.height = '100%';
-    overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
-    overlay.style.zIndex = '9998'; 
-    document.body.appendChild(overlay);
-
+    addOverlayFormsCF();
+    var overlay = document.querySelector('.overlay-popup');
     overlay.addEventListener('click', function(event) {
         popup.focus();
     });
