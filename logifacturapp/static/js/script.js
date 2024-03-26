@@ -260,11 +260,7 @@ function getCookie(name) {
 
 //Verifie l'adresse du client à l'import
 function checkAdresseClient() {
-
-    var confirmButton = document.getElementById("confirmClientButton");
-    var cancelButton = document.getElementById("cancelClientButton");
     var checkAdrClientElement = document.getElementById('checkAdrClient');
-
     var adresseDiffere = checkAdrClientElement.getAttribute('data-value');
     adresseDiffere = JSON.parse(adresseDiffere.toLowerCase());
 
@@ -603,8 +599,7 @@ function openModalUpdFourn(event) {
         popup.focus();
     });
     var screenWidth = window.screen.width;
-    var screenHeight = window.screen.height;
-    
+    var screenHeight = window.screen.height;   
     var popupWidth = 600;
     var popupHeight = 686; 
     var popupLeft = (screenWidth - popupWidth) / 2;
@@ -614,15 +609,13 @@ function openModalUpdFourn(event) {
     var valeurSelectionnee = selectElement.options[selectElement.selectedIndex];
     var fournisseurId = valeurSelectionnee.value;
     var url = '/facture/create/maj-fournisseur/' + fournisseurId + '/';
-
     var popup = window.open(url, 'popup', `width=${popupWidth},height=${popupHeight},left=${popupLeft},top=${popupTop}`);
 
     fetch(url)
         .then(response => response.text())
         .then(html => {
             var parser = new DOMParser();
-            var doc = parser.parseFromString(html, 'text/html');
-            
+            var doc = parser.parseFromString(html, 'text/html');            
             var form = doc.querySelector('.form_create_bill');
             var paragraphs = form.querySelectorAll('p');            
          
@@ -636,8 +629,7 @@ function openModalUpdFourn(event) {
                 popup.document.body.innerHTML = ''; 
                 document.body.removeChild(overlay);
                 updateFournisseurSelect(fournisseurId);
-            });
-          
+            });         
         })
         .catch(error => console.error('Une erreur est survenue lors du chargement du formulaire :', error));
 }
@@ -660,7 +652,6 @@ function openModalUpdCli(event) {
     });
     var screenWidth = window.screen.width;
     var screenHeight = window.screen.height;
-    
     var popupWidth = 600;
     var popupHeight = 686; 
     var popupLeft = (screenWidth - popupWidth) / 2;
@@ -670,7 +661,6 @@ function openModalUpdCli(event) {
     var valeurSelectionnee = selectElement.options[selectElement.selectedIndex];
     var clientId = valeurSelectionnee.value;
     var url = '/facture/create/maj-client/' + clientId + '/';
-
     var popup = window.open(url, 'popup', `width=${popupWidth},height=${popupHeight},left=${popupLeft},top=${popupTop}`);
 
     fetch(url)
@@ -727,7 +717,6 @@ function submitModalUpdFourn(event) {
         console.error('Une erreur est survenue lors de la soumission du formulaire :', error);
     });
 }
-
 
 function submitModalUpdCli(event) {
     event.preventDefault(); 
