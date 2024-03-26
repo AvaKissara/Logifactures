@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 calculerTotalHT();
             });
         });
-        
+       
         function calculerTotalHT() {
             var totalHT = 0;
             quantiteFields.forEach(function(quantiteField, index) {
@@ -146,7 +146,6 @@ function sortTable(columnIndex, order) {
 function openDetailPopup(idFacture) {
     var popupListeF = document.getElementById('popupDetailF');
     var popupListeFCal = document.getElementById('popupDetailFCal');
-
     if(popupListeF){
         popupListeF.style.display = 'block';
         document.getElementById('overlayF').style.display = 'block';
@@ -196,8 +195,7 @@ function refreshDetailPopup(idFacture) {
 
 //Maj flèches tri ASC DESC
 function updateUI(data, idFacture) {
-    const statutElement = $('.detail_statut_facture')[0]; 
-    
+    const statutElement = $('.detail_statut_facture')[0];     
     if (data) {
         statutElement.innerHTML = '<span><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="green" class="bi bi-check2-circle" viewBox="0 0 16 16"><path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0"/><path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/></svg></span><button class="add-button-event change-button-statut-f"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-toggle2-on" viewBox="0 0 16 16"><path d="M7 5H3a3 3 0 0 0 0 6h4a5 5 0 0 1-.584-1H3a2 2 0 1 1 0-4h3.416q.235-.537.584-1"/><path d="M16 8A5 5 0 1 1 6 8a5 5 0 0 1 10 0"/></svg></button>';
     } else {
@@ -256,7 +254,6 @@ function checkAdresseClient() {
     var checkAdrClientElement = document.getElementById('checkAdrClient');
     var adresseDiffere = checkAdrClientElement.getAttribute('data-value');
     adresseDiffere = JSON.parse(adresseDiffere.toLowerCase());
-
     if (adresseDiffere) {
         openPopupMajClient();
     } else {
@@ -307,11 +304,9 @@ function reloadCreateFormBill() {
 }    
 
 function openModalAddFourn(event) {
-    event.preventDefault(); 
-    
+    event.preventDefault();     
     var link = event.target.closest('a'); 
-    var url = link.href; 
-    
+    var url = link.href;    
     if (!url) {
         console.error('L\'URL de la requête est indéfinie.');
         return;
@@ -342,14 +337,10 @@ function openModalAddFourn(event) {
         .then(response => response.text())
         .then(html => {
             var parser = new DOMParser();
-            var doc = parser.parseFromString(html, 'text/html');
-            
+            var doc = parser.parseFromString(html, 'text/html');           
             var form = doc.querySelector('.form_create_bill');
-            var paragraphs = form.querySelectorAll('p');
-            
-         
+            var paragraphs = form.querySelectorAll('p');        
             popup.document.write('<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="shortcut icon" type="image/x-icon" href="../../static/img/favicon.png"><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"><link rel="stylesheet" href="../../static/css/style.css"></head><body><div class="container mt-3"><div class="row"><div class="col-md-9 offset-md-2"><h2>Ajouter un fournisseur</h2><div class="form-import-control mb-3"><form method="post" class="form_create_bill"><input type="hidden" name="csrfmiddlewaretoken" value="' + getCookie('csrftoken') + '">');
-
             paragraphs.forEach(paragraph => {
                 popup.document.write(paragraph.outerHTML);
             });
@@ -367,7 +358,6 @@ function submitModalAddFourn(event) {
     event.preventDefault(); 
     var form = document.querySelector('.form_create_bill');
     var formData = new FormData(form);
-
     fetch('/facture/create/nouveau-fournisseur/', {
         method: 'POST',
         body: formData,
@@ -391,8 +381,7 @@ function openModalAddCli(event) {
     event.preventDefault(); 
     
     var link = event.target.closest('a'); 
-    var url = link.href; 
-    
+    var url = link.href;     
     if (!url) {
         console.error('L\'URL de la requête est indéfinie.');
         return;
@@ -460,7 +449,6 @@ function submitModalAddCli(event) {
         if (response.ok) {
             window.close();
         } else {
-
         }
     })
     .catch(error => {
@@ -522,7 +510,6 @@ function updateClientSelect(clientId) {
     fetch('/facture/create/clients/')
         .then(response => response.json())
         .then(data => {
-
             const selectElement = document.getElementById('id_client');
             selectElement.innerHTML = ''; 
             let lastClientId; 
@@ -542,7 +529,6 @@ function checkSelectedClient(clientId) {
     var selectElement = document.getElementById('id_client');
     var selectedOption = selectElement.options[selectElement.selectedIndex];
     var openModalLink = document.getElementById('openModalUpdCli');
-
     if (selectedOption.value !== '') {
         openModalLink.style.visibility = 'visible';
         if(clientId > 0) {
@@ -581,7 +567,6 @@ function openModalUpdFourn(event) {
     overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
     overlay.style.zIndex = '9998'; 
     document.body.appendChild(overlay);
-
     overlay.addEventListener('click', function(event) {
         popup.focus();
     });
@@ -591,7 +576,6 @@ function openModalUpdFourn(event) {
     var popupHeight = 686; 
     var popupLeft = (screenWidth - popupWidth) / 2;
     var popupTop = (screenHeight - popupHeight) / 2;
-
     var selectElement = document.getElementById('id_fournisseur');
     var valeurSelectionnee = selectElement.options[selectElement.selectedIndex];
     var fournisseurId = valeurSelectionnee.value;
@@ -606,7 +590,6 @@ function openModalUpdFourn(event) {
             var form = doc.querySelector('.form_create_bill');
             var paragraphs = form.querySelectorAll('p');                    
             popup.document.write('<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="shortcut icon" type="image/x-icon" href="../../static/img/favicon.png"><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"><link rel="stylesheet" href="../../static/css/style.css"></head><body><div class="container mt-3"><div class="row"><div class="col-md-9 offset-md-2"><h2>Modifier un fournisseur</h2><div class="form-import-control mb-3"><form method="post" class="form_create_bill"><input type="hidden" name="csrfmiddlewaretoken" value="' + getCookie('csrftoken') + '"><input type="hidden" name="id_fourn" value="'+ fournisseurId +'">');
-
             paragraphs.forEach(paragraph => {
                 popup.document.write(paragraph.outerHTML);
             });
@@ -622,7 +605,6 @@ function openModalUpdFourn(event) {
 
 function openModalUpdCli(event) {
     event.preventDefault(); 
-
     var overlay = document.createElement('div');
     overlay.style.position = 'fixed';
     overlay.style.top = '0';
@@ -642,7 +624,6 @@ function openModalUpdCli(event) {
     var popupHeight = 686; 
     var popupLeft = (screenWidth - popupWidth) / 2;
     var popupTop = (screenHeight - popupHeight) / 2;
-
     var selectElement = document.getElementById('id_client');
     var valeurSelectionnee = selectElement.options[selectElement.selectedIndex];
     var clientId = valeurSelectionnee.value;
@@ -653,13 +634,10 @@ function openModalUpdCli(event) {
         .then(response => response.text())
         .then(html => {
             var parser = new DOMParser();
-            var doc = parser.parseFromString(html, 'text/html');
-            
+            var doc = parser.parseFromString(html, 'text/html');           
             var form = doc.querySelector('.form_create_bill');
-            var paragraphs = form.querySelectorAll('p');
-                    
+            var paragraphs = form.querySelectorAll('p');                   
             popup.document.write('<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="shortcut icon" type="image/x-icon" href="../../static/img/favicon.png"><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"><link rel="stylesheet" href="../../static/css/style.css"></head><body><div class="container mt-3"><div class="row"><div class="col-md-9 offset-md-2"><h2>Modifier un client</h2><div class="form-import-control mb-3"><form method="post" class="form_create_bill"><input type="hidden" name="csrfmiddlewaretoken" value="' + getCookie('csrftoken') + '"><input type="hidden" name="id_cli" value="'+ clientId +'">');
-
             paragraphs.forEach(paragraph => {
                 popup.document.write(paragraph.outerHTML);
             });
@@ -682,7 +660,6 @@ function submitModalUpdFourn(event) {
         var fournisseurId = inputElement.value;
     }
     var url = '/facture/create/maj-fournisseur/' + fournisseurId +'/';
-
     fetch(url, {
         method: 'POST',
         body: formData,
@@ -711,7 +688,6 @@ function submitModalUpdCli(event) {
         var clientId = inputElement.value;
     }
     var url = '/facture/create/maj-client/' + clientId +'/';
-
     fetch(url, {
         method: 'POST',
         body: formData,
