@@ -79,8 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             document.querySelectorAll('.tab-content').forEach(function(content) {
                 content.classList.remove('active');
-            });
-    
+            });    
             var tabId = tabLink.getAttribute('href');
             tabLink.classList.add('active');
             document.querySelector(tabId).classList.add('active');
@@ -92,14 +91,11 @@ document.addEventListener('DOMContentLoaded', function() {
         $('thead th').click(function () {
             var columnIndex = $(this).index();
             var currentOrder = $(this).data('order') || 'asc';
-            var newOrder = currentOrder === 'asc' ? 'desc' : 'asc';
-            
+            var newOrder = currentOrder === 'asc' ? 'desc' : 'asc';            
             $('thead th').removeClass('asc desc');
             $('.arrow').removeClass('asc desc');
-
             $(this).find('.arrow').removeClass('neutre');
             $(this).find('.arrow').addClass(newOrder);
-
             $(this).addClass(newOrder);
             $(this).data('order', newOrder);
             sortTable(columnIndex, newOrder);
@@ -124,7 +120,6 @@ function sortTable(columnIndex, order) {
         if (columnIndex === 1 && thDateF.trim() === "Date de Facture") {                
             aValue = parseDate(aValue);
             bValue = parseDate(bValue);
-
             if (order === 'asc') {
                 return aValue > bValue ? 1 : -1;
             } else {
@@ -143,8 +138,7 @@ function sortTable(columnIndex, order) {
     });
     $.each(rows, function (index, row) {
         table.children('tbody').append(row);
-    });
-    
+    });   
 }
 });
 
@@ -159,8 +153,7 @@ function openDetailPopup(idFacture) {
     } else {
         popupListeFCal.style.display = 'block';
         document.getElementById('overlay').style.display = 'block';
-    }
-     
+    }    
     refreshDetailPopup(idFacture);
 }
 
@@ -274,7 +267,6 @@ function checkAdresseClient() {
 function openPopupMajClient(){
     var popup = document.getElementById("confirmationClientPopup");
     popup.style.display = "block";
-
 }
 
 function closePopupMajClient(){
@@ -338,8 +330,7 @@ function openModalAddFourn(event) {
         popup.focus();
     });
     var screenWidth = window.screen.width;
-    var screenHeight = window.screen.height;
-    
+    var screenHeight = window.screen.height;   
     var popupWidth = 600;
     var popupHeight = 688; 
     var popupLeft = (screenWidth - popupWidth) / 2;
@@ -367,8 +358,7 @@ function openModalAddFourn(event) {
                 popup.document.body.innerHTML = ''; 
                 document.body.removeChild(overlay);
                 updateFournisseurSelect(-1);
-            });
-          
+            });         
         })
         .catch(error => console.error('Une erreur est survenue lors du chargement du formulaire :', error));
 }
@@ -434,12 +424,10 @@ function openModalAddCli(event) {
         .then(response => response.text())
         .then(html => {
             var parser = new DOMParser();
-            var doc = parser.parseFromString(html, 'text/html');
-            
+            var doc = parser.parseFromString(html, 'text/html');            
             var form = doc.querySelector('.form_create_bill');
             var paragraphs = form.querySelectorAll('p');
-            
-         
+                     
             popup.document.write('<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="shortcut icon" type="image/x-icon" href="../../static/img/favicon.png"><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"><link rel="stylesheet" href="../../static/css/style.css"></head><body><div class="container mt-3"><div class="row"><div class="col-md-9 offset-md-2"><h2>Ajouter un client</h2><div class="form-import-control mb-3"><form method="post" class="form_create_bill"><input type="hidden" name="csrfmiddlewaretoken" value="' + getCookie('csrftoken') + '">');
 
             paragraphs.forEach(paragraph => {
@@ -562,8 +550,7 @@ function checkSelectedClient(clientId) {
         }
         else if(clientId == -1){
             var maxValue = -Infinity;
-            var maxOptionIndex = -1;
-        
+            var maxOptionIndex = -1;       
             for (var i = 0; i < selectElement.options.length; i++) {
                 var optionValue = parseInt(selectElement.options[i].value);
                 if (!isNaN(optionValue) && optionValue > maxValue) {
@@ -617,8 +604,7 @@ function openModalUpdFourn(event) {
             var parser = new DOMParser();
             var doc = parser.parseFromString(html, 'text/html');            
             var form = doc.querySelector('.form_create_bill');
-            var paragraphs = form.querySelectorAll('p');            
-         
+            var paragraphs = form.querySelectorAll('p');                    
             popup.document.write('<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="shortcut icon" type="image/x-icon" href="../../static/img/favicon.png"><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"><link rel="stylesheet" href="../../static/css/style.css"></head><body><div class="container mt-3"><div class="row"><div class="col-md-9 offset-md-2"><h2>Modifier un fournisseur</h2><div class="form-import-control mb-3"><form method="post" class="form_create_bill"><input type="hidden" name="csrfmiddlewaretoken" value="' + getCookie('csrftoken') + '"><input type="hidden" name="id_fourn" value="'+ fournisseurId +'">');
 
             paragraphs.forEach(paragraph => {
@@ -671,8 +657,7 @@ function openModalUpdCli(event) {
             
             var form = doc.querySelector('.form_create_bill');
             var paragraphs = form.querySelectorAll('p');
-            
-         
+                    
             popup.document.write('<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="shortcut icon" type="image/x-icon" href="../../static/img/favicon.png"><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"><link rel="stylesheet" href="../../static/css/style.css"></head><body><div class="container mt-3"><div class="row"><div class="col-md-9 offset-md-2"><h2>Modifier un client</h2><div class="form-import-control mb-3"><form method="post" class="form_create_bill"><input type="hidden" name="csrfmiddlewaretoken" value="' + getCookie('csrftoken') + '"><input type="hidden" name="id_cli" value="'+ clientId +'">');
 
             paragraphs.forEach(paragraph => {
@@ -683,8 +668,7 @@ function openModalUpdCli(event) {
                 popup.document.body.innerHTML = ''; 
                 document.body.removeChild(overlay);
                 updateClientSelect(clientId);
-            });
-          
+            });         
         })
         .catch(error => console.error('Une erreur est survenue lors du chargement du formulaire :', error));
 }
