@@ -316,16 +316,7 @@ function addOverlayFormsCF() {
     document.body.appendChild(overlay);
 }
 
-// Fonction pour charger les scripts de manière asynchrone
-function loadScript(url) {
-    return new Promise((resolve, reject) => {
-        const script = document.createElement('script');
-        script.src = url;
-        script.onload = resolve;
-        script.onerror = reject;
-        document.body.appendChild(script);
-    });
-}
+
 
 function openModalAddFourn(event) {
     event.preventDefault();     
@@ -352,33 +343,19 @@ function openModalAddFourn(event) {
         .then(response => response.text())
         .then(html => {
             var parser = new DOMParser();
-            var doc = parser.parseFromString(html, 'text/html');
+            var doc = parser.parseFromString(html, 'text/html');           
             var form = doc.querySelector('.form_create_bill');
-            var paragraphs = form.querySelectorAll('p');
-            var scriptUrl = "{% static 'js/script.js' %}";
-
+            var paragraphs = form.querySelectorAll('p');        
             popup.document.write('<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="shortcut icon" type="image/x-icon" href="../../static/img/favicon.png"><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"><link rel="stylesheet" href="../../static/css/style.css"></head><body><div class="container mt-3"><div class="row"><div class="col-md-9 offset-md-2"><h2>Ajouter un fournisseur</h2><div class="form-import-control mb-3"><form method="post" class="form_create_bill"><input type="hidden" name="csrfmiddlewaretoken" value="' + getCookie('csrftoken') + '">');
             paragraphs.forEach(paragraph => {
                 popup.document.write(paragraph.outerHTML);
             });
-            popup.document.write('<button onclick="submitModalAddFourn(event);" href="nouveau-fournisseur"  class="btn btn-primary">Ajouter</button></form></div></div></div></div></body>');
-            // Charge les scripts de manière asynchrone
-            Promise.all([
-                loadScript('https://cdn.jsdelivr.net/npm/chart.js'),
-                loadScript('https://code.jquery.com/jquery-3.6.0.min.js'),
-                loadScript('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js'),
-                loadScript('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'),
-                loadScript(scriptUrl)
-            ]).then(() => {
-                console.log('Scripts chargés avec succès');
-            }).catch(error => {
-                console.error('Erreur lors du chargement des scripts :', error);
-            });
+            popup.document.write('<button onclick="submitModalAddFourn(event);" href="nouveau-fournisseur"  class="btn btn-primary">Ajouter</button></form></div></div></div></div><script src="../../static/js/script.js" async></script><script src="https://cdn.jsdelivr.net/npm/chart.js" async></script><script src="https://code.jquery.com/jquery-3.6.0.min.js" async></script><script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" async></script><script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" async></script></body>');
             popup.addEventListener('beforeunload', function() {
                 popup.document.body.innerHTML = ''; 
                 document.body.removeChild(overlay);
                 updateFournisseurSelect(-1);
-            });
+            });         
         })
         .catch(error => console.error('Une erreur est survenue lors du chargement du formulaire :', error));
 }
