@@ -404,14 +404,14 @@ table.table-hover thead th{
 }
 
 .guest-message {
-    padding: 0px 180px 12px;
+    padding: 6px 180px 12px;
     text-align: center;   
 }
 
 .guest-message p {
     color: var(--primary-color);
     font-size: 1.2em;
-    margin-bottom: 10px;
+    margin: 2% auto;
 }
 
 .welcome-log{
@@ -425,21 +425,6 @@ table.table-hover thead th{
     margin-bottom: 20px;
 }
 
-.presentation-box-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.presentation-box {
-    height: 300px;
-    padding: 16px;
-    margin: 10px 1px 4px;
-    width: 40%;
-    background-color: var(--secondary-color);
-    border: 1px solid var(--primary-color);
-}
-
 .presentation-box p {
     margin: 10px 0;
     color: var(--primary-color);
@@ -447,9 +432,46 @@ table.table-hover thead th{
 }
 
 .presentation-box h5 {
-    color: white;
+    color: var(--primary-color);
 }
-
+.card-container {
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
+    margin: 2% auto 1%;
+    max-width: 100%;
+    /* padding: 1rem; */
+    width: 100%;
+  }
+  
+  .card {
+    align-items: center;
+    box-shadow: 2px 3px 4px rgba(0, 0, 0, 0.25);
+    display: flex;
+    height: 20rem;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    padding: 0.6em;
+  }
+  
+  .square-card {
+    background-color: #b1eeb6;
+  }
+  
+  .ball-bouncing {
+    background-color:#ffe698;
+  }
+  .ball-movement {
+    background-color: #FFDCB5;
+    overflow: hidden;
+  }
+  
+  .counter {
+    background-color:#FFB7BC;
+    counter-reset: count 0;
+  }
+  
 .column {
     flex: 50%;
     padding: 10px;
@@ -1019,7 +1041,7 @@ div.time-selection {
 
 .bi.bi-window-plus {
     margin-top: -11px;
-    color: #dc3545;
+    color: var(--primary-color);
 }
 
 .bi.bi-window-plus:hover  {
@@ -1270,6 +1292,29 @@ a.other-month:has(.event-indicator) {
     margin-bottom: 0;
 }
 
+.grid {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+}
+
+.grid>* {
+    position: relative;
+}
+
+.form_create_bill > input:not([type='checkbox']) label {
+    display: block;
+    cursor: pointer;
+    position: absolute;
+    width: 50vw;
+    height: 50vw;
+    max-width: 150px;
+    max-height: 150px;
+}
+
 /* FOOTER */
 footer {
     background-image: var(--gradient-color);
@@ -1426,17 +1471,15 @@ div.container-fourn-list {
     .guest-message {
         padding: 0px 18px 12px;
     }
-    .presentation-box-container {
-        flex-direction: column;
+    .guest-message p {
+        margin: 8% auto;
     }
-    .presentation-box {
-        width: 100%;
-        height: 230px;
-        font-size: 0.9em;
-        padding: 22px 16px;
-    }
+    .card-container {
+        padding: 0rem;
+      }
     .welcome-log {
         flex-direction: column;
+        margin-top: 5%;
     }
     form.log-form {
         padding: 10px 12px;
@@ -1494,7 +1537,8 @@ div.container-fourn-list {
     }
     .popup-set-hour {
         width: 98%;
-        top: 48%;
+        top: 49%;
+        height: 100%;
     }
     .popup-set-hour .close-popup {
         top: 0px;
@@ -1524,11 +1568,14 @@ div.container-fourn-list {
         width: 85%;
         height: 52%;
     }
+    .bi.bi-window-plus  {
+        margin-top: -4px;
+    }
     .bi.bi-window-plus:hover {
         transform: scale(1.2);
         width: 32px;
     }
-
+    
     /*IMPORT*/
     .custom-file-upload {
         padding: 0;
